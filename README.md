@@ -18,11 +18,11 @@ A spinner object.
 
 ## Select
 
-TODO: ...
+TODO: complete
 
 ## Menu
 
-TODO: ...
+TODO: complete
 
 ## Form
 
@@ -30,7 +30,8 @@ A simple surcharge of Tag.form(...) providing where you can define a callback to
 
 ## Tabs
 
-TODO: ...
+TODO: complete
+
 
 ## UI
 
@@ -74,6 +75,6 @@ A Tag object to use "SplitJS" (currently only in horizontal form)
 
 ## utilities
 
-### hflex a vflex
+### hflex & vflex
 
 Method to create an HBox or VBox class (flexbox)
