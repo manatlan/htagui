@@ -2,6 +2,14 @@
 
 HtagUI ... Basic widgets for [htag](https://github.com/manatlan/htag) apps
 
+<img src="https://manatlan.github.io/htag/htag.png" width="100" height="100">
+
+[![Test](https://github.com/manatlan/htagui/actions/workflows/on_commit_do_all_unittests.yml/badge.svg)](https://github.com/manatlan/htagui/actions/workflows/on_commit_do_all_unittests.yml)
+
+<a href="https://pypi.org/project/htagui/">
+    <img src="https://badge.fury.io/py/htagui.svg?x" alt="Package version">
+</a>
+
 
 Expose :
 
