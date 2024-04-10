@@ -1,6 +1,6 @@
 # htagUI
 
-HtagUI ... Basic widgets for [htag](https://github.com/manatlan/htag) apps
+this is a python3 module, which expose some Basic widgets for [htag](https://github.com/manatlan/htag) apps
 
 <img src="https://manatlan.github.io/htag/htag.png" width="100" height="100">
 
