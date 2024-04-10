@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+# #############################################################################
+# Copyright (C) 2024 manatlan manatlan[at]gmail(dot)com
+#
+# MIT licence
+#
+# https://github.com/manatlan/htag
+# #############################################################################
+
 from htag import Tag
 
 SPLITJS="//cdn.jsdelivr.net/npm/split.js@1.6.5/dist/split.min.js"

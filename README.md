@@ -4,38 +4,81 @@ HtagUI ... Basic widgets for htag apps
 
 Expose :
 
-## Button
+## Object Button
 
 A simple surcharge of Tag.button(...)
 
-## Input
+```python
+import htagui as u
+
+self <= u.Button("my button",_class="myclass", _onclick = myevent )
+```
+
+## Object Input
 
 A simple surcharge of Tag.input(...)
 
-## Spinner
+```python
+import htagui as u
+
+self <= u.Input(_value="my value"_, _name="myfield", _class="myclass", _required=True )
+```
+
+## Object Spinner
 
 A spinner object.
 
-## Select
+```python
+import htagui as u
+
+self <= u.Spinner()
+```
+
+## Object Select
 
 TODO: complete
 
-## Menu
+```python
+import htagui as u
+
+self <= u.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
+```
+
+## Object Menu
 
 TODO: complete
 
-## Form
+```python
+import htagui as u
+
+ui = u.UI(self)
+
+entries={
+    "menu1": lambda: ui.notify("menu1"),
+    "menu2": lambda: ui.notify("menu2"),
+    "menu3": lambda: ui.notify("menu3"),
+}  
+self <= u.Menu( entries )
+```
+
+
+## Object Form
 
 A simple surcharge of Tag.form(...) providing where you can define a callback to call a method wich will receive a python "dict" of all named inputs defined in the form.
 
-## Tabs
+## Object Tabs
 
 TODO: complete
 
-
-## UI
+## Object UI
 
 Expose "Dialog boxes" with methods on the ui instance.
+
+```python
+import htagui as u
+
+ui = u.UI( self )
+```
 
 ### ui.alert(obj)
 
@@ -69,12 +112,25 @@ Display a modal dialog box containing the object 'obj'. But the dialog is not cl
 
 Close programatically, the current ui dialog.
 
-## HSplit
+## Object HSplit (& VSplit)
 
 A Tag object to use "SplitJS" (currently only in horizontal form)
 
-## utilities
+```python
+import htagui as u
+
+self <= u.HSplit( Tag.div(1), Tag.div(2) )
+```
+
+## utilities methods
 
 ### hflex & vflex
 
-Method to create an HBox or VBox class (flexbox)
+Methods to create an HBox or VBox class (flexbox)
+
+```python
+import htagui as u
+
+HBox = u.hflex(50, 50)  # create a hbox of 2 elements of 50%
+self <= HBox( Tag.div(1), Tag.div(2) )
+```
