@@ -1,6 +1,6 @@
 # htagUI
 
-this is a python3 module, which expose some Basic widgets for [htag](https://github.com/manatlan/htag) apps
+This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps.
 
 <img src="https://manatlan.github.io/htag/htag.png" width="100" height="100">
 
@@ -10,8 +10,24 @@ this is a python3 module, which expose some Basic widgets for [htag](https://git
     <img src="https://badge.fury.io/py/htagui.svg?x" alt="Package version">
 </a>
 
+A hello world could be:
 
-Expose :
+```python
+from htag import Tag
+import htagui as u
+
+class MyApp(Tag.body):
+    def init(self):
+        self.ui = u.UI(self)
+        self += u.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+
+if __name__ == "__main__":
+    from htag.runners import Runner
+    Runner(MyApp).run()
+```
+
+It provides some (ready-to-use) Htag Objects, and some utilities methods.
+
 
 ## Object Button
 
@@ -19,7 +35,6 @@ A simple surcharge of Tag.button(...)
 
 ```python
 import htagui as u
-
 self <= u.Button("my button",_class="myclass", _onclick = myevent )
 ```
 
@@ -29,7 +44,6 @@ A simple surcharge of Tag.input(...)
 
 ```python
 import htagui as u
-
 self <= u.Input(_value="my value"_, _name="myfield", _class="myclass", _required=True )
 ```
 
@@ -39,7 +53,6 @@ A spinner object.
 
 ```python
 import htagui as u
-
 self <= u.Spinner()
 ```
 
@@ -49,7 +62,6 @@ TODO: complete
 
 ```python
 import htagui as u
-
 self <= u.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
 ```
 
@@ -59,9 +71,7 @@ TODO: complete
 
 ```python
 import htagui as u
-
 ui = u.UI(self)
-
 entries={
     "menu1": lambda: ui.notify("menu1"),
     "menu2": lambda: ui.notify("menu2"),
@@ -85,7 +95,6 @@ Expose "Dialog boxes" with methods on the ui instance.
 
 ```python
 import htagui as u
-
 ui = u.UI( self )
 ```
 
@@ -127,7 +136,6 @@ A Tag object to use "SplitJS" (currently only in horizontal form)
 
 ```python
 import htagui as u
-
 self <= u.HSplit( Tag.div(1), Tag.div(2) )
 ```
 
@@ -139,7 +147,6 @@ Methods to create an HBox or VBox class (flexbox)
 
 ```python
 import htagui as u
-
-HBox = u.hflex(50, 50)  # create a hbox of 2 elements of 50%
+HBox = u.hflex(50, 50)  # create a hbox of 2 elements of 50% each
 self <= HBox( Tag.div(1), Tag.div(2) )
 ```
