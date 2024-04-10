@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "htagui"
+version = "0.0.0" # auto-updated
+description = "GUI toolkit for creating beautiful applications for mobile, web, and desktop from a single python3 codebase"
+authors = ["manatlan <manatlan@gmail.com>"]
+readme = 'README.md'
+license="MIT"
+keywords=['htag','gui', 'electron', "cef", "asyncio", "guy", "desktop", "web", "mobile", "http", "websocket", "html", "pyscript"]
+homepage = "https://github.com/manatlan/htagui"
+repository = "https://github.com/manatlan/htagui"
+documentation = "https://github.com/manatlan/htagui"
+classifiers = [
+        "Operating System :: OS Independent",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Build Tools",
+        "License :: OSI Approved :: Apache Software License",
+]
+
+[tool.poetry.dependencies]
+# https://python-poetry.org/docs/dependency-specification/
+python = "^3.7"
+htag = ">= 0.90"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+pytest-cov = "^2.6"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
