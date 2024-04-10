@@ -1,6 +1,7 @@
 # htagUI
 
-HtagUI ... Basic widgets for htag apps
+HtagUI ... Basic widgets for [htag](https://github.com/manatlan/htag) apps
+
 
 Expose :
 
