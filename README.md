@@ -123,29 +123,31 @@ Event which is called when selected index changes.
 ## Object UI (Dialog)
 
 Expose "Dialog boxes" with methods on the ui instance.
+Note that, there can be only one dialog at a time (except toast notification)
 
 ```python
 import htagui as u
 ui = u.UI( self )
 ```
 
-### ui.alert(obj)
+### method ui.alert(obj)
 
-(like js window.alert(...)) Display a modal dialog box containing the object 'obj' 
+(like js window.alert(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able)
 
-### ui.confirm(obj, cbresponse=lambda bool:bool)
+### method ui.confirm(obj, cbresponse=lambda bool:bool)
 
-(like js window.confirm(...)) Display a modal dialog box containing the object 'obj', and user should ...
+(like js window.confirm(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able), and let the user click on Yes|No buttons, which will call the cbresponse callback with True or False ...
 
-### ui.prompt(value:str, title, cbresponse=lambda val:val)
+### method ui.prompt(value:str, title, cbresponse=lambda val:val)
 
-(like js window.prompt(...))
+(like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 
-### ui.notify(obj, time=2000)
+### method ui.notify(obj, time=2000)
 
 Display a toast message (notification), in the right-bottom ... during 2000 ms.
+(currently toast messages are not stacked)
 
-### ui.pop(obj, xy:tuple)
+### method ui.pop(obj, xy:tuple)
 
 Display an object, at coords (x,y).
 
@@ -161,15 +163,15 @@ entries={
 self <= u.Button("pop menu", _onclick=lambda ev: ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
 ```
 
-### ui.drawer(obj, mode="left", size:int=50)
+### method ui.drawer(obj, mode="left", size:int=50)
 
 Display a drawer, in the left-side, which takes 50% of the page.
 
-### ui.block(obj=None)
+### method ui.block(obj=None)
 
 Display a modal dialog box containing the object 'obj'. But the dialog is not closable, so be sure to provide a way to close it.
 
-### ui.close()
+### method ui.close()
 
 Close programatically, the current ui dialog.
 
