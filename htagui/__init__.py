@@ -18,4 +18,14 @@ from .uiservice import UI
 from .splitters import HSplit #VSplit
 from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
-ALL=[Button,Input,Select,Menu,Spinner,Form,Tabs,UI,HSplit]
+class App(Tag.body):
+    _ui=None
+    
+    @property
+    def ui(self):
+        if self._ui is None:
+            self._ui = UI(self)
+        return self._ui
+
+ALL=[App,Button,Input,Select,Menu,Spinner,Form,Tabs,UI,HSplit]
+__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","UI","HSplit",      "hflex","vflex"]
