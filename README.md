@@ -37,7 +37,7 @@ but ideally (IN THE FUTURE), I'd like to come with that:
 ```python
 from htag import Tag,Runner,ui # ui & Runner available in the htag namespace
 
-class MyApp(ui.App):    # will autoset self.ui as Dialog instancce
+class MyApp(ui.App):    # will autoset self.ui as Dialog (old UI) instancce
     def init(self):
         self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
 
