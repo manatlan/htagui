@@ -148,6 +148,18 @@ Display a toast message (notification), in the right-bottom ... during 2000 ms.
 
 Display an object, at coords (x,y).
 
+ex "create a popmenu", using "Menu object"
+```python
+import htagui as u
+ui = u.UI(self)
+entries={
+    "menu1": lambda: ui.notify("menu1") or ui.close(),
+    "menu2": lambda: ui.notify("menu2") or ui.close(),
+    "menu3": lambda: ui.notify("menu3") or ui.close(),
+}  
+self <= u.Button("pop menu", _onclick=lambda ev: ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
+```
+
 ### ui.drawer(obj, mode="left", size:int=50)
 
 Display a drawer, in the left-side, which takes 50% of the page.
