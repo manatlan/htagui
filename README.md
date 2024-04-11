@@ -17,11 +17,16 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. 
  - perhaps provide version using shoelace web component, or simple bulma styles ... but the basics version (current one) will always be available, with its minimal footprint (js/css dependancies in mind)
 
 
+**INSTALL**
+```bash
+python3 -m pip install -U htag htagui
+```
+
+
 A hello world could be :
 
 ```python
-from htag import Tag, Runner
-import htagui as ui # `ui` could be available in htag namespace soon
+from htag import Tag, Runner, ui
 
 class MyApp(ui.App):
     def init(self):
@@ -30,7 +35,6 @@ class MyApp(ui.App):
 if __name__ == "__main__":
     Runner(MyApp).run()
 ```
-
 
 
 
@@ -61,8 +65,8 @@ class MyApp(ui.App):
 A simple surcharge of Tag.button(...), to define a css class 
 
 ```python
-import htagui as u
-self <= u.Button("my button",_class="myclass", _onclick = myevent )
+import htagui as ui
+self <= ui.Button("my button",_class="myclass", _onclick = myevent )
 ```
 
 ## Object Input
@@ -71,8 +75,8 @@ A simple surcharge of Tag.input(...), to define a css class
 
 
 ```python
-import htagui as u
-self <= u.Input(_value="my value"_, _name="myfield", _class="myclass", _required=True )
+import htagui as ui
+self <= ui.Input(_value="my value"_, _name="myfield", _class="myclass", _required=True )
 ```
 
 ## Object Spinner
@@ -80,8 +84,8 @@ self <= u.Input(_value="my value"_, _name="myfield", _class="myclass", _required
 A spinner object.
 
 ```python
-import htagui as u
-self <= u.Spinner()
+import htagui as ui
+self <= ui.Spinner()
 ```
 
 ## Object Select
@@ -89,8 +93,8 @@ self <= u.Spinner()
 An htag class to help to create `select/option` html tags, using a dict of {value:title, ...}.
 
 ```python
-import htagui as u
-self <= u.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
+import htagui as ui
+self <= ui.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
 ```
 
 ## Object Menu
@@ -98,14 +102,14 @@ self <= u.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
 An htag class to help to create a (first-level) menu and menu items, using a dict of {title:callback,...}
 
 ```python
-import htagui as u
-ui = u.Dialog(self)
+import htagui as ui
+ux = ui.Dialog(self)
 entries={
-    "menu1": lambda: ui.notify("menu1"),
-    "menu2": lambda: ui.notify("menu2"),
-    "menu3": lambda: ui.notify("menu3"),
+    "menu1": lambda: ux.notify("menu1"),
+    "menu2": lambda: ux.notify("menu2"),
+    "menu3": lambda: ux.notify("menu3"),
 }  
-self <= u.Menu( entries )
+self <= ui.Menu( entries )
 ```
 
 
@@ -114,11 +118,11 @@ self <= u.Menu( entries )
 A simple surcharge of Tag.form(...) where you can define a callback to call a method wich will receive a python "dict" of all named inputs defined in the form.
 
 ```python
-import htagui as u
-ui = u.Dialog( self )
-form = u.Form( onsubmit=lambda dico: ui.notify(str(dico)) )
-form <= u.Input(_name="mystring",_placeholder="input something")
-form <= u.Button("ok")
+import htagui as ui
+ux = ui.Dialog( self )
+form = ui.Form( onsubmit=lambda dico: ux.notify(str(dico)) )
+form <= ui.Input(_name="mystring",_placeholder="input something")
+form <= ui.Button("ok")
 self <= form
 ```
 
@@ -127,10 +131,10 @@ self <= form
 An htag class to easily create tabs structure. And provides somes attributs/methods to interact with it.
 
 ```python
-import htagui as u
+import htagui as ui
 tab1 = Tag.div("content1",name="tab1") # tab object needs a `name` property !
 tab2 = Tag.div("content2",name="tab2")
-t = u.Tabs( tab1, tab2 )
+t = ui.Tabs( tab1, tab2 )
 self += t
 ```
 
@@ -147,58 +151,58 @@ Dynamic property to retrieve or select the current selected tab.
 
 Event which is called when selected index changes.
 
-## Object UI (Dialog)
+## Object Dialog
 
-Expose "Dialog boxes" with methods on the ui instance.
+Expose "Dialog boxes" with methods on the instance.
 Note that, there can be only one dialog at a time (except toast notification)
 
 ```python
-import htagui as u
-ui = u.Dialog( self )
+import htagui as ui
+dialog = ui.Dialog( self )
 ```
 
-### method ui.alert(obj)
+### method dialog.alert(obj)
 
 (like js window.alert(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able)
 
-### method ui.confirm(obj, cbresponse=lambda bool:bool)
+### method dialog.confirm(obj, cbresponse=lambda bool:bool)
 
 (like js window.confirm(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able), and let the user click on Yes|No buttons, which will call the cbresponse callback with True or False ...
 
-### method ui.prompt(value:str, title, cbresponse=lambda val:val)
+### method dialog.prompt(value:str, title, cbresponse=lambda val:val)
 
 (like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 
-### method ui.notify(obj, time=2000)
+### method dialog.notify(obj, time=2000)
 
 Display a toast message (notification), in the right-bottom ... during 2000 ms.
 (currently toast messages are not stacked)
 
-### method ui.pop(obj, xy:tuple)
+### method dialog.pop(obj, xy:tuple)
 
 Display an object, at coords (x,y).
 
 ex "create a popmenu", using "Menu object"
 ```python
-import htagui as u
-ui = u.Dialog(self)
+import htagui as ui
+dialog = ui.Dialog(self)
 entries={
-    "menu1": lambda: ui.notify("menu1"),
-    "menu2": lambda: ui.notify("menu2"),
-    "menu3": lambda: ui.notify("menu3"),
+    "menu1": lambda: dialog.notify("menu1"),
+    "menu2": lambda: dialog.notify("menu2"),
+    "menu3": lambda: dialog.notify("menu3"),
 }  
-self <= u.Button("pop menu", _onclick=lambda ev: ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
+self <= ui.Button("pop menu", _onclick=lambda ev: dialog.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
 ```
 
-### method ui.drawer(obj, mode="left", size:int=50)
+### method dialog.drawer(obj, mode="left", size:int=50)
 
 Display a drawer, in the left-side, which takes 50% of the page.
 
-### method ui.block(obj=None)
+### method dialog.block(obj=None)
 
 Display a modal dialog box containing the object 'obj'. But the dialog is not closable, so be sure to provide a way to close it.
 
-### method ui.close()
+### method dialog.close()
 
 Close programatically, the current ui dialog.
 
@@ -207,8 +211,8 @@ Close programatically, the current ui dialog.
 A Tag object to use "SplitJS" (currently only in horizontal form)
 
 ```python
-import htagui as u
-self <= u.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="border:2px solid red;height:100px" )
+import htagui as ui
+self <= ui.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="border:2px solid red;height:100px" )
 ```
 
 ## utilities methods
@@ -218,7 +222,7 @@ self <= u.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="bo
 Methods to create an HBox or VBox htag class (flexbox horizontal or vertical, with nowrap mode)
 
 ```python
-import htagui as u
-HBox = u.hflex(50, 50)  # create a hbox of 2 elements of 50% each
+import htagui as ui
+HBox = ui.hflex(50, 50)  # create a hbox of 2 elements of 50% each
 self <= HBox( Tag.div(1), Tag.div(2) )
 ```
