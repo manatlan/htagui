@@ -3,32 +3,31 @@
 from htag import Tag,expose
 import htagui as u
 
-class App(Tag.body):
+class App(u.App):
     imports=u.ALL
     def init(self):
         #================================================
         self<=Tag.h2("Test UI features")
         #================================================
-        ui = u.UI(self)
         entries={
-            "menu1": lambda: ui.notify("menu1") or ui.close(),
-            "menu2": lambda: ui.notify("menu2") or ui.close(),
-            "menu3": lambda: ui.notify("menu3") or ui.close(),
+            "menu1": lambda: self.ui.notify("menu1"),
+            "menu2": lambda: self.ui.notify("menu2"),
+            "menu3": lambda: self.ui.notify("menu3"),
         }  
 
-        self <= u.Button("alert", _onclick=lambda ev: ui.alert("kkkk") ,_class="red")
-        self <= u.Button("notify", _onclick=lambda ev: ui.notify("kkkk") ,_class="green")
-        self <= u.Button("confirm", _onclick=lambda ev: ui.confirm("kkkk", ui.notify), _class="blue")
-        self <= u.Button("prompt", _onclick=lambda ev: ui.prompt("value","text?", ui.notify) )
-        self <= u.Button("pop", _onclick=lambda ev: ui.pop("kkkk",(ev.clientX,ev.clientY)) )
-        self <= u.Button("pop menu", _onclick=lambda ev: ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
-        self <= u.Button("drawer left", _onclick=lambda ev: ui.drawer( u.Menu(entries),"left",80 ))
-        self <= u.Button("drawer right", _onclick=lambda ev: ui.drawer( "yo","right" ))
-        self <= u.Button("drawer top", _onclick=lambda ev: ui.drawer( "yo","top" ))
-        self <= u.Button("drawer bottom", _onclick=lambda ev: ui.drawer( "yo","bottom" ))
+        self <= u.Button("alert", _onclick=lambda ev: self.ui.alert("kkkk") ,_class="red")
+        self <= u.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk") ,_class="green")
+        self <= u.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify), _class="blue")
+        self <= u.Button("prompt", _onclick=lambda ev: self.ui.prompt("value","text?", self.ui.notify) )
+        self <= u.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
+        self <= u.Button("pop menu", _onclick=lambda ev: self.ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
+        self <= u.Button("drawer left", _onclick=lambda ev: self.ui.drawer( u.Menu(entries),"left",80 ))
+        self <= u.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
+        self <= u.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
+        self <= u.Button("drawer bottom", _onclick=lambda ev: self.ui.drawer( "yo","bottom" ))
         
         def test(ev):
-            ui.block( Tag.div(u.Spinner()+u.Button("unblock",_onclick=lambda ev: ui.close())) )
+            self.ui.block( Tag.div(u.Spinner()+u.Button("unblock",_onclick=lambda ev: self.ui.close())) )
         
         self <= u.Button("block", _onclick=test)
 
@@ -38,7 +37,7 @@ class App(Tag.body):
         #================================================
         self<=Tag.h2("Test FORM feature")
         #================================================
-        with u.Form( onsubmit=lambda d: ui.notify(str(d)) ) as f:
+        with u.Form( onsubmit=lambda d: self.ui.notify(str(d)) ) as f:
             HBox = u.hflex("0 0 70px","*") #<- create an htag class for 2 elements
             f<=HBox("label",u.Input(_name="lbl",_required=True))
             f<=HBox("chk",Tag.label( u.Input(_name="check",_type="checkbox") + "yoyo" ))
@@ -61,7 +60,7 @@ class App(Tag.body):
         t1=Tag.div("hello1",name="tab1")
         t2=Tag.div("hello2",name="tab2")
         t3=Tag.div("hello3",name="tab3")
-        t=u.Tabs( t1,t2,t3 ,onchange = lambda x: ui.notify("tab changed"+str(x.selected)))
+        t=u.Tabs( t1,t2,t3 ,onchange = lambda x: self.ui.notify("tab changed"+str(x.selected)))
         self <= t
 
         def force_select(nb):

@@ -24,7 +24,7 @@ import htagui as u
 
 class MyApp(Tag.body):
     def init(self):
-        self.ui = u.UI(self)
+        self.ui = u.Dialog(self)
         self <= u.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
 
 if __name__ == "__main__":
@@ -93,7 +93,7 @@ An htag class to help to create a (first-level) menu and menu items, using a dic
 
 ```python
 import htagui as u
-ui = u.UI(self)
+ui = u.Dialog(self)
 entries={
     "menu1": lambda: ui.notify("menu1"),
     "menu2": lambda: ui.notify("menu2"),
@@ -109,7 +109,7 @@ A simple surcharge of Tag.form(...) where you can define a callback to call a me
 
 ```python
 import htagui as u
-ui = u.UI( self )
+ui = u.Dialog( self )
 form = u.Form( onsubmit=lambda dico: ui.notify(str(dico)) )
 form <= u.Input(_name="mystring",_placeholder="input something")
 form <= u.Button("ok")
@@ -148,7 +148,7 @@ Note that, there can be only one dialog at a time (except toast notification)
 
 ```python
 import htagui as u
-ui = u.UI( self )
+ui = u.Dialog( self )
 ```
 
 ### method ui.alert(obj)
@@ -175,11 +175,11 @@ Display an object, at coords (x,y).
 ex "create a popmenu", using "Menu object"
 ```python
 import htagui as u
-ui = u.UI(self)
+ui = u.Dialog(self)
 entries={
-    "menu1": lambda: ui.notify("menu1") or ui.close(),
-    "menu2": lambda: ui.notify("menu2") or ui.close(),
-    "menu3": lambda: ui.notify("menu3") or ui.close(),
+    "menu1": lambda: ui.notify("menu1"),
+    "menu2": lambda: ui.notify("menu2"),
+    "menu3": lambda: ui.notify("menu3"),
 }  
 self <= u.Button("pop menu", _onclick=lambda ev: ui.pop( u.Menu(entries) ,(ev.clientX,ev.clientY)) )
 ```

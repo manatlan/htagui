@@ -148,5 +148,16 @@ class Menu(Tag.div):
         self["class"].add("menu")
         def call(ev):
             ev.target.method()
+
+            #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
+            #------------------------------------------------------------------------
+            current = self.parent
+            while current is not None:
+                if repr(current).startswith("<Dialog'div"): #TODO: not top (can do better)
+                    current.close()
+                    break
+                current = current.parent
+            #------------------------------------------------------------------------
+
         for k,v in entries.items():
             self += Tag.div(k,method=v,_onclick=call)

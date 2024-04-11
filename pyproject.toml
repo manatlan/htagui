@@ -22,7 +22,7 @@ python = "^3.7"
 htag = ">= 0.100"
 
 [tool.poetry.dev-dependencies]
-pytest = "^3.0"
+pytest = "^6"
 pytest-cov = "^2.6"
 
 [build-system]

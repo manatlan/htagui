@@ -8,9 +8,9 @@
 # #############################################################################
 
 from htag import Tag
-from .common import StepRules
+from .common import TagStep
 
-class Tabs(Tag.div,StepRules):
+class Tabs(Tag.div,TagStep):
     statics="""
     .tab {
         border:0px;
@@ -36,14 +36,14 @@ class Tabs(Tag.div,StepRules):
         self._selected=0
         self.onchange=onchange
         self._tabs=list(objs)
-        StepRules.init(self)
+        TagStep.init(self)
 
-    def rules(self,**params):
+    def step(self,**params):
         if "select" in params:
             self._selected=int(params["select"])
 
         if self._selected != self._previous_selected:
-            self.go( Tabs.Show, self._selected )
+            self( Tabs.Show, self._selected )
             self._previous_selected=self._selected
             self.onchange(self)
 

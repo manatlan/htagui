@@ -15,7 +15,7 @@ from .basics import Button,Input,Menu,Spinner,Select
 ########################################################################################
 from .form import Form
 from .tabs import Tabs
-from .uiservice import UI
+from .dialog import Dialog
 from .splitters import HSplit #VSplit
 from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
@@ -25,8 +25,8 @@ class App(Tag.body):
     @property
     def ui(self):
         if self._ui is None:
-            self._ui = UI(self)
+            self._ui = Dialog(self)
         return self._ui
 
-ALL=[App,Button,Input,Select,Menu,Spinner,Form,Tabs,UI,HSplit]
-__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","UI","HSplit",      "hflex","vflex"]
+ALL=[App,Button,Input,Select,Menu,Spinner,Form,Tabs,Dialog,HSplit]
+__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","Dialog","HSplit",      "hflex","vflex"]

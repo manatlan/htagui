@@ -8,11 +8,11 @@
 # #############################################################################
 
 from htag import Tag,expose
-from .common import StepRules
+from .common import TagStep
 from .form import Form
 from .basics import Voile,Button,Input
 
-class UI(Tag.div,StepRules):
+class Dialog(Tag.div,TagStep):
     imports=[Voile,Button,Input]
     #-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
     class Empty(Tag.div):
@@ -40,7 +40,7 @@ class UI(Tag.div,StepRules):
                 Button("Yes",val=True,_onclick=call),
                 Button("No",val=False,_onclick=call),
             ]
-            UI.Modal.__init__(self,main,box)
+            Dialog.Modal.__init__(self,main,box)
 
     class ModalPrompt(Modal):
         def __init__(self,main, value,title,cb):
@@ -52,7 +52,7 @@ class UI(Tag.div,StepRules):
                 f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.setSelectionRange(0, self.value.length)") )
                 f+=Button("Ok" )
                 f+=Button("Cancel",_type="button",_onclick=main.stepevent())
-            UI.Modal.__init__(self,main,f)
+            Dialog.Modal.__init__(self,main,f)
 
     class Pop(Tag.div):
         def init(self,main,obj,xy:tuple):
@@ -72,7 +72,7 @@ class UI(Tag.div,StepRules):
         parent += self  # auto add
         parent += self._toasts  # add a personnal place for toasts
             
-        StepRules.init(self)
+        TagStep.init(self)
 
     def alert(self,obj):
         self.step( alert = obj )
@@ -99,31 +99,31 @@ class UI(Tag.div,StepRules):
     def close(self):
         self.step()
 
-    def rules(self,**params):
+    def step(self,**params):
         if "alert" in params:
-            self.go( UI.Modal, params["alert"] )
+            self( Dialog.Modal, params["alert"] )
         elif "block" in params:
-            self.go( UI.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
+            self( Dialog.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
         elif "confirm" in params:
-            self.go( UI.ModalConfirm, params["confirm"], params["cb"] )
+            self( Dialog.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
-            self.go( UI.ModalPrompt, params["prompt"],params["title"], params["cb"] )
+            self( Dialog.ModalPrompt, params["prompt"],params["title"], params["cb"] )
         elif "pop" in params:
-            self.go( UI.Pop, params["pop"],params["xy"] )
+            self( Dialog.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:
             size=params["size"]
             if params["mode"]=="left":
-                self.go( UI.Modal, params["drawer"], ("0px",f"{size}%","0px","0px"),radius=0 )
+                self( Dialog.Modal, params["drawer"], ("0px",f"{size}%","0px","0px"),radius=0 )
             elif params["mode"]=="right":
-                self.go( UI.Modal, params["drawer"], ("0px","0px","0px",f"{size}%"),radius=0 )
+                self( Dialog.Modal, params["drawer"], ("0px","0px","0px",f"{size}%"),radius=0 )
             elif params["mode"]=="bottom":
-                self.go( UI.Modal, params["drawer"], (f"{size}%","0px","0px","0px"),radius=0 )
+                self( Dialog.Modal, params["drawer"], (f"{size}%","0px","0px","0px"),radius=0 )
             elif params["mode"]=="top":
-                self.go( UI.Modal, params["drawer"], ("0px","0px",f"{size}%","0px"),radius=0 )
+                self( Dialog.Modal, params["drawer"], ("0px","0px",f"{size}%","0px"),radius=0 )
         elif "toast" in params:
-            self._toasts.clear( UI.Toast( self, params["toast"], params["time"] ))
+            self._toasts.clear( Dialog.Toast( self, params["toast"], params["time"] ))
         else:
-            self.go( UI.Empty )
+            self( Dialog.Empty )
 
 
     
