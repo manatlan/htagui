@@ -16,39 +16,45 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. 
  - be available in htag4brython too, with the same apis.
  - perhaps provide version using shoelace web component, or simple bulma styles ... but the basics version (current one) will always be available, with its minimal footprint (js/css dependancies in mind)
 
-A hello world could be (currently):
+
+A hello world could be :
 
 ```python
-from htag import Tag
-import htagui as u
+from htag import Tag, Runner
+import htagui as ui # `ui` could be available in htag namespace soon
 
-class MyApp(Tag.body):
+class MyApp(ui.App):
     def init(self):
-        self.ui = u.Dialog(self)
-        self <= u.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
-
-if __name__ == "__main__":
-    from htag.runners import Runner
-    Runner(MyApp).run()
-```
-
-but ideally (IN THE FUTURE), I'd like to come with that:
-
-```python
-from htag import Tag,Runner,ui # ui & Runner available in the htag namespace
-
-class MyApp(ui.App):    # will autoset self.ui as Dialog (old UI) instancce
-    def init(self):
-        self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+        self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello world" ) )
 
 if __name__ == "__main__":
     Runner(MyApp).run()
 ```
+
 
 
 
 It provides some (ready-to-use) Htag Objects, and some utilities methods.
 
+
+## Object App
+
+This is a surcharge of Tag.body( ... ) which auto provide an `ui` property on the instance, to interact with `Dialog` features
+
+In place of:
+```python
+class MyApp(Tag.body):
+    def init(self):
+        self.ui = ui.Dialog(self)   # <- it will do that, automatically
+        self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+```
+
+you can do :
+```python
+class MyApp(ui.App):
+    def init(self):
+        self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+```
 
 ## Object Button
 
