@@ -62,7 +62,7 @@ class Dialog(Tag.div,TagStep):
 
     class Toast(Tag.div):
         def init(self,main_non_used,obj,timeout=1000):
-            self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:999;background:white;padding:10px;border:2px solid black")
+            self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:white;padding:10px;border:2px solid black")
             self.js="setTimeout( function() {self.remove()} , %s)" % timeout
     #-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
 
