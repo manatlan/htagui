@@ -102,7 +102,7 @@ An htag class to easily create tabs structure. And provides somes attributs/meth
 ```python
 import htagui as u
 tab1 = Tag.div("content1",name="tab1") # tab object needs a `name` property !
-tab1 = Tag.div("content2",name="tab2")
+tab2 = Tag.div("content2",name="tab2")
 t = u.Tabs( tab1, tab2 )
 self += t
 ```
@@ -110,6 +110,7 @@ self += t
 ### method t.add_tab( obj )
 
 A method to add dynamically a tab instance, which is automatically selected.
+(note that the tab object needs a `name` property !)
 
 ### property t.selected
 
@@ -119,7 +120,7 @@ Dynamic property to retrieve or select the current selected tab.
 
 Event which is called when selected index changes.
 
-## Object UI
+## Object UI (Dialog)
 
 Expose "Dialog boxes" with methods on the ui instance.
 
