@@ -2,5 +2,10 @@
     "python.testing.pytestArgs": [
         ".","-s","-v"
     ],
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+
+
+    "code-runner.executorMap": {
+        "python": "poetry run python -u"
+    }    
 }

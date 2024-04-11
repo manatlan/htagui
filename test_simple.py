@@ -18,6 +18,10 @@ def test_ui_App():
     assert ">yolo<" in str(x)           # there is a message box in x
     assert "try{interact" in str(x)     # there are js-interaction  in x (to close the box)
 
+    x.ui.close()
+    assert ">yolo<" not in str(x)           # there is NO MORE a message box in x
+    assert "try{interact" not in str(x)     # there are NO MORE js-interaction  in x (to close the box)
+
 
 if __name__=="__main__":
     test_hflex_vflex()

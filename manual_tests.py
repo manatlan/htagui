@@ -1,6 +1,5 @@
-#!python3.7 -u
 # -*- coding: utf-8 -*-
-from htag import Tag,expose
+from htag import Tag,expose,Runner
 import htagui as u
 
 class App(u.App):
@@ -75,7 +74,5 @@ class App(u.App):
         self <= u.HSplit( Tag.div("A"), Tag.div("B"), Tag.div("C"), sizes=[20,20,60],minSize=20,_style="height:100px;border:1px solid black")
         
 #=================================================================================
-from htag.runners import Runner
-
 if __name__ == "__main__":
     Runner(App).run()
