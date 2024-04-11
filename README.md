@@ -31,7 +31,7 @@ It provides some (ready-to-use) Htag Objects, and some utilities methods.
 
 ## Object Button
 
-A simple surcharge of Tag.button(...)
+A simple surcharge of Tag.button(...), to define a css class 
 
 ```python
 import htagui as u
@@ -40,7 +40,8 @@ self <= u.Button("my button",_class="myclass", _onclick = myevent )
 
 ## Object Input
 
-A simple surcharge of Tag.input(...)
+A simple surcharge of Tag.input(...), to define a css class 
+
 
 ```python
 import htagui as u
@@ -58,7 +59,7 @@ self <= u.Spinner()
 
 ## Object Select
 
-TODO: complete
+An htag class to help to create `select/option` html tags, using a dict of {value:title, ...}.
 
 ```python
 import htagui as u
@@ -67,7 +68,7 @@ self <= u.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
 
 ## Object Menu
 
-TODO: complete
+An htag class to help to create a (first-level) menu and menu items, using a dict of {title:callback,...}
 
 ```python
 import htagui as u
@@ -83,11 +84,40 @@ self <= u.Menu( entries )
 
 ## Object Form
 
-A simple surcharge of Tag.form(...) providing where you can define a callback to call a method wich will receive a python "dict" of all named inputs defined in the form.
+A simple surcharge of Tag.form(...) where you can define a callback to call a method wich will receive a python "dict" of all named inputs defined in the form.
+
+```python
+import htagui as u
+ui = u.UI( self )
+form = u.Form( onsubmit=lambda dico: ui.notify(str(dico)) )
+form <= u.Input(_name="mystring",_placeholder="input something")
+form <= u.Button("ok")
+self <= form
+```
 
 ## Object Tabs
 
-TODO: complete
+An htag class to easily create tabs structure. And provides somes attributs/methods to interact with it.
+
+```python
+import htagui as u
+tab1 = Tag.div("content1",name="tab1") # tab object needs a `name` property !
+tab1 = Tag.div("content2",name="tab2")
+t = u.Tabs( tab1, tab2 )
+self += t
+```
+
+### method t.add_tab( obj )
+
+A method to add dynamically a tab instance, which is automatically selected.
+
+### property t.selected
+
+Dynamic property to retrieve or select the current selected tab.
+
+### event "onchange"
+
+Event which is called when selected index changes.
 
 ## Object UI
 
@@ -136,14 +166,14 @@ A Tag object to use "SplitJS" (currently only in horizontal form)
 
 ```python
 import htagui as u
-self <= u.HSplit( Tag.div(1), Tag.div(2) )
+self <= u.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="border:2px solid red;height:100px" )
 ```
 
 ## utilities methods
 
 ### hflex & vflex
 
-Methods to create an HBox or VBox class (flexbox)
+Methods to create an HBox or VBox htag class (flexbox horizontal or vertical, with nowrap mode)
 
 ```python
 import htagui as u
