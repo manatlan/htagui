@@ -1,6 +1,6 @@
 # htagUI
 
-This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps.
+This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. Contrario to [htbulma](https://github.com/manatlan/htbulma), this one is a minimal toolkit, providing only useful and solid widgets, and will be maintained (you can use it ;-)).
 
 <img src="https://manatlan.github.io/htag/htag.png" width="100" height="100">
 
@@ -10,7 +10,13 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps.
     <img src="https://badge.fury.io/py/htagui.svg?x" alt="Package version">
 </a>
 
-A hello world could be:
+**roadmap**
+
+ - test test & test, to be rock solid
+ - be available in htag4brython too, with the same apis.
+ - perhaps provide version using shoelace web component, or simple bulma styles ... but the basics version (current one) will always be available, with its minimal footprint (js/css dependancies in mind)
+
+A hello world could be (currently):
 
 ```python
 from htag import Tag
@@ -19,12 +25,27 @@ import htagui as u
 class MyApp(Tag.body):
     def init(self):
         self.ui = u.UI(self)
-        self += u.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+        self <= u.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
 
 if __name__ == "__main__":
     from htag.runners import Runner
     Runner(MyApp).run()
 ```
+
+but ideally (IN THE FUTURE), I'd like to come with that:
+
+```python
+from htag import Tag,Runner,ui # ui & Runner available in the htag namespace
+
+class MyApp(ui.App):    # will autoset self.ui as Dialog instancce
+    def init(self):
+        self <= ui.Button("test", _onclick=lambda ev: self.ui.alert( "hello" ) )
+
+if __name__ == "__main__":
+    Runner(MyApp).run()
+```
+
+
 
 It provides some (ready-to-use) Htag Objects, and some utilities methods.
 
