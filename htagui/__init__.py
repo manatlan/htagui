@@ -29,4 +29,4 @@ class App(Tag.body):
         return self._ui
 
 ALL=[App,Button,Input,Select,Menu,Spinner,Form,Tabs,Dialog,HSplit]
-__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","Dialog","HSplit",      "hflex","vflex"]
+__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","Dialog","HSplit",      "hflex","vflex", "ALL"]

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from htag import Tag,expose,Runner
-import htagui as u
+from htag import Tag,expose,runners
+import htag.ui as u
 
 class App(u.App):
     imports=u.ALL
