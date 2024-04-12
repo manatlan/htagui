@@ -1,25 +1,17 @@
-# -*- coding: utf-8 -*-
-# #############################################################################
-# Copyright (C) 2024 manatlan manatlan[at]gmail(dot)com
-#
-# MIT licence
-#
-# https://github.com/manatlan/htag
-# #############################################################################
-
 __version__ = "0.0.0" # auto updated
 
 from htag import Tag
+########################################################################################
 # from . import bases as ui
 # __builtins__["HTAGUI_MODULE"]=ui
 ########################################################################################
 from .bases import Button,Input,Menu,Spinner,Select
 ########################################################################################
-from .form import Form
-from .tabs import Tabs
-from .dialog import Dialog
-from .splitters import HSplit #VSplit
-from .flex import hflex,vflex  # utilities (Htag contructor methods)
+from ..form import Form
+from ..tabs import Tabs
+from ..dialog import Dialog
+from ..splitters import HSplit #VSplit
+from ..flex import hflex,vflex  # utilities (Htag contructor methods)
 
 class App(Tag.body):
     _ui=None

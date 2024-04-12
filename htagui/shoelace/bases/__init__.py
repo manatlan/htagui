@@ -1,4 +1,3 @@
-#!/usr/bin/python3 -u
 # -*- coding: utf-8 -*-
 from htag import Tag,expose
 
@@ -22,8 +21,22 @@ SHOELACE = [
 """),
 ]
 
-class Input(Tag.sl_input):
+
+class Input(Tag.input):
     statics= SHOELACE
+    def init(self,*a,**k):
+        type=self.attrs.get("type")
+        if type is None or type=="input":
+            self.tag = "sl-input"
+        elif type=="checkbox":
+            self.tag = "sl-switch"
+            # self.tag = "sl-checkbox"
+        elif type=="radio":
+            self.tag = "sl-radio"
+        elif type=="range":
+            self.tag = "sl-range"
+
+
 class Button(Tag.sl_button):
     statics= SHOELACE
     def init(self,title,**a):
@@ -59,6 +72,17 @@ class Menu(Tag.sl_menu):
     def _select(self,idx):
         list(self._entries.values())[int(idx)]()
 
+        #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
+        #------------------------------------------------------------------------
+        current = self.parent
+        while current is not None:
+            if repr(current).startswith("<Dialog'div"): #TODO: not top (can do better)
+                current.close()
+                break
+            current = current.parent
+        #------------------------------------------------------------------------
+
+
 
 
 class Spinner(Tag.sl_spinner):
@@ -67,3 +91,11 @@ class Spinner(Tag.sl_spinner):
         self["style"]="font-size: 32px; --track-width: 8px;"
 
 
+class Select(Tag.sl_select):
+    statics=SHOELACE
+    def init(self,options:dict, **a):
+        assert isinstance(options,dict)
+        self["class"].add("select")
+        default = a.get("_value")
+        for k,v in options.items():
+            self <= Tag.sl_option(v,_value=k,_selected=(default==k))

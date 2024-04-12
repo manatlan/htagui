@@ -6,14 +6,15 @@
 #
 # https://github.com/manatlan/htag
 # #############################################################################
-
 from htag import Tag,expose
 from .common import TagStep
 from .form import Form
-from .basics import Voile,Button,Input
+
+from . import bases as ui
+# ui=__builtins__["HTAGUI_MODULE"]
 
 class Dialog(Tag.div,TagStep):
-    imports=[Voile,Button,Input]
+    imports=[ui.Voile,ui.Button,ui.Input]
     #-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
     class Empty(Tag.div):
         def init(self,main):
@@ -24,10 +25,10 @@ class Dialog(Tag.div,TagStep):
             t,r,b,l = trbl
             if closable:
                 bc=Tag.button("X",_onclick=main.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-                self <= Voile(_onmousedown=main.stepevent())
+                self <= ui.Voile(_onmousedown=main.stepevent())
                 self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
             else:
-                self <= Voile(_style="cursor:not-allowed;")
+                self <= ui.Voile(_style="cursor:not-allowed;")
                 self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
 
     class ModalConfirm(Modal):
@@ -37,8 +38,8 @@ class Dialog(Tag.div,TagStep):
                 main.step()
             box=[ 
                 Tag.div(obj),
-                Button("Yes",val=True,_onclick=call),
-                Button("No",val=False,_onclick=call),
+                ui.Button("Yes",val=True,_onclick=call),
+                ui.Button("No",val=False,_onclick=call),
             ]
             Dialog.Modal.__init__(self,main,box)
 
@@ -49,15 +50,15 @@ class Dialog(Tag.div,TagStep):
                 main.step()
             with Form(onsubmit=call) as f:
                 f+=Tag.div( title )
-                f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.setSelectionRange(0, self.value.length)") )
-                f+=Button("Ok" )
-                f+=Button("Cancel",_type="button",_onclick=main.stepevent())
+                f+=Tag.div( ui.Input(_value=value,_name="promptvalue",js="self.focus();self.setSelectionRange(0, self.value.length)") )
+                f+=ui.Button("Ok" )
+                f+=ui.Button("Cancel",_type="button",_onclick=main.stepevent())
             Dialog.Modal.__init__(self,main,f)
 
     class Pop(Tag.div):
         def init(self,main,obj,xy:tuple):
             x,y=xy
-            self <= Voile(_onmousedown=main.stepevent())
+            self <= ui.Voile(_onmousedown=main.stepevent())
             self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
 
     class Toast(Tag.div):

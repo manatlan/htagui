@@ -161,3 +161,5 @@ class Menu(Tag.div):
 
         for k,v in entries.items():
             self += Tag.div(k,method=v,_onclick=call)
+
+

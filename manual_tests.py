@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from htag import Tag,expose,Runner,ui
+from htag import Tag,expose,Runner
+# import htagui as ui
+# import htagui.bulma as ui
+import htagui.shoelace as ui
 
 class App(ui.App):
     imports=ui.ALL
@@ -13,7 +16,6 @@ class App(ui.App):
             "menu3": lambda: self.ui.notify("menu3"),
         }  
 
-        self <= ui.Button("alert", _onclick=lambda ev: self.ui.alert("kkkk"))
 
         self <= ui.Button("box 0", _onclick=lambda ev: self.ui.box("kkkk",size=0) ,_class="red")
         self <= ui.Button("box .1", _onclick=lambda ev: self.ui.box("kkkk",size=0.1) ,_class="red")
@@ -23,6 +25,7 @@ class App(ui.App):
         self <= ui.Button("box .7", _onclick=lambda ev: self.ui.box("kkkk",size=0.7) ,_class="red")
         self <= ui.Button("box 1", _onclick=lambda ev: self.ui.box("kkkk",size=1) ,_class="red")
 
+        self <= ui.Button("alert", _onclick=lambda ev: self.ui.alert("kkkk"))
         self <= ui.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk") ,_class="green")
         self <= ui.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify), _class="blue")
         self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("value","text?", self.ui.notify) )
