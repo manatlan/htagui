@@ -175,7 +175,7 @@ dialog = ui.Dialog( self )
 (like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 
 
-### method dialog.boze(obj,size:float=0.5)
+### method dialog.box(obj,size:float=0.5)
 
 Like dialog.alert(), but display modal dialog box containing the object 'obj' (obj must be str'able), which takes 50% of size.
 
