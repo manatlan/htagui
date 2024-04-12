@@ -10,8 +10,20 @@ from htag import Tag,expose
 from .common import TagStep
 from .form import Form
 
-from . import bases as ui
-# ui=__builtins__["HTAGUI_MODULE"]
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# dont know how it can work ... but it does the job
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+try:
+    from .basics import bases as ui
+    print("IMPORT [BASICS]")
+except ImportError:
+    try:
+        from .bulma import bases as ui
+        print("IMPORT [BULMA]")
+    except ImportError:
+        from .shoelace import bases as ui
+        print("IMPORT [SHOELACE]")
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 class Dialog(Tag.div,TagStep):
     imports=[ui.Voile,ui.Button,ui.Input]
@@ -50,7 +62,7 @@ class Dialog(Tag.div,TagStep):
                 main.step()
             with Form(onsubmit=call) as f:
                 f+=Tag.div( title )
-                f+=Tag.div( ui.Input(_value=value,_name="promptvalue",js="self.focus();self.setSelectionRange(0, self.value.length)") )
+                f+=Tag.div( ui.Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
                 f+=ui.Button("Ok" )
                 f+=ui.Button("Cancel",_type="button",_onclick=main.stepevent())
             Dialog.Modal.__init__(self,main,f)

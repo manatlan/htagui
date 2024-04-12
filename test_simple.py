@@ -3,7 +3,7 @@ import pytest
 from htag import Tag
 
 def test_hflex_vflex():
-    import htagui as ui
+    import htagui.basics as ui
     HBox= ui.hflex(50,50)
     assert issubclass(HBox,Tag)
 
@@ -13,7 +13,7 @@ def test_hflex_vflex():
 
 def test_ui_App(ui=None):
     if not ui:
-        import htagui as ui
+        import htagui.basics as ui
     x=ui.App()
     assert isinstance( x.ui, ui.Dialog )
     x.ui.alert("yolo")

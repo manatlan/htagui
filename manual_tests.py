@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
-# import htagui as ui
+import htagui.basics as ui
 # import htagui.bulma as ui
-import htagui.shoelace as ui
+# import htagui.shoelace as ui
 
 class App(ui.App):
     imports=ui.ALL

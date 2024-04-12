@@ -18,6 +18,9 @@ SHOELACE = [
   right: 0;
 }
 
+* {
+    font-family: ubuntu;
+}
 """),
 ]
 
