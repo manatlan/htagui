@@ -76,6 +76,9 @@ class Dialog(Tag.div,TagStep):
 
     def alert(self,obj):
         self.step( alert = obj )
+
+    def box(self,obj,size:float=0.5):
+        self.step( box = obj, size=50 - size*50 )
         
     def confirm(self,obj,cbresponse=lambda bool:bool):
         self.step( confirm = obj, cb=cbresponse )
@@ -89,9 +92,9 @@ class Dialog(Tag.div,TagStep):
     def pop(self, obj, xy:tuple):
         self.step( pop = obj, xy=xy )
 
-    def drawer(self, obj, mode="left", size:int=50):
+    def drawer(self, obj, mode="left", size:float=0.5):
         assert mode in ["left","right","bottom","top"]
-        self.step( drawer = obj, mode=mode, size=100-size )
+        self.step( drawer = obj, mode=mode, size=100 - 100*size )
 
     def block(self,obj=None):
         self.step( block=obj )
@@ -102,6 +105,9 @@ class Dialog(Tag.div,TagStep):
     def step(self,**params):
         if "alert" in params:
             self( Dialog.Modal, params["alert"] )
+        elif "box" in params:
+            size=params["size"]
+            self( Dialog.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
         elif "block" in params:
             self( Dialog.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
         elif "confirm" in params:

@@ -174,6 +174,11 @@ dialog = ui.Dialog( self )
 
 (like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 
+
+### method dialog.boze(obj,size:float=0.5)
+
+Like dialog.alert(), but display modal dialog box containing the object 'obj' (obj must be str'able), which takes 50% of size.
+
 ### method dialog.notify(obj, time=2000)
 
 Display a toast message (notification), in the right-bottom ... during 2000 ms.
@@ -195,7 +200,7 @@ entries={
 self <= ui.Button("pop menu", _onclick=lambda ev: dialog.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
 ```
 
-### method dialog.drawer(obj, mode="left", size:int=50)
+### method dialog.drawer(obj, mode="left", size:float=0.5)
 
 Display a drawer, in the left-side, which takes 50% of the page.
 

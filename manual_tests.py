@@ -13,13 +13,22 @@ class App(ui.App):
             "menu3": lambda: self.ui.notify("menu3"),
         }  
 
-        self <= ui.Button("alert", _onclick=lambda ev: self.ui.alert("kkkk") ,_class="red")
+        self <= ui.Button("alert", _onclick=lambda ev: self.ui.alert("kkkk"))
+
+        self <= ui.Button("box 0", _onclick=lambda ev: self.ui.box("kkkk",size=0) ,_class="red")
+        self <= ui.Button("box .1", _onclick=lambda ev: self.ui.box("kkkk",size=0.1) ,_class="red")
+        self <= ui.Button("box .2", _onclick=lambda ev: self.ui.box("kkkk",size=0.2) ,_class="red")
+        self <= ui.Button("box .5", _onclick=lambda ev: self.ui.box("kkkk",size=0.5) ,_class="red")
+        self <= ui.Button("box .6", _onclick=lambda ev: self.ui.box("kkkk",size=0.6) ,_class="red")
+        self <= ui.Button("box .7", _onclick=lambda ev: self.ui.box("kkkk",size=0.7) ,_class="red")
+        self <= ui.Button("box 1", _onclick=lambda ev: self.ui.box("kkkk",size=1) ,_class="red")
+
         self <= ui.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk") ,_class="green")
         self <= ui.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify), _class="blue")
         self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("value","text?", self.ui.notify) )
         self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
         self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
-        self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left",80 ))
+        self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left",0.8 ))
         self <= ui.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
         self <= ui.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
         self <= ui.Button("drawer bottom", _onclick=lambda ev: self.ui.drawer( "yo","bottom" ))
