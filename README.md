@@ -12,9 +12,10 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. 
 
 **roadmap**
 
+ - provide a darker theme css
  - test test & test, to be rock solid
  - be available in htag4brython too, with the same apis.
- - perhaps provide version using shoelace web component, or simple bulma styles ... but the basics version (current one) will always be available, with its minimal footprint (js/css dependancies in mind)
+ - perhaps provide version using "shoelace web components", or "simple bulma styles" (like htbulma) ... but the basics version (current one) will always be available, with its minimal footprint (js/css dependancies in mind)
 
 
 **INSTALL**
