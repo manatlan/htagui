@@ -23,7 +23,7 @@ class Dialog(Tag.div,TagStep):
         def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
             t,r,b,l = trbl
             if closable:
-                bc=Tag.button("X",_onclick=main.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+                bc=Tag.button("X",_onclick=main.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
                 self <= Voile(_onmousedown=main.stepevent())
                 self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
             else:
