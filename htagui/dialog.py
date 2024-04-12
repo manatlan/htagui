@@ -27,8 +27,8 @@ class Dialog(Tag.div,TagStep):
                 self <= Voile(_onmousedown=main.stepevent())
                 self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
             else:
-                self <= Voile(_style="cursor:wait")
-                self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,50%);")
+                self <= Voile(_style="cursor:not-allowed;")
+                self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
 
     class ModalConfirm(Modal):
         def __init__(self,main,obj,cb):

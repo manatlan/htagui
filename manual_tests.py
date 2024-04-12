@@ -26,6 +26,7 @@ class App(ui.App):
         
         def test(ev):
             self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
+            # self.ui.block( Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.close())) 
         
         self <= ui.Button("block", _onclick=test)
 
