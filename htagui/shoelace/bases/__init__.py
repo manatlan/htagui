@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose
+from ...form import Form
 
 SHOELACE = [
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/dark.css" ),
@@ -102,3 +103,66 @@ class Select(Tag.sl_select):
         default = a.get("_value")
         for k,v in options.items():
             self <= Tag.sl_option(v,_value=k,_selected=(default==k))
+
+######################################################################################
+## Dialog objects
+######################################################################################
+class Empty(Tag.div):
+    def init(self,main):
+        self.clear()
+        
+class Modal(Tag.sl_dialog):
+    def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+        self["open"]=True
+        self["no-header"]=True
+        t,r,b,l = trbl
+        if closable:
+            bc=Tag.button("X",_onclick=main.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+            self <= [bc,obj]
+        else:
+            self <= obj
+
+class Drawer(Tag.sl_drawer):
+    def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+        self["open"]=True
+        self["no-header"]=True
+        t,r,b,l = trbl
+        self <= obj
+
+class ModalConfirm(Modal):
+    def __init__(self,main,obj,cb):
+        def call(ev):
+            cb(ev.target.val)
+            main.step()
+        box=[ 
+            Tag.div(obj),
+            Button("Yes",val=True,_onclick=call),
+            Button("No",val=False,_onclick=call),
+        ]
+        Modal.__init__(self,main,box)
+
+class ModalPrompt(Modal):
+    def __init__(self,main, value,title,cb):
+        def call(dico):
+            cb(dico["promptvalue"])
+            main.step()
+        with Form(onsubmit=call) as f:
+            f+=Tag.div( title )
+            f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True) )
+            # f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
+            f+=Button("Ok" ,_type="submit")
+            f+=Button("Cancel",_type="button",_onclick=main.stepevent())
+        Modal.__init__(self,main,f)
+
+class Pop(Tag.div):
+    def init(self,main,obj,xy:tuple):
+        x,y=xy
+        self <= Voile(_onmousedown=main.stepevent())
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
+
+class Toast(Tag.sl_alert):
+    def init(self,main_non_used,obj,timeout=1000):
+        self["duration"]=timeout
+        self <= obj
+        self.js = "window.customElements.whenDefined('sl-alert').then( function() { document.getElementById('%s').toast() })" % id(self)
+######################################################################################

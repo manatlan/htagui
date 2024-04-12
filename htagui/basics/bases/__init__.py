@@ -8,6 +8,7 @@
 # #############################################################################
 
 from htag import Tag
+from ...form import Form
 
 CSS="""
 html,body {
@@ -162,4 +163,58 @@ class Menu(Tag.div):
         for k,v in entries.items():
             self += Tag.div(k,method=v,_onclick=call)
 
+######################################################################################
+## Dialog objects
+######################################################################################
+class Empty(Tag.div):
+    def init(self,main):
+        self.clear()
+        
+class Modal(Tag.div):
+    def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+        t,r,b,l = trbl
+        if closable:
+            bc=Tag.button("X",_onclick=main.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
+            self <= Voile(_onmousedown=main.stepevent())
+            self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
+        else:
+            self <= Voile(_style="cursor:not-allowed;")
+            self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
 
+Drawer = Modal
+class ModalConfirm(Modal):
+    def __init__(self,main,obj,cb):
+        def call(ev):
+            cb(ev.target.val)
+            main.step()
+        box=[ 
+            Tag.div(obj),
+            Button("Yes",val=True,_onclick=call),
+            Button("No",val=False,_onclick=call),
+        ]
+        Modal.__init__(self,main,box)
+
+class ModalPrompt(Modal):
+    def __init__(self,main, value,title,cb):
+        def call(dico):
+            cb(dico["promptvalue"])
+            main.step()
+        with Form(onsubmit=call) as f:
+            f+=Tag.div( title )
+            f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
+            f+=Button("Ok" )
+            f+=Button("Cancel",_type="button",_onclick=main.stepevent())
+        Modal.__init__(self,main,f)
+
+class Pop(Tag.div):
+    def init(self,main,obj,xy:tuple):
+        x,y=xy
+        self <= Voile(_onmousedown=main.stepevent())
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
+
+class Toast(Tag.div):
+    def init(self,main_non_used,obj,timeout=1000):
+        self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:white;padding:10px;border:2px solid black")
+        self.js="setTimeout( function() {self.remove()} , %s)" % timeout
+
+######################################################################################
