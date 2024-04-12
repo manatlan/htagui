@@ -19,9 +19,9 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. 
 
 **INSTALL**
 ```bash
-python3 -m pip install -U htag htagui
+python3 -m pip install -U htagui
 ```
-
+**note**: it will install htag and htagui, and provide the `ui` in the htag namespace (`htag.ui`)
 
 A hello world could be :
 
