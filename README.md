@@ -76,7 +76,7 @@ A simple surcharge of Tag.input(...), to define a css class
 
 ```python
 import htagui as ui
-self <= ui.Input(_value="my value"_, _name="myfield", _class="myclass", _required=True )
+self <= ui.Input(_value="my value", _name="myfield", _class="myclass", _required=True )
 ```
 
 ## Object Spinner
