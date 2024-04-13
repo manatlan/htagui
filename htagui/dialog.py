@@ -30,9 +30,9 @@ class Dialog(Tag.div,TagStep):
     def init(self,parent):
         self["info"]="UI.current object"
         self._toasts = Tag.div(_info="UI.toasts objects")
+        self._previous=None
         parent += self  # auto add
         parent += self._toasts  # add a personnal place for toasts
-            
         TagStep.init(self)
 
     def alert(self,obj):
@@ -63,20 +63,32 @@ class Dialog(Tag.div,TagStep):
     def close(self):
         self.step()
 
+    def previous(self): # just the previous one (no history yet)
+        if self._previous is None:
+            self.close()
+        else:
+            self._current = self._previous
+            self._previous = None
+
     def step(self,**params):
+
+        def set(*a,**k):
+            self._previous = self._current
+            self(*a,**k)
+
         if "alert" in params:
-            self( cui.Modal, params["alert"] )
+            set( cui.Modal, params["alert"] )
         elif "box" in params:
             size=params["size"]
-            self( cui.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
+            set( cui.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
         elif "block" in params:
-            self( cui.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
+            set( cui.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
         elif "confirm" in params:
-            self( cui.ModalConfirm, params["confirm"], params["cb"] )
+            set( cui.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
-            self( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
+            set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
         elif "pop" in params:
-            self( cui.Pop, params["pop"],params["xy"] )
+            set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:
             size=params["size"]
             if params["mode"]=="left":
@@ -90,7 +102,7 @@ class Dialog(Tag.div,TagStep):
         elif "toast" in params:
             self._toasts.clear( cui.Toast( self, params["toast"], params["time"] ))
         else:
-            self( cui.Empty )
+            set( cui.Empty )
 
 
     
