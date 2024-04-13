@@ -10,6 +10,12 @@ from htag import Tag
 # dialog.box et dialog.drawer are cata
 # dialog.box et dialog.drawer are cata
 # dialog.box et dialog.drawer are cata
+# & dialog.block doesn't block
+# & dialog.block doesn't block
+# & dialog.block doesn't block
+# & dialog.block doesn't block
+# & dialog.block doesn't block
+# & dialog.block doesn't block
 ########################################################################################
 from .bases import Button,Input,Menu,Spinner,Select
 ########################################################################################
