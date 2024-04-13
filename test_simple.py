@@ -1,5 +1,5 @@
 
-import pytest
+import pytest,sys
 from htag import Tag
 
 def test_hflex_vflex():
@@ -25,10 +25,12 @@ def test_ui_App(ui=None):
     assert "try{interact" not in str(x)     # there are NO MORE js-interaction  in x (to close the box)
 
 def test_ui_App_bulma():
+    if "ui" in sys.modules: del sys.modules["ui"]
     import htagui.bulma as ui
     test_ui_App(ui)
     
 def test_ui_App_shoelace():
+    if "ui" in sys.modules: del sys.modules["ui"]
     import htagui.shoelace as ui
     test_ui_App(ui)
 
@@ -36,3 +38,5 @@ def test_ui_App_shoelace():
 if __name__=="__main__":
     test_hflex_vflex()
     test_ui_App()
+    test_ui_App_bulma()
+    test_ui_App_shoelace()
