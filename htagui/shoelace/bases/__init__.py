@@ -74,7 +74,6 @@ class Menu(Tag.sl_menu):
         
     @expose
     def _select(self,idx):
-        list(self._entries.values())[int(idx)]()
 
         #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
         #------------------------------------------------------------------------
@@ -86,6 +85,7 @@ class Menu(Tag.sl_menu):
             current = current.parent
         #------------------------------------------------------------------------
 
+        list(self._entries.values())[int(idx)]()
 
 
 
@@ -132,8 +132,8 @@ class Drawer(Tag.sl_drawer):
 class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
         def call(ev):
-            cb(ev.target.val)
             main.step()
+            cb(ev.target.val)
         box=[ 
             Tag.div(obj),
             Button("Yes",val=True,_onclick=call),
@@ -144,8 +144,8 @@ class ModalConfirm(Modal):
 class ModalPrompt(Modal):
     def __init__(self,main, value,title,cb):
         def call(dico):
-            cb(dico["promptvalue"])
             main.step()
+            cb(dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True) )

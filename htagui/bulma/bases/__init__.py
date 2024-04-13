@@ -37,8 +37,6 @@ class Menu(Tag.aside):
     def init(self,entries:dict):
         self["class"].add("menu")
         def call(ev):
-            ev.target.method()
-
             #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
             #------------------------------------------------------------------------
             current = self.parent
@@ -48,6 +46,8 @@ class Menu(Tag.aside):
                     break
                 current = current.parent
             #------------------------------------------------------------------------
+
+            ev.target.method()
 
         with Tag.ul(_class="menu-list") as ul:
             for k,v in entries.items():
@@ -115,8 +115,8 @@ Drawer = Modal
 class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
         def call(ev):
-            cb(ev.target.val)
             main.step()
+            cb(ev.target.val)
         box=[ 
             Tag.div(obj),
             Button("Yes",val=True,_onclick=call),
@@ -127,8 +127,8 @@ class ModalConfirm(Modal):
 class ModalPrompt(Modal):
     def __init__(self,main, value,title,cb):
         def call(dico):
-            cb(dico["promptvalue"])
             main.step()
+            cb(dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )

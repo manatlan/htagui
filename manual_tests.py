@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
 # import htagui.basics as ui
-import htagui.bulma as ui
-# import htagui.shoelace as ui
+# import htagui.bulma as ui
+import htagui.shoelace as ui
 
 class App(ui.App):
     imports=ui.ALL
@@ -29,6 +29,7 @@ class App(ui.App):
         self <= ui.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk") ,_class="green")
         self <= ui.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify), _class="blue")
         self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("value","text?", self.ui.notify) )
+        self <= ui.Button("prompt ui alert", _onclick=lambda ev: self.ui.prompt("value","with ui alert?", self.ui.alert) )
         self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
         self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
         self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left",0.8 ))
