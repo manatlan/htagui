@@ -113,7 +113,7 @@ class Empty(Tag.div):
         
 class Modal(Tag.sl_dialog):
     def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        self["open"]=True
+        # self["open"]=True
         self["no-header"]=True
         t,r,b,l = trbl
         if closable:
@@ -121,13 +121,17 @@ class Modal(Tag.sl_dialog):
             self <= [bc,obj]
         else:
             self <= obj
+        self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() })" % id(self)
+
 
 class Drawer(Tag.sl_drawer):
     def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        self["open"]=True
+        # self["open"]=True
         self["no-header"]=True
         t,r,b,l = trbl
         self <= obj
+        self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
+
 
 class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
