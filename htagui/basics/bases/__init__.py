@@ -204,7 +204,7 @@ class ModalPrompt(Modal):
             return caller( cb, dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
-            f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
+            f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) ,_style="padding:4px 0")
             f+=Button("Ok" )
             f+=Button("Cancel",_type="button",_onclick=main.stepevent())
         Modal.__init__(self,main,f)

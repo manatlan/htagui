@@ -125,12 +125,13 @@ class Modal(Tag.sl_dialog):
         # self["open"]=True
         self["no-header"]=True
         t,r,b,l = trbl
+        self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() });" % id(self)
         if closable:
             bc=Tag.button("X",_onclick=main.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
             self <= [bc,obj]
         else:
             self <= obj
-        self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() })" % id(self)
+            self.js += "self.addEventListener( 'sl-request-close', function(ev) { ev.preventDefault() });"
 
 
 class Drawer(Tag.sl_drawer):
@@ -161,7 +162,7 @@ class ModalPrompt(Modal):
             return caller(cb,dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
-            f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True) )
+            f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True), _style="padding:4px 0" )
             # f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
             f+=Button("Ok" ,_type="submit")
             f+=Button("Cancel",_type="button",_onclick=main.stepevent())
