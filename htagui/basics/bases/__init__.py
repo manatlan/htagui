@@ -87,6 +87,7 @@ a {color: #0075ff;text-decoration:none}
     border-bottom: 1px solid #0075ff;
 }
 
+
 .spinner {
     width: 32px;
     height: 32px;
@@ -221,3 +222,13 @@ class Toast(Tag.div):
         self.js="setTimeout( function() {self.remove()} , %s)" % timeout
 
 ######################################################################################
+
+
+
+class Tabs(Tag.div):
+    def init(self,main,selected=0):
+        for idx,i in enumerate(main._tabs):
+            name = hasattr(i,"name") and i.name or "?(name)?"
+            self+=Tag.button(name, _onclick = main.stepevent(select=idx), _class="tab selected" if idx==selected else "tab")
+        if main._tabs: self+=main._tabs[selected]
+

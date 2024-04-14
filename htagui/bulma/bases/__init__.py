@@ -158,3 +158,12 @@ class Toast(Tag.div):
         self.js="setTimeout( function() {self.remove()} , %s)" % timeout
 
 ######################################################################################
+
+class Tabs(Tag.div):
+    def init(self,main,selected=0):
+        ul = Tag.ul()
+        for idx,i in enumerate(main._tabs):
+            name = hasattr(i,"name") and i.name or "?(name)?"
+            ul+=Tag.li( Tag.a(name), _onclick = main.stepevent(select=idx), _class="is-active" if idx==selected else "")
+        self<=Tag.div(ul,_class="tabs")
+        if main._tabs: self<=main._tabs[selected]

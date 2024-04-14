@@ -180,3 +180,10 @@ class Toast(Tag.sl_alert):
         self <= obj
         self.js = "window.customElements.whenDefined('sl-alert').then( function() { document.getElementById('%s').toast() })" % id(self)
 ######################################################################################
+
+class Tabs(Tag.sl_tab_group): #TODO: replace by https://shoelace.style/components/tab-group
+    def init(self,main,selected=0):
+        for idx,i in enumerate(main._tabs):
+            name = hasattr(i,"name") and i.name or "?(name)?"
+            self+=Tag.sl_tab(name, _slot="nav", _onclick = main.stepevent(select=idx), _active=(idx==selected))
+        if main._tabs: self+=main._tabs[selected]
