@@ -9,6 +9,8 @@
 
 from htag import Tag
 from ...form import Form
+from ...common import caller
+
 
 #BULMA = [Tag.link( _href="//cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css",_rel="stylesheet")]
 BULMA = [Tag.style( r"""@charset "UTF-8";
@@ -54,7 +56,7 @@ class Menu(Tag.aside):
                 current = current.parent
             #------------------------------------------------------------------------
 
-            ev.target.method()
+            return caller( ev.target.method )
 
         with Tag.ul(_class="menu-list") as ul:
             for k,v in entries.items():
@@ -123,7 +125,7 @@ class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
         def call(ev):
             main.step()
-            cb(ev.target.val)
+            return caller( cb, ev.target.val)            
         box=[ 
             Tag.div(obj),
             Button("Yes",val=True,_onclick=call),
@@ -135,7 +137,8 @@ class ModalPrompt(Modal):
     def __init__(self,main, value,title,cb):
         def call(dico):
             main.step()
-            cb(dico["promptvalue"])
+            return caller(cb,dico["promptvalue"])
+        
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )

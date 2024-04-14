@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
-# import htagui.basics as ui
-import htagui.bulma as ui
+import htagui.basics as ui
+# import htagui.bulma as ui
 # import htagui.shoelace as ui
 
 class App(ui.App):
@@ -51,6 +51,27 @@ class App(ui.App):
             # self.ui.block( Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.close())) 
         
         self <= ui.Button("block", _onclick=test)
+
+
+        self <= Tag.hr()
+        async def atest_yield(v):
+            self.ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
+            yield
+            import time;time.sleep(0.5)
+            self.ui.close()
+
+        def test_yield(v):
+            self.ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
+            yield
+            import time;time.sleep(0.5)
+            self.ui.close()
+
+        self <= ui.Button("test cb ayield", _onclick=lambda ev: self.ui.prompt("value","?", atest_yield))
+        self <= Tag.a("test cb ayield", _onclick=atest_yield)
+        self <= ui.Button("test cb ayield", _onclick=lambda ev: self.ui.prompt("value","?", test_yield))
+        self <= Tag.a("test cb ayield", _onclick=test_yield)
+
+        self <= Tag.hr()
 
         def copy(ev):
             self.ui.clipboard_copy("hello")
