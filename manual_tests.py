@@ -43,7 +43,7 @@ class App(ui.App):
             o <= ui.Button("previous alert", _onclick=lambda ev: self.ui.previous() )
             o <= ui.Button("next alert", _onclick=imbricated )
             self.ui.alert(o)
-
+            
         self <= ui.Button("imbricated alert", _onclick=imbricated )
 
         def test(ev):
@@ -52,6 +52,11 @@ class App(ui.App):
         
         self <= ui.Button("block", _onclick=test)
 
+        def copy(ev):
+            self.ui.clipboard_copy("hello")
+            self.ui.notify("copied")
+        
+        self <= ui.Button("copy into clipboard", _onclick=copy)
 
 
 

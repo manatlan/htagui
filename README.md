@@ -212,6 +212,10 @@ Display a modal dialog box containing the object 'obj'. But the dialog is not cl
 
 Close programatically, the current ui dialog.
 
+### method clipboard_copy(txt:str)
+
+Copy the txt in the clipboard
+
 ## Object HSplit (& VSplit)
 
 A Tag object to use "SplitJS" (currently only in horizontal form)

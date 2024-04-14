@@ -35,6 +35,16 @@ class Dialog(Tag.div,TagStep):
         parent += self._toasts  # add a personnal place for toasts
         TagStep.init(self)
 
+    def clipboard_copy(self,txt:str):
+        self.call(f"""
+let ta = document.createElement('textarea');
+ta.value = `{txt}`;
+self.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+self.removeChild(ta);
+""")
+
     def alert(self,obj):
         self.step( alert = obj )
 
