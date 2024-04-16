@@ -8,8 +8,8 @@
 # #############################################################################
 
 from htag import Tag
-from ...form import Form
-from ...common import caller
+from ..form import Form
+from ..common import caller
 
 CSS="""
 html,body {

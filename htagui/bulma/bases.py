@@ -8,8 +8,8 @@
 # #############################################################################
 
 from htag import Tag
-from ...form import Form
-from ...common import caller
+from ..form import Form
+from ..common import caller
 
 
 #BULMA = [Tag.link( _href="//cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css",_rel="stylesheet")]

@@ -8,8 +8,8 @@
 # #############################################################################
 
 from htag import Tag,expose
-from ...form import Form
-from ...common import caller
+from ..form import Form
+from ..common import caller
 
 SHOELACE = [
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/dark.css" ),
