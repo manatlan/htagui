@@ -1,5 +1,5 @@
 import time
-from htag import Tag
+from htag import Tag,expose
 
 import importlib,__main__
 print(f"IMPORT [{__main__.htaguimodule}]")
@@ -18,7 +18,13 @@ class IField:
             self._value=self.caster(self.object.attrs.get( prop ))
         else:
             self._value=self.caster(self.object.innerHTML)
-        
+
+        # if self.object.tag.startswith("sl-"):
+        #     self.js="""
+        #         self.addEventListener('sl-change', (e)=> {
+        #             self._change( jevent(e) );
+        #         });"""
+        # else:
         self.object["onchange"] = self.bind( self._iset, js_value_getter )
 
     def _iset(self, ev, value:str):
@@ -28,6 +34,10 @@ class IField:
         self._value = self.caster(value)
 
         return self.object.onchange(ev)
+    
+    # @expose
+    # def sl_change(self,ev):
+    #     pass
             
     @property
     def value(self):

@@ -2,7 +2,7 @@
 from htag import Tag,expose,Runner
 import htagui.basics as ui
 # import htagui.bulma as ui
-# import htagui.shoelace as ui          # ****KAPUTTT (need to remake event)*******
+# import htagui.shoelace as ui          # ****KAPUTTT (need to REBIND sl-change event (comple coz IText metamorph))*******
 
 
 class App(ui.App):
