@@ -21,6 +21,7 @@ class Input(Tag.input):
     statics= BULMA
     def init(self,**a):
         if "type" not in self.attrs:
+            self.attrs["type"]="text"
             self["class"].add("input")
 
 class Button(Tag.button):
