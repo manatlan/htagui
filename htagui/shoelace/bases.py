@@ -9,7 +9,6 @@
 
 from htag import Tag,expose
 from ..form import Form
-from ..common import caller
 
 SHOELACE = [
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/dark.css" ),
@@ -94,7 +93,7 @@ class Menu(Tag.sl_menu):
             current = current.parent
         #------------------------------------------------------------------------
 
-        return caller(list(self._entries.values())[int(idx)])
+        return list(self._entries.values())[int(idx)])()
 
 
 
@@ -147,7 +146,7 @@ class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
         def call(ev):
             main.step()
-            return caller( cb, ev.target.val)
+            return cb(ev.target.val)
         box=[ 
             Tag.div(obj),
             Button("Yes",val=True,_onclick=call),
@@ -159,7 +158,7 @@ class ModalPrompt(Modal):
     def __init__(self,main, value,title,cb):
         def call(dico):
             main.step()
-            return caller(cb,dico["promptvalue"])
+            return cb(dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True), _style="padding:4px 0" )

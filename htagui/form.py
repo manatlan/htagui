@@ -8,7 +8,6 @@
 # #############################################################################
 
 from htag import Tag,expose
-from .common import caller
 
 class Form(Tag.form):
     def init(self,onsubmit=lambda dico:dico,**a):
@@ -20,4 +19,4 @@ class Form(Tag.form):
 
     @expose
     async def _submit(self,data:dict):
-        return caller( self.onsubmit, data)
+        return self.onsubmit(data)

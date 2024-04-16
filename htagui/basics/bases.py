@@ -9,7 +9,6 @@
 
 from htag import Tag
 from ..form import Form
-from ..common import caller
 
 CSS="""
 html,body {
@@ -160,7 +159,7 @@ class Menu(Tag.div):
                 current = current.parent
             #------------------------------------------------------------------------
 
-            return caller( ev.target.method )
+            return ev.target.method()
 
         for k,v in entries.items():
             self += Tag.div(k,method=v,_onclick=call)
@@ -189,7 +188,7 @@ class ModalConfirm(Modal):
     def __init__(self,main,obj,cb):
         def call(ev):
             main.step()
-            return caller( cb, ev.target.val)
+            return cb( ev.target.val )
          
         box=[ 
             Tag.div(obj),
@@ -202,7 +201,7 @@ class ModalPrompt(Modal):
     def __init__(self,main, value,title,cb):
         def call(dico):
             main.step()
-            return caller( cb, dico["promptvalue"])
+            return cb( dico["promptvalue"] )
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) ,_style="padding:4px 0")

@@ -38,22 +38,22 @@ class TagStep: # (could be in htag soon)
         pass
 
 
-import types,asyncio
+# import types,asyncio
 
-async def caller( cb, *a, **k):
-    if asyncio.iscoroutinefunction(cb):
-        r=await cb(*a,**k)
-    else:                
-        r=cb(*a,**k)
-    if isinstance(r, types.GeneratorType):
-        for i in r:
-            yield i
-        # yield from r
-    elif isinstance(r, types.AsyncGeneratorType):
-        async for i in r:
-            yield i
-    else:
-        assert r is None
+# async def caller( cb, *a, **k):
+#     if asyncio.iscoroutinefunction(cb):
+#         r=await cb(*a,**k)
+#     else:                
+#         r=cb(*a,**k)
+#     if isinstance(r, types.GeneratorType):
+#         for i in r:
+#             yield i
+#         # yield from r
+#     elif isinstance(r, types.AsyncGeneratorType):
+#         async for i in r:
+#             yield i
+#     else:
+#         assert r is None
 
 if __name__=="__main__":
     from htag import Tag
