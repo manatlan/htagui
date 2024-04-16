@@ -168,15 +168,32 @@ class Menu(Tag.div):
 ## Dialog objects
 ######################################################################################
 class Empty(Tag.div):
-    def init(self,main):
+    def init(self,metatag):
         self.clear()
-        
+
+# class ModalBase(Tag.div):
+#     def init(self,metatag,obj,closable=True):
+#         modal = Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
+#         if closable:
+#             modal["onmousedown"]=metatag.stepevent()
+
+#         self <= Voile()
+#         self <= modal
+
+
+# class ModalBox(ModalBase):
+#     def __init__(self,metatag,obj):
+#         bc=Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
+#         box=Tag.div( [bc,obj],_style="width:60%;max-height:80%;background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px")
+#         ModalBase.__init__(self,metatag,box,closable=True)
+
+
 class Modal(Tag.div):
-    def init(self,main,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
         t,r,b,l = trbl
         if closable:
-            bc=Tag.button("X",_onclick=main.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-            self <= Voile(_onmousedown=main.stepevent())
+            bc=Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
+            self <= Voile(_onmousedown=metatag.stepevent())
             self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
         else:
             self <= Voile(_style="cursor:not-allowed;")
@@ -185,9 +202,9 @@ class Modal(Tag.div):
 Drawer = Modal
 
 class ModalConfirm(Modal):
-    def __init__(self,main,obj,cb):
+    def __init__(self,metatag,obj,cb):
         def call(ev):
-            main.step()
+            metatag.step()
             return cb( ev.target.val )
          
         box=[ 
@@ -195,24 +212,24 @@ class ModalConfirm(Modal):
             Button("Yes",val=True,_onclick=call),
             Button("No",val=False,_onclick=call),
         ]
-        Modal.__init__(self,main,box)
+        Modal.__init__(self,metatag,box)
 
 class ModalPrompt(Modal):
-    def __init__(self,main, value,title,cb):
+    def __init__(self,metatag, value,title,cb):
         def call(dico):
-            main.step()
+            metatag.step()
             return cb( dico["promptvalue"] )
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) ,_style="padding:4px 0")
             f+=Button("Ok" )
-            f+=Button("Cancel",_type="button",_onclick=main.stepevent())
-        Modal.__init__(self,main,f)
+            f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
+        Modal.__init__(self,metatag,f)
 
 class Pop(Tag.div):
-    def init(self,main,obj,xy:tuple):
+    def init(self,metatag,obj,xy:tuple):
         x,y=xy
-        self <= Voile(_onmousedown=main.stepevent())
+        self <= Voile(_onmousedown=metatag.stepevent())
         self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
 
 class Toast(Tag.div):
@@ -225,9 +242,9 @@ class Toast(Tag.div):
 
 
 class Tabs(Tag.div):
-    def init(self,main,selected=0):
-        for idx,i in enumerate(main._tabs):
+    def init(self,metatag,selected=0):
+        for idx,i in enumerate(metatag._tabs):
             name = hasattr(i,"name") and i.name or "?(name)?"
-            self+=Tag.button(name, _onclick = main.stepevent(select=idx), _class="tab selected" if idx==selected else "tab")
-        if main._tabs: self+=main._tabs[selected]
+            self+=Tag.button(name, _onclick = metatag.stepevent(select=idx), _class="tab selected" if idx==selected else "tab")
+        if metatag._tabs: self+=metatag._tabs[selected]
 

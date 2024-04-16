@@ -8,7 +8,7 @@
 # #############################################################################
 import os,sys,re
 
-class TagStep: # (could be in htag soon)
+class MetaTag: # (could be in htag soon)
     """ 
         Inherit Special features to create an htag class which will act
         as a "state machine" (ability to render different form, and
@@ -58,7 +58,7 @@ class TagStep: # (could be in htag soon)
 if __name__=="__main__":
     from htag import Tag
 
-    class Empty(Tag.div,TagStep):
+    class Empty(Tag.div,MetaTag):
         #-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
         class Empty(Tag.div):
             def init(self,main):
@@ -69,7 +69,7 @@ if __name__=="__main__":
             self(Empty.Empty)
 
 
-    class Selector(Tag.div,TagStep):
+    class Selector(Tag.div,MetaTag):
         " an example of use ^^ "
         #-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:
         class Choose(Tag.div):
@@ -87,7 +87,7 @@ if __name__=="__main__":
             " ex of surcharge on the default constructor "
             self.selected=selected
             self.all=all
-            TagStep.init(self)
+            MetaTag.init(self)
 
         def step(self,**params):
             " all the functionnal logic goes here "

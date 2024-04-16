@@ -8,20 +8,20 @@
 # #############################################################################
 
 from htag import Tag
-from .common import TagStep
+from .common import MetaTag
 
 import importlib,__main__
 print(f"IMPORT [{__main__.htaguimodule}]")
 cui = importlib.import_module(__main__.htaguimodule)
 
-class Tabs(Tag.div,TagStep):
+class Tabs(Tag.div,MetaTag):
 
     def init(self,*objs,onchange=lambda x:x,**a):
         self._previous_selected=None
         self._selected=0
         self.onchange=onchange
         self._tabs=list(objs)
-        TagStep.init(self)
+        MetaTag.init(self)
 
     def step(self,**params):
         if "select" in params:

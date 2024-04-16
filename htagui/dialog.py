@@ -7,13 +7,13 @@
 # https://github.com/manatlan/htag
 # #############################################################################
 from htag import Tag,expose
-from .common import TagStep
+from .common import MetaTag
 
 import importlib,__main__
 print(f"IMPORT [{__main__.htaguimodule}]")
 cui = importlib.import_module(__main__.htaguimodule)
 
-class Dialog(Tag.div,TagStep):
+class Dialog(Tag.div,MetaTag):
     imports=[cui.Voile,cui.Button,cui.Input]
 
     def init(self,parent):
@@ -22,7 +22,7 @@ class Dialog(Tag.div,TagStep):
         self._previous=None
         parent += self  # auto add
         parent += self._toasts  # add a personnal place for toasts
-        TagStep.init(self)
+        MetaTag.init(self)
 
     def clipboard_copy(self,txt:str):
         self.call(f"""
