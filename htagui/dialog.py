@@ -9,20 +9,9 @@
 from htag import Tag,expose
 from .common import TagStep
 
-#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# dont know how it can work ... but it does the job
-#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-try:
-    from .basics import bases as cui
-    print("IMPORT [BASICS]")
-except ImportError:
-    try:
-        from .bulma import bases as cui
-        print("IMPORT [BULMA]")
-    except ImportError:
-        from .shoelace import bases as cui
-        print("IMPORT [SHOELACE]")
-#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+import importlib,__main__
+print(f"IMPORT [{__main__.htaguimodule}]")
+cui = importlib.import_module(__main__.htaguimodule)
 
 class Dialog(Tag.div,TagStep):
     imports=[cui.Voile,cui.Button,cui.Input]

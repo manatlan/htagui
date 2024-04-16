@@ -93,7 +93,7 @@ class Menu(Tag.sl_menu):
             current = current.parent
         #------------------------------------------------------------------------
 
-        return list(self._entries.values())[int(idx)])()
+        return list(self._entries.values())[int(idx)]()
 
 
 

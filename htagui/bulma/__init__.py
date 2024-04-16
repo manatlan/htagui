@@ -7,6 +7,8 @@
 # https://github.com/manatlan/htag
 # #############################################################################
 
+import __main__
+__main__.htaguimodule = "htagui.bulma.bases"
 
 from htag import Tag
 

@@ -7,6 +7,9 @@
 # https://github.com/manatlan/htag
 # #############################################################################
 
+import __main__
+__main__.htaguimodule = "htagui.shoelace.bases"
+
 from htag import Tag
 # dialog.box et dialog.drawer are cata
 # dialog.box et dialog.drawer are cata
