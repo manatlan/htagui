@@ -21,7 +21,7 @@ from htag import Tag
 # dialog.box et dialog.drawer are cata
 # dialog.box et dialog.drawer are cata
 ########################################################################################
-from .bases import Button,Input,Menu,Spinner,Select
+from .bases import Button,Input,Textarea,Menu,Spinner,Select
 ########################################################################################
 from ..form import Form
 from ..tabs import Tabs
@@ -39,5 +39,5 @@ class App(Tag.body):
             self._ui = Dialog(self)
         return self._ui
 
-ALL=[App,Button,Input,Select,Menu,Spinner,Form,Tabs,Dialog,HSplit,IText,ITextarea,IRange,IBool,ISelect]
-__all__=["App","Button","Input","Select","Menu","Spinner","Form","Tabs","Dialog","HSplit",  "IText","ITextarea","IRange","IBool","ISelect"     "hflex","vflex", "ALL"]
+ALL=[App,Button,Input,Textarea,Select,Menu,Spinner,Form,Tabs,Dialog,HSplit,IText,ITextarea,IRange,IBool,ISelect]
+__all__=["App","Button","Input","Textarea","Select","Menu","Spinner","Form","Tabs","Dialog","HSplit",  "IText","ITextarea","IRange","IBool","ISelect"     "hflex","vflex", "ALL"]

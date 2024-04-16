@@ -22,7 +22,15 @@ class Input(Tag.input):
     def init(self,**a):
         if "type" not in self.attrs:
             self.attrs["type"]="text"
+        
+        if self.attrs.get("type")=="text":
             self["class"].add("input")
+
+class Textarea(Tag.textarea):
+    statics=BULMA
+    def init(self,txt:str,**a):
+        self["class"].add("textarea")
+        self <= txt
 
 class Button(Tag.button):
     statics= BULMA

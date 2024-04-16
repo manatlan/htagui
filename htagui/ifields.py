@@ -51,10 +51,10 @@ class IText(ui.Input,IField):
         ui.Input.__init__(self,_value=value,_type="text",**k)
         IField.__init__(self, self, "value", b"this.value",lambda x: str(x) )
 
-class ITextarea(Tag.textarea,IField):
+class ITextarea(ui.Textarea,IField):
     def __init__(self, value:str, onchange=lambda ev: None,**k):
         self.onchange = onchange
-        Tag.textarea.__init__(self,value,**k)
+        ui.Textarea.__init__(self,value,**k)
         IField.__init__(self, self, None, b"this.value",lambda x: str(x) )
 
 class IBool(ui.Input,IField):

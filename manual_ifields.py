@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
 import htagui.basics as ui
-# import htagui.bulma as ui             # ****KAPUTTT*******
-# import htagui.shoelace as ui          # ****KAPUTTT*******
+# import htagui.bulma as ui
+# import htagui.shoelace as ui          # ****KAPUTTT (need to remake event)*******
 
 
 class App(ui.App):
@@ -10,15 +10,15 @@ class App(ui.App):
     def init(self):
         OPTS = {1:"v1",2:"v2",3:"v3"}
         dynamics=[
-            ui.IText("val",onchange=self.onchange),
-            ui.ITextarea("val",onchange=self.onchange),
+            ui.IText("itext",onchange=self.onchange),
+            ui.ITextarea("itextarea",onchange=self.onchange),
             ui.IBool(True,onchange=self.onchange),
             ui.IRange(42,onchange=self.onchange),
             ui.ISelect(42,OPTS,onchange=self.onchange),
         ]
         statics=[
-            ui.Input(_value="val",_onchange=self.onchange),
-            Tag.Textarea("val",_onchange=self.onchange),
+            ui.Input(_value="input",_onchange=self.onchange),
+            ui.Textarea("textarea",_onchange=self.onchange),
             ui.Input(_type="checkbox",_checked=True,_onchange=self.onchange),
             ui.Input(_type="range",_value=42,_onchange=self.onchange),
             ui.Select(OPTS,_value=42,_onchange=self.onchange),

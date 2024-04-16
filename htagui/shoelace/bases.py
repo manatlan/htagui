@@ -48,6 +48,10 @@ class Input(Tag.input):
         elif type=="range":
             self.tag = "sl-range"
 
+class Textarea(Tag.sl_textarea):
+    statics=SHOELACE
+    def init(self,txt:str,**a):
+        self <= txt
 
 class Button(Tag.sl_button):
     statics= SHOELACE

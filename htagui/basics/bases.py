@@ -58,6 +58,17 @@ a {color: #0075ff;text-decoration:none}
     border: 2px solid #0075ff !important;
 }
 
+
+.textarea {
+    padding:4px;
+    border-radius: 4px;
+    border: 2px solid #EEE;
+}
+.textarea:focus {
+    outline: none;
+    border: 2px solid #0075ff !important;
+}
+
 .select {
     font-family: ubuntu;
 }
@@ -134,6 +145,13 @@ class Input(Tag.input):
     statics=CSS
     def init(self,**a):
         self["class"].add("input")
+
+
+class Textarea(Tag.textarea):
+    statics=CSS
+    def init(self,txt:str, **a):
+        self["class"].add("textarea")
+        self <= txt
 
 class Select(Tag.select):
     statics=CSS
