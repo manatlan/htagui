@@ -38,7 +38,7 @@ self.removeChild(ta);
         self.step( alert = obj )
 
     def box(self,obj,size:float=0.5):
-        self.step( box = obj, size=50 - size*50 )
+        self.step( box = obj, size=size )
         
     def confirm(self,obj,cbresponse=lambda bool:bool):
         self.step( confirm = obj, cb=cbresponse )
@@ -52,9 +52,9 @@ self.removeChild(ta);
     def pop(self, obj, xy:tuple):
         self.step( pop = obj, xy=xy )
 
-    def drawer(self, obj, mode="left", size:float=0.5):
+    def drawer(self, obj, mode="left"):
         assert mode in ["left","right","bottom","top"]
-        self.step( drawer = obj, mode=mode, size=100 - 100*size )
+        self.step( drawer = obj, mode=mode )
 
     def block(self,obj=None):
         self.step( block=obj )
@@ -75,21 +75,21 @@ self.removeChild(ta);
             self._previous = self._current
             self(*a,**k)
 
-        if "block" in params: #NEW
+        if "block" in params:
             set( cui.ModalBlock, params["block"] )
-        elif "alert" in params: #NEW
+        elif "alert" in params:
             set( cui.ModalAlert, params["alert"] )
         elif "confirm" in params:
             set( cui.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
             set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
-        elif "box" in params:
+        elif "box" in params: # NEW
             size=params["size"]
-            set( cui.Drawer, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
+            set( cui.ModalBox, params["box"], size )
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:
-            size=params["size"]
+            size=50
             if params["mode"]=="left":
                 self( cui.Drawer, params["drawer"], ("0px",f"{size}%","0px","0px"),radius=0 )
             elif params["mode"]=="right":

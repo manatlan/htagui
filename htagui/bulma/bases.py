@@ -38,7 +38,8 @@ class Button(Tag.button):
         self <= title
         self["class"].add("button")
 
-class Voile(Tag.div):
+class Voile(Tag.div): 
+    statics= BULMA
     def init(self,**a):
         self["style"].set("position","fixed")
         self["style"].set("top","0px")
@@ -48,6 +49,7 @@ class Voile(Tag.div):
         self["style"].set("z-index","1000")
         self["style"].set("background","#CCC")
         self["style"].set("opacity","0.5")
+
 
 
 class Menu(Tag.aside):
@@ -116,29 +118,34 @@ class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
 
-def _createModal( obj ):
-    """ create a method, bicoz the multi-inehirt mechanism of htag is broken ;-("""
-    modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
-    return modal
 
 class ModalBlock(Tag.div):
     def init(self,metatag,obj):
-        self <= Voile() + _createModal(obj)
+        self['class']="modal is-active"
+        self <= Tag.div(_class="modal-background") + obj
 
-class ModalAlert(Tag.div):
-    """in perfect world, it shoud inherit from modalbase ... but no, use function instead"""
-    def init(self,metatag,obj):
-        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-        box = Tag.div( [bc,obj],_style="width:60%;max-height:80%;background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px")
-        modal = _createModal(box)
-        modal["onmousedown"] = metatag.stepevent()
-        self <= Voile() + modal
-        
+class ModalAlert(ModalBlock):
+    def __init__(self,metatag,obj,pmaximize=None):
+        obj = Tag.div(obj,_class="box")
+        if pmaximize:
+            obj["style"]="height:100%;overflow-y:auto"
+        obj=Tag.div(obj,_class="modal-content")
+        ModalBlock.__init__(self,metatag,obj)
+        self.childs[0]["onclick"]=metatag.stepevent()
+        if pmaximize:
+            obj["style"]=f"width:{pmaximize};height:{pmaximize};"
+        self += Tag.button(_class="modal-close is-large",_aria_label="close",_onclick=metatag.stepevent())
+
+class ModalBox(ModalAlert):
+    def __init__(self,metatag,obj,size:float=.6):
+        ModalAlert.__init__(self,metatag,obj,pmaximize=f"{size*100}%")
+
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
         def call(ev):
             metatag.step()
-            return cb(ev.target.val)            
+            return cb( ev.target.val )
+         
         box=[ 
             Tag.div(obj),
             Button("Yes",val=True,_onclick=call),
@@ -150,15 +157,14 @@ class ModalPrompt(ModalAlert):
     def __init__(self,metatag, value,title,cb):
         def call(dico):
             metatag.step()
-            return cb(dico["promptvalue"])
-        
+            return cb( dico["promptvalue"] )
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) ,_style="padding:4px 0")
             f+=Button("Ok" )
             f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
         ModalAlert.__init__(self,metatag,f)
-
+        
 class Drawer(Tag.div):
     def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
         t,r,b,l = trbl

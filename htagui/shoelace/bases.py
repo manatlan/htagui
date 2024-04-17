@@ -124,10 +124,9 @@ class Empty(Tag.div):
         self.clear()
         
 class ModalAlert(Tag.sl_dialog):
-    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+    def init(self,metatag,obj,closable=True):
         # self["open"]=True
         self["no-header"]=True
-        t,r,b,l = trbl
         self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() });" % id(self)
         if closable:
             bc=Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
@@ -136,23 +135,10 @@ class ModalAlert(Tag.sl_dialog):
             self <= obj
             self.js += "self.addEventListener( 'sl-request-close', function(ev) { ev.preventDefault() });"
 
-class ModalBlock(ModalAlert):
-    def __init__(self,metatag,obj):
-        ModalAlert.__init__(self,metatag,obj,closable=False)
 
-class Drawer(Tag.sl_drawer):
-    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        # self["open"]=True
-        self["no-header"]=True
-        t,r,b,l = trbl
-        if r!="0px": mode = "start"
-        if l!="0px": mode = "end"
-        if b!="0px": mode = "top"
-        if t!="0px": mode = "bottom"
-        self["placement"]=mode
-        self <= obj
-        self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
-
+class ModalBox(ModalAlert):
+    def __init__(self,metatag,obj,size:float=.6):
+        ModalAlert.__init__(self,metatag,obj)
 
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
@@ -178,6 +164,25 @@ class ModalPrompt(ModalAlert):
             f+=Button("Ok" ,_type="submit")
             f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
         ModalAlert.__init__(self,metatag,f)
+
+class ModalBlock(ModalAlert):
+    def __init__(self,metatag,obj):
+        ModalAlert.__init__(self,metatag,obj,closable=False)
+
+class Drawer(Tag.sl_drawer):
+    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+        # self["open"]=True
+        self["no-header"]=True
+        t,r,b,l = trbl
+        if r!="0px": mode = "start"
+        if l!="0px": mode = "end"
+        if b!="0px": mode = "top"
+        if t!="0px": mode = "bottom"
+        self["placement"]=mode
+        self <= obj
+        self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
+
+
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):

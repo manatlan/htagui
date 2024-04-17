@@ -189,28 +189,26 @@ class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
 
-def _createModal( obj ):
-    """ create a method, bicoz the multi-inehirt mechanism of htag is broken ;-("""
-    modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
-    return modal
 
 class ModalBlock(Tag.div):
     def init(self,metatag,obj):
-        self <= Voile() + _createModal(obj)
-
-class ModalAlert(Tag.div):
-    """in perfect world, it shoud inherit from modalbase ... but no, use function instead"""
-    def init(self,metatag,obj):
-        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-        box = Tag.div( [bc,obj],_style="width:60%;max-height:80%;background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px")
-        modal = _createModal(box)
-        modal["onmousedown"] = metatag.stepevent()
+        modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
         self <= Voile() + modal
 
-# TODO: futur
-# class ModalBox(ModalAlert):
-#     def __init__(self,metatag,obj,cb,size:float=.6):
-#         ModalAlert.__init__(self,metatag,obj,width=f"{size*100}%",height=f"{size*100}%",maxheight=None)
+class ModalAlert(ModalBlock):
+    def __init__(self,metatag,obj,pwidth="60%",pheight=None):
+        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+        box = Tag.div( [bc,obj],_style=f"width:{pwidth};background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px")
+        if pheight:
+            box["style"].set("height",pheight)
+        else:
+            box["style"].set("max-height","80%")
+                
+        ModalBlock.__init__(self,metatag,box)
+
+class ModalBox(ModalAlert):
+    def __init__(self,metatag,obj,size:float=.6):
+        ModalAlert.__init__(self,metatag,obj,pwidth=f"{size*100}%",pheight=f"{size*100}%")
 
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):

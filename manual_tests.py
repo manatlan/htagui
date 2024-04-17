@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
-import htagui.basics as ui
-# import htagui.bulma as ui
+# import htagui.basics as ui
+import htagui.bulma as ui
 # import htagui.shoelace as ui
 
 class App(ui.App):
@@ -22,17 +22,17 @@ class App(ui.App):
 
         self <= ui.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk") ,_class="green")
 
-        self <= ui.Button("box 0", _onclick=lambda ev: self.ui.box("kkkk",size=0) ,_class="red")
         self <= ui.Button("box .1", _onclick=lambda ev: self.ui.box("kkkk",size=0.1) ,_class="red")
         self <= ui.Button("box .2", _onclick=lambda ev: self.ui.box("kkkk",size=0.2) ,_class="red")
         self <= ui.Button("box .5", _onclick=lambda ev: self.ui.box("kkkk",size=0.5) ,_class="red")
         self <= ui.Button("box .6", _onclick=lambda ev: self.ui.box("kkkk",size=0.6) ,_class="red")
         self <= ui.Button("box .7", _onclick=lambda ev: self.ui.box("kkkk",size=0.7) ,_class="red")
+        self <= ui.Button("box .9", _onclick=lambda ev: self.ui.box("kkkk",size=0.9) ,_class="red")
         self <= ui.Button("box 1", _onclick=lambda ev: self.ui.box("kkkk",size=1) ,_class="red")
 
         self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
         self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
-        self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left",0.8 ))
+        self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left" ))
         self <= ui.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
         self <= ui.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
         self <= ui.Button("drawer bottom", _onclick=lambda ev: self.ui.drawer( "yo","bottom" ))
@@ -47,11 +47,11 @@ class App(ui.App):
             
         self <= ui.Button("imbricated alert", _onclick=imbricated )
 
-        def test(ev):
+        def block(ev):
             self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
             # self.ui.block( Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.close())) 
         
-        self <= ui.Button("block", _onclick=test)
+        self <= ui.Button("block", _onclick=block)
 
 
         self <= Tag.hr()
@@ -124,4 +124,10 @@ class App(ui.App):
         
 #=================================================================================
 if __name__ == "__main__":
+
+    import logging
+    logging.basicConfig(format='[%(levelname)-5s] %(name)s: %(message)s',level=logging.INFO)
+    logging.getLogger("htag.tag").setLevel( logging.INFO )
+
+
     Runner(App).run()
