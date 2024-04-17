@@ -85,7 +85,7 @@ self.removeChild(ta);
             set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
         elif "box" in params:
             size=params["size"]
-            set( cui.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
+            set( cui.Drawer, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:

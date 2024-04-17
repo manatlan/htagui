@@ -123,7 +123,7 @@ class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
         
-class Modal(Tag.sl_dialog):
+class ModalAlert(Tag.sl_dialog):
     def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
         # self["open"]=True
         self["no-header"]=True
@@ -136,6 +136,9 @@ class Modal(Tag.sl_dialog):
             self <= obj
             self.js += "self.addEventListener( 'sl-request-close', function(ev) { ev.preventDefault() });"
 
+class ModalBlock(ModalAlert):
+    def __init__(self,metatag,obj):
+        ModalAlert.__init__(self,metatag,obj,closable=False)
 
 class Drawer(Tag.sl_drawer):
     def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
@@ -146,7 +149,7 @@ class Drawer(Tag.sl_drawer):
         self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
 
 
-class ModalConfirm(Modal):
+class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
         def call(ev):
             metatag.step()
@@ -156,9 +159,9 @@ class ModalConfirm(Modal):
             Button("Yes",val=True,_onclick=call),
             Button("No",val=False,_onclick=call),
         ]
-        Modal.__init__(self,metatag,box)
+        ModalAlert.__init__(self,metatag,box)
 
-class ModalPrompt(Modal):
+class ModalPrompt(ModalAlert):
     def __init__(self,metatag, value,title,cb):
         def call(dico):
             metatag.step()
@@ -169,7 +172,7 @@ class ModalPrompt(Modal):
             # f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
             f+=Button("Ok" ,_type="submit")
             f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
-        Modal.__init__(self,metatag,f)
+        ModalAlert.__init__(self,metatag,f)
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):

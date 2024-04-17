@@ -115,21 +115,26 @@ class Select(Tag.div):
 class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
+
+def _createModal( obj ):
+    """ create a method, bicoz the multi-inehirt mechanism of htag is broken ;-("""
+    modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
+    return modal
+
+class ModalBlock(Tag.div):
+    def init(self,metatag,obj):
+        self <= Voile() + _createModal(obj)
+
+class ModalAlert(Tag.div):
+    """in perfect world, it shoud inherit from modalbase ... but no, use function instead"""
+    def init(self,metatag,obj):
+        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
+        box = Tag.div( [bc,obj],_style="width:60%;max-height:80%;background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px")
+        modal = _createModal(box)
+        modal["onmousedown"] = metatag.stepevent()
+        self <= Voile() + modal
         
-class Modal(Tag.div):
-    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        t,r,b,l = trbl
-        if closable:
-            bc=Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-            self <= Voile(_onmousedown=metatag.stepevent())
-            self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
-        else:
-            self <= Voile(_style="cursor:not-allowed;")
-            self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
-
-Drawer = Modal
-
-class ModalConfirm(Modal):
+class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
         def call(ev):
             metatag.step()
@@ -139,9 +144,9 @@ class ModalConfirm(Modal):
             Button("Yes",val=True,_onclick=call),
             Button("No",val=False,_onclick=call),
         ]
-        Modal.__init__(self,metatag,box)
+        ModalAlert.__init__(self,metatag,box)
 
-class ModalPrompt(Modal):
+class ModalPrompt(ModalAlert):
     def __init__(self,metatag, value,title,cb):
         def call(dico):
             metatag.step()
@@ -152,7 +157,19 @@ class ModalPrompt(Modal):
             f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) ,_style="padding:4px 0")
             f+=Button("Ok" )
             f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
-        Modal.__init__(self,metatag,f)
+        ModalAlert.__init__(self,metatag,f)
+
+class Drawer(Tag.div):
+    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
+        t,r,b,l = trbl
+        if closable:
+            bc=Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
+            self <= Voile(_onmousedown=metatag.stepevent())
+            self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
+        else:
+            self <= Voile(_style="cursor:not-allowed;")
+            self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
+
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
