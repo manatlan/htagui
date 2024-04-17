@@ -207,6 +207,11 @@ class ModalAlert(Tag.div):
         modal["onmousedown"] = metatag.stepevent()
         self <= Voile() + modal
 
+# TODO: futur
+# class ModalBox(ModalAlert):
+#     def __init__(self,metatag,obj,cb,size:float=.6):
+#         ModalAlert.__init__(self,metatag,obj,width=f"{size*100}%",height=f"{size*100}%",maxheight=None)
+
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
         def call(ev):

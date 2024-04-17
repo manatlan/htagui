@@ -145,6 +145,11 @@ class Drawer(Tag.sl_drawer):
         # self["open"]=True
         self["no-header"]=True
         t,r,b,l = trbl
+        if r!="0px": mode = "start"
+        if l!="0px": mode = "end"
+        if b!="0px": mode = "top"
+        if t!="0px": mode = "bottom"
+        self["placement"]=mode
         self <= obj
         self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
 
