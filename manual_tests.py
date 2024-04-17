@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from htag import Tag,expose,Runner
-# import htagui.basics as ui
+import htagui.basics as ui
 # import htagui.bulma as ui
-import htagui.shoelace as ui
+# import htagui.shoelace as ui
 
 class App(ui.App):
     imports=ui.ALL
@@ -94,6 +94,7 @@ class App(ui.App):
                 Tag.label( ui.Input(_name="rb",_type="radio",_value=2) + "2")
             ])
             f<=HBox("range",ui.Input(_name="val",_type="range"))
+            f<=HBox("text",ui.Textarea("hello",_name="textarea"))
             f<=HBox("Select",ui.Select( {1:"v1",2:"v2",3:"v3"},_value=2, _name="myselect"))
             f<=ui.Button("submit")
             f<=ui.Button("no_submit",_type="button")
