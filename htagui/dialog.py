@@ -89,15 +89,7 @@ self.removeChild(ta);
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:
-            size=50
-            if params["mode"]=="left":
-                self( cui.Drawer, params["drawer"], ("0px",f"{size}%","0px","0px"),radius=0 )
-            elif params["mode"]=="right":
-                self( cui.Drawer, params["drawer"], ("0px","0px","0px",f"{size}%"),radius=0 )
-            elif params["mode"]=="bottom":
-                self( cui.Drawer, params["drawer"], (f"{size}%","0px","0px","0px"),radius=0 )
-            elif params["mode"]=="top":
-                self( cui.Drawer, params["drawer"], ("0px","0px",f"{size}%","0px"),radius=0 )
+            self( cui.Drawer, params["drawer"], params["mode"] )
         elif "toast" in params:
             self._toasts.clear( cui.Toast( self, params["toast"], params["time"] ))
         else:

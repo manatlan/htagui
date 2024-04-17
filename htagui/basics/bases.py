@@ -236,16 +236,19 @@ class ModalPrompt(ModalAlert):
         ModalAlert.__init__(self,metatag,f)
 
 class Drawer(Tag.div):
-    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        t,r,b,l = trbl
-        if closable:
-            bc=Tag.button("X",_onclick=metatag.stepevent(),_style="position:absolute;top:2px;right:2px;z-index:1002;border-radius:50%;border:0px;cursor:pointer;background:white")
-            self <= Voile(_onmousedown=metatag.stepevent())
-            self <= Tag.div( [bc,obj] ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:{radius}px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
-        else:
-            self <= Voile(_style="cursor:not-allowed;")
-            self <= Tag.div( obj ,_style=f"position:fixed;top:{t};right:{r};z-index:1001;transform:translate(50%,-50%);")
+    def init(self,metatag,obj,mode:str):
+        size=50
+        if mode=="left":
+            t,r,b,l= ("0px",f"{size}%","0px","0px")
+        elif mode=="right":
+            t,r,b,l= ("0px","0px","0px",f"{size}%")
+        elif mode=="bottom":
+            t,r,b,l=(f"{size}%","0px","0px","0px")
+        elif mode=="top":
+            t,r,b,l= ("0px","0px",f"{size}%","0px")
 
+        self <= Voile(_onmousedown=metatag.stepevent())
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):

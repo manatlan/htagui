@@ -170,15 +170,13 @@ class ModalBlock(ModalAlert):
         ModalAlert.__init__(self,metatag,obj,closable=False)
 
 class Drawer(Tag.sl_drawer):
-    def init(self,metatag,obj,trbl:tuple=("30%","30%","","30%"),closable=True,radius=6):
-        # self["open"]=True
+    def init(self,metatag,obj,mode:str):
         self["no-header"]=True
-        t,r,b,l = trbl
-        if r!="0px": mode = "start"
-        if l!="0px": mode = "end"
-        if b!="0px": mode = "top"
-        if t!="0px": mode = "bottom"
-        self["placement"]=mode
+        if mode=="left":        self["placement"]="start"
+        elif mode=="right":     self["placement"]="end"
+        elif mode=="bottom":    self["placement"] = "bottom"
+        elif mode=="top":       self["placement"] = "top"
+        
         self <= obj
         self.js = "window.customElements.whenDefined('sl-drawer').then( function() { document.getElementById('%s').show() })" % id(self)
 
