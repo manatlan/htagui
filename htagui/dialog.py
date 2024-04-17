@@ -75,17 +75,17 @@ self.removeChild(ta);
             self._previous = self._current
             self(*a,**k)
 
-        if "alert" in params:
-            set( cui.Modal, params["alert"] )
-        elif "box" in params:
-            size=params["size"]
-            set( cui.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
-        elif "block" in params:
-            set( cui.Modal, params["block"],("50%","50%","50%","50%"),closable=False )
+        if "block" in params: #NEW
+            set( cui.ModalBlock, params["block"] )
+        elif "alert" in params: #NEW
+            set( cui.ModalAlert, params["alert"] )
         elif "confirm" in params:
             set( cui.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
             set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
+        elif "box" in params:
+            size=params["size"]
+            set( cui.Modal, params["box"],(f"{size}%",f"{size}%",f"{size}%",f"{size}%") )
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:
