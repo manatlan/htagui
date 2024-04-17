@@ -124,27 +124,40 @@ class Empty(Tag.div):
         self.clear()
         
 class ModalAlert(Tag.sl_dialog):
-    def init(self,metatag,obj,closable=True):
+    def init(self,metatag,obj,closable=True,pwidth=None):
+        self.metatag=metatag
         # self["open"]=True
         self["no-header"]=True
+        if pwidth:
+            self["style"] = f"--width: {pwidth};"
         self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() });" % id(self)
+        self.js += """
+        self.addEventListener('sl-after-hide', ()=> {
+            %s;
+        });""" % metatag.bind.step()
         if closable:
-            bc=Tag.button("X",_onclick = metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
-            # bc=Tag.button("X",_onclick=f"document.getElementById('{id(self)}').hide()"+metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+            bc=Tag.button("X",_onclick = self.close,_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
             self <= [bc,obj]
         else:
             self <= obj
             self.js += "self.addEventListener( 'sl-request-close', function(ev) { ev.preventDefault() });"
 
+    def close(self,ev=None):
+        self.call( "try{self.hide()}catch(e){}")    # the self.hide crash in some cases ?!?
+
 
 class ModalBox(ModalAlert):
     def __init__(self,metatag,obj,size:float=.6):
-        ModalAlert.__init__(self,metatag,obj)
+        ModalAlert.__init__(self,metatag,obj,pwidth=f"{size*100}%")
+
+class ModalBlock(ModalAlert):
+    def __init__(self,metatag,obj):
+        ModalAlert.__init__(self,metatag,obj,closable=False)
 
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
         def call(ev):
-            metatag.step()
+            self.close()
             return cb(ev.target.val)
         box=[ 
             Tag.div(obj),
@@ -156,19 +169,16 @@ class ModalConfirm(ModalAlert):
 class ModalPrompt(ModalAlert):
     def __init__(self,metatag, value,title,cb):
         def call(dico):
-            metatag.step()
+            self.close()
             return cb(dico["promptvalue"])
         with Form(onsubmit=call) as f:
             f+=Tag.div( title )
             f+=Tag.div( Input(_value=value,_name="promptvalue", _autofocus=True), _style="padding:4px 0" )
             # f+=Tag.div( Input(_value=value,_name="promptvalue",js="self.focus();self.select()", _autofocus=True) )
             f+=Button("Ok" ,_type="submit")
-            f+=Button("Cancel",_type="button",_onclick=metatag.stepevent())
+            f+=Button("Cancel",_type="button",_onclick=self.close)
         ModalAlert.__init__(self,metatag,f)
 
-class ModalBlock(ModalAlert):
-    def __init__(self,metatag,obj):
-        ModalAlert.__init__(self,metatag,obj,closable=False)
 
 class Drawer(Tag.sl_drawer):
     def init(self,metatag,obj,mode:str):
