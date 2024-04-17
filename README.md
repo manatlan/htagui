@@ -80,6 +80,16 @@ import htagui as ui
 self <= ui.Input(_value="my value", _name="myfield", _class="myclass", _required=True )
 ```
 
+## Object Textarea
+
+A simple surcharge of Tag.textarea(...), to define a css class 
+
+
+```python
+import htagui as ui
+self <= ui.Textarea("my value", _name="myfield", _class="myclass", _required=True )
+```
+
 ## Object Spinner
 
 A spinner object.
