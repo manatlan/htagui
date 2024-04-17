@@ -18,14 +18,14 @@ class IField:
             self._value=self.caster(self.object.attrs.get( prop ))
         else:
             self._value=self.caster(self.object.innerHTML)
-
-        # if self.object.tag.startswith("sl-"):
-        #     self.js="""
-        #         self.addEventListener('sl-change', (e)=> {
-        #             self._change( jevent(e) );
-        #         });"""
-        # else:
-        self.object["onchange"] = self.bind( self._iset, js_value_getter )
+        
+        if self.object.tag.startswith("sl-") or self.object.tag.startswith("sl_"):
+            self.js="""
+            self.addEventListener('sl-change', (e)=> {
+                %s
+            });""" % self.bind._iset_sl( b"jevent(e)", js_value_getter.replace(b"this",b"self") )
+        else:
+            self.object["onchange"] = self.bind( self._iset, js_value_getter )
 
     def _iset(self, ev, value:str):
         """ set from clientside """
@@ -34,11 +34,16 @@ class IField:
         self._value = self.caster(value)
 
         return self.object.onchange(ev)
-    
-    # @expose
-    # def sl_change(self,ev):
-    #     pass
-            
+
+    def _iset_sl(self, jsevent:dict, value:str):
+        """ set from clientside (for shoelace comp)"""
+
+        from collections import namedtuple
+        typevent=namedtuple("event", ["target"] + list(jsevent.keys()))
+        event = typevent( self.object, **jsevent )
+                
+        self._iset(event,value)
+           
     @property
     def value(self):
         return self._value

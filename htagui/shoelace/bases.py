@@ -38,7 +38,7 @@ class Input(Tag.input):
     statics= SHOELACE
     def init(self,*a,**k):
         type=self.attrs.get("type")
-        if type is None or type=="input":
+        if type is None or type=="text":
             self.tag = "sl-input"
         elif type=="checkbox":
             self.tag = "sl-switch"
@@ -51,7 +51,7 @@ class Input(Tag.input):
 class Textarea(Tag.sl_textarea):
     statics=SHOELACE
     def init(self,txt:str,**a):
-        self <= txt
+        self["value"]=txt
 
 class Button(Tag.sl_button):
     statics= SHOELACE
