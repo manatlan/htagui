@@ -99,9 +99,9 @@ import htagui as ui
 self <= ui.Spinner()
 ```
 
-## objets "I-fields"
+## Objets "I-fields"
 
-Theses are interactive/reactive fields, which are synced between client and server side, thru a 'value' property
+Theses are interactive/reactive fields, which are automatically synced between client and server side, thru a 'value' property
 
 - IText .. an input of type text
 - ITextarea ... a textarea 
