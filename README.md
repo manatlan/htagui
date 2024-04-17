@@ -99,6 +99,16 @@ import htagui as ui
 self <= ui.Spinner()
 ```
 
+## objets "I-fields"
+
+Theses are interactive/reactive fields, which are synced between client and server side, thru a 'value' property
+
+- IText .. an input of type text
+- ITextarea ... a textarea 
+- IBool ...  an input of type checkbox
+- IRange ...  an input of type range
+- ISelect ... m multichoice select/option
+
 ## Object Select
 
 An htag class to help to create `select/option` html tags, using a dict of {value:title, ...}.
