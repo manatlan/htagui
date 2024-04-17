@@ -129,7 +129,8 @@ class ModalAlert(Tag.sl_dialog):
         self["no-header"]=True
         self.js = "window.customElements.whenDefined('sl-dialog').then( function() { document.getElementById('%s').show() });" % id(self)
         if closable:
-            bc=Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+            bc=Tag.button("X",_onclick = metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+            # bc=Tag.button("X",_onclick=f"document.getElementById('{id(self)}').hide()"+metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
             self <= [bc,obj]
         else:
             self <= obj
