@@ -9,6 +9,7 @@
 
 from htag import Tag
 from ..form import Form
+from ..common import ensuredict,ListOrDict
 
 
 #BULMA = [Tag.link( _href="//cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css",_rel="stylesheet")]
@@ -99,17 +100,30 @@ class Spinner(Tag.span):
         self["class"]="spinner"
 
 
-class Select(Tag.div):
+class Select(Tag.select):
     statics=BULMA
-    def init(self,options:dict, **a):
-        assert isinstance(options,dict)
+    def init(self,options:ListOrDict, **a):
+        options=ensuredict(options)
         self["class"].add("select")
-        default = a.get("_value")
-        with Tag.select(**a) as select:
-            for k,v in options.items():
-                select <= Tag.option(v,_value=k,_selected=(default==k))
-        self <= select
+        for k,v in options.items():
+            self <= Tag.option(v,_value=k,_selected=((str(self.attrs.get("value"))==str(k))))
 
+class Radios(Tag.span):
+    statics=BULMA
+    def init(self,options:ListOrDict, **a):
+        options = ensuredict(options)
+        self["class"].add("control")
+        for k,v in options.items():
+            ipt=Tag.input(
+                _type="radio",
+                _value=k,
+                _name=self.attrs.get("name",str(id(self))),             # need a name to be valid
+                _checked=(str(self.attrs.get("value",None))==str(k)),
+                _required=bool(self.attrs.get("required",None)),
+                _readonly=bool(self.attrs.get("readonly",None)),
+                _onchange=f"document.getElementById('{id(self)}').value='{k}';"
+            )
+            self <= Tag.div(Tag.label( ipt +" "+ v ,_class="radio"))
 
 ######################################################################################
 ## Dialog objects

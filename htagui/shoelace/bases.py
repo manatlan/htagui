@@ -9,6 +9,7 @@
 
 from htag import Tag,expose
 from ..form import Form
+from ..common import ensuredict,ListOrDict
 
 SHOELACE = [
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/dark.css" ),
@@ -57,6 +58,8 @@ class Button(Tag.sl_button):
     statics= SHOELACE
     def init(self,title,**a):
         self <= title
+        if not self.attrs.get("type"):
+            self["type"]="submit"
 
 class Voile(Tag.div):
     def init(self,**a):
@@ -109,12 +112,20 @@ class Spinner(Tag.sl_spinner):
 
 class Select(Tag.sl_select):
     statics=SHOELACE
-    def init(self,options:dict, **a):
-        assert isinstance(options,dict)
+    def init(self,options:ListOrDict, **a):
+        options = ensuredict(options)
         self["class"].add("select")
         default = a.get("_value")
         for k,v in options.items():
             self <= Tag.sl_option(v,_value=k,_selected=(default==k))
+
+class Radios(Tag.sl_radio_group):
+    statics=SHOELACE
+    def init(self,options:ListOrDict, **a):
+        options = ensuredict(options)
+        for k,v in options.items():
+            self <= Tag.sl_radio(v,_value=k)
+
 
 ######################################################################################
 ## Dialog objects

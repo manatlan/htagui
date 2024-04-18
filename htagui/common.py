@@ -38,6 +38,18 @@ class MetaTag: # (could be in htag soon)
         pass
 
 
+from typing import Union
+ListOrDict = Union[ list, dict]
+
+def ensuredict(o:ListOrDict) -> dict:
+    if isinstance(o, list):
+        d={i:i for i in o}
+    elif isinstance(o, dict):
+        d=o
+    else:
+        d={}
+    return d
+
 if __name__=="__main__":
     from htag import Tag
 

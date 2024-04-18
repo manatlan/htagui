@@ -107,15 +107,25 @@ Theses are interactive/reactive fields, which are automatically synced between c
 - ITextarea ... a textarea 
 - IBool ...  an input of type checkbox
 - IRange ...  an input of type range
-- ISelect ... m multichoice select/option
+- ISelect ... a multichoice select/option
+- IRadios ... a multichoice radio buttons
 
 ## Object Select
 
-An htag class to help to create `select/option` html tags, using a dict of {value:title, ...}.
+An htag class to help to create "select/option" html tags, using a dict of {value:title, ...}.
 
 ```python
 import htagui as ui
 self <= ui.Select( dict(a="A",b="B"), _value="a", _name="myfield" )
+```
+
+## Object Radios
+
+An htag class to help to create "radio button choices" html tags, using a dict of {value:title, ...}.
+
+```python
+import htagui as ui
+self <= ui.Radios( dict(a="A",b="B"), _value="a", _name="myfield" )
 ```
 
 ## Object Menu
@@ -232,7 +242,7 @@ Display a modal dialog box containing the object 'obj'. But the dialog is not cl
 
 Close programatically, the current ui dialog.
 
-### method clipboard_copy(txt:str)
+### method dialog.clipboard_copy(txt:str)
 
 Copy the txt in the clipboard
 

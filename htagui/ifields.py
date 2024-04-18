@@ -29,8 +29,6 @@ class IField:
 
     def _iset(self, ev, value:str):
         """ set from clientside """
-        #TODO: remove
-        print("=== ISET ===",self.object.__class__.__name__,self.prop,"<-",value)
         self._value = self.caster(value)
 
         return self.object.onchange(ev)
@@ -53,7 +51,7 @@ class IField:
         """ set from serverside, and update UI """
         #TODO: clean that
         self.object.attrs["nimp_nawak"] = time.time()
-        self._value = self.caster(value)
+        self._value = self.caster(value) 
         if self.prop:
             self.object.attrs[ self.prop ] = self._value
         else:
@@ -88,4 +86,10 @@ class ISelect(ui.Select,IField):
     def __init__(self, value, options:dict, onchange=lambda ev: None,**k):
         self.onchange = onchange
         ui.Select.__init__(self, options, _value=value,**k)
+        IField.__init__(self, self, "value", b"this.value", lambda x:x )
+
+class IRadios(ui.Radios,IField):
+    def __init__(self, value, options:dict, onchange=lambda ev: None,**k):
+        self.onchange = onchange
+        ui.Radios.__init__(self, options, _value=value,**k)
         IField.__init__(self, self, "value", b"this.value", lambda x:x )

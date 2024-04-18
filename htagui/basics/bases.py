@@ -9,6 +9,7 @@
 
 from htag import Tag
 from ..form import Form
+from ..common import ensuredict,ListOrDict
 
 CSS="""
 html,body {
@@ -48,10 +49,12 @@ a {color: #0075ff;text-decoration:none}
     filter: brightness(0.95);
 }
 
-.input {
+.input[type="text"] {
+    font-family: ubuntu;
     padding:4px;
     border-radius: 4px;
     border: 2px solid #EEE;
+    width: calc(100% - 16px);
 }
 .input:focus {
     outline: none;
@@ -60,9 +63,11 @@ a {color: #0075ff;text-decoration:none}
 
 
 .textarea {
+    font-family: ubuntu;
     padding:4px;
     border-radius: 4px;
     border: 2px solid #EEE;
+    width: calc(100% - 16px);
 }
 .textarea:focus {
     outline: none;
@@ -70,7 +75,14 @@ a {color: #0075ff;text-decoration:none}
 }
 
 .select {
+    padding:4px;
+    border-radius: 4px;
+    border: 2px solid #EEE;
     font-family: ubuntu;
+}
+
+.select:focus {
+    border: 2px solid #0075ff !important;
 }
 
 .menu {}
@@ -145,6 +157,8 @@ class Input(Tag.input):
     statics=CSS
     def init(self,**a):
         self["class"].add("input")
+        if not self.attrs.get("type"):
+            self["type"]="text"
 
 
 class Textarea(Tag.textarea):
@@ -155,12 +169,85 @@ class Textarea(Tag.textarea):
 
 class Select(Tag.select):
     statics=CSS
-    def init(self,options:dict, **a):
-        assert isinstance(options,dict)
+    def init(self,options:ListOrDict, **a):
+        options=ensuredict(options)
         self["class"].add("select")
-        default = a.get("_value")
         for k,v in options.items():
-            self <= Tag.option(v,_value=k,_selected=(default==k))
+            self <= Tag.option(v,_value=k,_selected=(str(self.attrs.get("value"))==str(k)))
+
+
+class Radios(Tag.span):
+    def init(self,options:ListOrDict, **a):
+        options = ensuredict(options)
+        for k,v in options.items():
+            ipt=Tag.input(
+                _type="radio",
+                _value=k,
+                _name=self.attrs.get("name",str(id(self))),             # need a name to be valid
+                _checked=(str(self.attrs.get("value",None))==str(k)),
+                _required=bool(self.attrs.get("required",None)),
+                _readonly=bool(self.attrs.get("readonly",None)),
+                _onchange=f"document.getElementById('{id(self)}').value='{k}';"
+            )
+            self <= Tag.div(Tag.label( ipt +" "+ v ))
+
+# class SelectButtons(Tag.span):
+#     statics="""
+#     .selectbuttons button {
+#         border:1px solid #CCC;
+#         padding:10px;
+#         background:white;
+#         cursor:pointer;
+#     }
+#     .selectbuttons button:first-child {
+#         border-radius: 8px 0 0 8px;
+#     }
+#     .selectbuttons button:nth-last-child(2) {
+#         border-radius: 0 8px 8px 0;
+#     }
+#     .selectbuttons button.selected {
+#         background:green;
+#         color:white;
+#     }
+#     .selectbuttons .hidden {
+#         opacity: 0;
+#         height: 1px;
+#         width: 1px;
+#    }    
+    
+#     """,b"""
+    
+#     function select(obj,value) {
+#         let o=obj.parentNode.querySelector("button.selected");
+#         if(o) o.classList.remove("selected");
+
+#         obj.parentNode.childNodes[obj.parentNode.childNodes.length-1].value=value;
+#         obj.classList.add("selected");
+#     }
+#     """
+#     def init(self,options:ListOrDict, **a):
+#         options = ensuredict(options)
+#         self["class"].add("selectbuttons")
+        
+#         for k,v in options.items():
+#             ipt=Tag.button(
+#                 v,
+#                 _type="button",
+#                 value=k,
+#                 _class="selected" if str(self.attrs.get("value",None))==str(k) else "",
+#             )
+#             ipt["onclick"] = f"select( document.getElementById('{id(ipt)}'), '{k}')"
+#             self <= ipt
+
+#         self<=Tag.input(
+#             _type="text",
+#             _value=self.attrs.get("value"),
+#             _name=self.attrs.get("name"),
+#             _required=self.attrs.get("required"),
+#             #~ _readonly=self.attrs.get("readonly"),
+#             _class="hidden",
+#         )
+
 
 class Menu(Tag.div):
     statics=CSS
