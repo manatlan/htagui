@@ -43,8 +43,8 @@ if __name__ == "__main__":
                 ]
             else:
                 self.objects=[ # _onchange can't work sith shoelace !!!!
-                    ui.Input(_value="input",                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myinput"),
-                    ui.Textarea("textarea",                     _onchange=self.bind( self.onchange_static, b"this.value"),_name="mytextarea"),
+                    ui.Input(_value="input",                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myinput",_label="myinput"),
+                    ui.Textarea("textarea",                     _onchange=self.bind( self.onchange_static, b"this.value"),_name="mytextarea" ,_label="mytextarea"),
                     ui.Input(_type="checkbox",_checked=True,    _onchange=self.bind( self.onchange_static, b"this.checked || this.selected"),_name="mycheckbox"),   # selected for "MD" !!!!
                     ui.Input(_type="range",_value=42,           _onchange=self.bind( self.onchange_static, b"this.value"),_name="myrange"),
                     ui.Select(OPTS,_value=2,                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myselect"),

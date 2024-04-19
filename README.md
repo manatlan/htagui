@@ -80,6 +80,14 @@ import htagui as ui
 self <= ui.Input(_value="my value", _name="myfield", _class="myclass", _required=True )
 ```
 
+Availables managed `type`s (setted with `_type`) params:
+ * `text` : the default one (if omitted): an input text
+ * `checkbox` : a checkbox
+ * `radio` : a radio button (non sense : use ui.Radios or uiIRadios !)
+ * `range` : a slider/range
+
+For `text`: a special field "_label" will set the html "placeholder" attribut.
+
 ## Object Textarea
 
 A simple surcharge of Tag.textarea(...), to define a css class 
@@ -89,6 +97,8 @@ A simple surcharge of Tag.textarea(...), to define a css class
 import htagui as ui
 self <= ui.Textarea("my value", _name="myfield", _class="myclass", _required=True )
 ```
+
+A special field "_label" will set the html "placeholder" attribut.
 
 ## Object Spinner
 

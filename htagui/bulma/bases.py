@@ -27,11 +27,15 @@ class Input(Tag.input):
         if self.attrs.get("type")=="text":
             self["class"].add("input")
 
+        self["placeholder"] = self.attrs.get("label")
+
 class Textarea(Tag.textarea):
     statics=BULMA
     def init(self,txt:str,**a):
         self["class"].add("textarea")
         self <= txt
+
+        self["placeholder"] = self.attrs.get("label")
 
 class Button(Tag.button):
     statics= BULMA

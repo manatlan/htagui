@@ -159,13 +159,15 @@ class Input(Tag.input):
         self["class"].add("input")
         if not self.attrs.get("type"):
             self["type"]="text"
-
+        self["placeholder"] = self.attrs.get("label")
 
 class Textarea(Tag.textarea):
     statics=CSS
     def init(self,txt:str, **a):
         self["class"].add("textarea")
         self <= txt
+
+        self["placeholder"] = self.attrs.get("label")
 
 class Select(Tag.select):
     statics=CSS
@@ -185,7 +187,7 @@ class Radios(Tag.span):
     def init(self,options:ListOrDict, **a):
         self.options = ensuredict(options)
         self.rerender( self.attrs.get("value",None) )
-        
+
     def rerender(self,value):
         """ special method (see ifields), to rerender all the widget (to avoid to deal with js)"""
         self.clear()
