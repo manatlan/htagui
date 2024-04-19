@@ -49,13 +49,15 @@ class IField:
     @value.setter
     def value(self, value):
         """ set from serverside, and update UI """
-        #TODO: clean that
-        self.object.attrs["nimp_nawak"] = time.time()
-        self._value = self.caster(value) 
-        if self.prop:
-            self.object.attrs[ self.prop ] = self._value
-        else:
-            self.object.clear( self._value )
+        if hasattr(self,"rerender"):
+            self.rerender( value )
+        else:            
+            self.object.attrs["nimp_nawak"] = time.time()
+            self._value = self.caster(value) 
+            if self.prop:
+                self.object.attrs[ self.prop ] = self._value
+            else:
+                self.object.clear( self._value )
         
 
 class IText(ui.Input,IField):
