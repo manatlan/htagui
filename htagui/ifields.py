@@ -74,7 +74,10 @@ class IBool(ui.Input,IField):
     def __init__(self, value:bool, onchange=lambda ev: None,**k):
         self.onchange = onchange
         ui.Input.__init__(self,_checked=bool(value),_type="checkbox",**k)
-        IField.__init__(self, self, "checked", b"this.checked", lambda x: bool(x) )
+        if self.tag.startswith("md-"):
+            IField.__init__(self, self, "selected", b"this.selected", lambda x: bool(x) )
+        else:
+            IField.__init__(self, self, "checked", b"this.checked", lambda x: bool(x) )
 
 class IRange(ui.Input,IField):
     def __init__(self, value:int, onchange=lambda ev: None,**k):

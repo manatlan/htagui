@@ -21,6 +21,8 @@ if __name__ == "__main__":
         import htagui.bulma as ui
     elif base == "shoelace":
         import htagui.shoelace as ui      
+    elif base == "md":
+        import htagui.md as ui      
     else:
         import htagui.basics as ui
 
@@ -43,7 +45,7 @@ if __name__ == "__main__":
                 self.objects=[ # _onchange can't work sith shoelace !!!!
                     ui.Input(_value="input",                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myinput"),
                     ui.Textarea("textarea",                     _onchange=self.bind( self.onchange_static, b"this.value"),_name="mytextarea"),
-                    ui.Input(_type="checkbox",_checked=True,    _onchange=self.bind( self.onchange_static, b"this.checked"),_name="mycheckbox"),
+                    ui.Input(_type="checkbox",_checked=True,    _onchange=self.bind( self.onchange_static, b"this.checked || this.selected"),_name="mycheckbox"),   # selected for "MD" !!!!
                     ui.Input(_type="range",_value=42,           _onchange=self.bind( self.onchange_static, b"this.value"),_name="myrange"),
                     ui.Select(OPTS,_value=2,                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myselect"),
                     ui.Radios(OPTS,_value=2,                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myradios"),
@@ -103,6 +105,7 @@ if __name__ == "__main__":
             self <= ui.Button("Select 1",_onclick=lambda ev: force_select(0) )
             self <= ui.Button("Select 2",_onclick=lambda ev: force_select(1) )
             self <= ui.Button("add a tab",_onclick=lambda ev: t.add_tab(Tag.div("Fresh",name="fresh") ) )
+
 
 
     class TestDialogs(ui.App):
@@ -200,6 +203,7 @@ if __name__ == "__main__":
             self <= ui.Button("basics",_onclick=lambda ev: self.restart_with("basics"))
             self <= ui.Button("bulma",_onclick=lambda ev: self.restart_with("bulma"))
             self <= ui.Button("shoelace",_onclick=lambda ev: self.restart_with("shoelace"))
+            self <= ui.Button("md",_onclick=lambda ev: self.restart_with("md"))
             self <= Tag.hr()
             self <= ui.Button("Dialogs",_onclick=lambda ev: self.omain.clear(TestDialogs( self )) )
             self <= ui.Button("Tabs",_onclick=lambda ev: self.omain.clear(TestTabs( self )) )

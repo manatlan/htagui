@@ -115,9 +115,8 @@ class Select(Tag.sl_select):
     def init(self,options:ListOrDict, **a):
         options = ensuredict(options)
         self["class"].add("select")
-        default = a.get("_value")
         for k,v in options.items():
-            self <= Tag.sl_option(v,_value=k,_selected=(default==k))
+            self <= Tag.sl_option(v,_value=k,_selected=(str(self.attrs["value"])==str(k)))
 
 class Radios(Tag.sl_radio_group):
     statics=SHOELACE
