@@ -100,25 +100,35 @@ class Spinner(Tag.span):
         self["class"]="spinner"
 
 
-class Select(Tag.select):
+class Select(Tag.div):
     statics=BULMA
     def init(self,options:ListOrDict, **a):
-        options=ensuredict(options)
+        self.options=ensuredict(options)
         self["class"].add("select")
-        for k,v in options.items():
-            self <= Tag.option(v,_value=k,_selected=((str(self.attrs.get("value"))==str(k))))
+        self.rerender(self.attrs.get("value"))
+
+    def rerender(self,value):
+        with Tag.select( _onchange=f"document.getElementById('{id(self)}').value=event.target.value",_name=self.attrs.get("name"),_required=self.attrs.get("required") ) as select:
+            for k,v in self.options.items():
+                select <= Tag.option(v,_value=k,_selected=((str(value)==str(k))))
+        self.clear( select )
 
 class Radios(Tag.span):
     statics=BULMA
     def init(self,options:ListOrDict, **a):
-        options = ensuredict(options)
+        self.options = ensuredict(options)
         self["class"].add("control")
-        for k,v in options.items():
+        self.rerender( self.attrs.get("value",None) )
+    
+    def rerender(self,value):
+        """ special method (see ifields), to rerender all the widget (to avoid to deal with js)"""
+        self.clear()
+        for k,v in self.options.items():
             ipt=Tag.input(
                 _type="radio",
                 _value=k,
                 _name=self.attrs.get("name",str(id(self))),             # need a name to be valid
-                _checked=(str(self.attrs.get("value",None))==str(k)),
+                _checked=(str(value)==str(k)),
                 _required=bool(self.attrs.get("required",None)),
                 _readonly=bool(self.attrs.get("readonly",None)),
                 _onchange=f"document.getElementById('{id(self)}').value='{k}';"
