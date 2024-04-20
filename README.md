@@ -243,9 +243,9 @@ self <= ui.Button("pop menu", _onclick=lambda ev: dialog.pop( ui.Menu(entries) ,
 
 Display a drawer, in the left-side. mode can be left,right,top,bottom.
 
-### method dialog.page(obj)
+### method dialog.page(obj=None)
 
-Show a full page 'obj'
+Display a full page 'obj', or remove page if obj is None. (note that ui.close() does not close the page) 
 
 ### method dialog.block(obj=None)
 

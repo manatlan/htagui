@@ -57,7 +57,7 @@ class Voile(Tag.div):
 
 
 
-class Menu(Tag.aside):
+class Menu(Tag.div):
     def init(self,entries:dict):
         self["class"].add("menu")
         def call(ev):
@@ -73,9 +73,9 @@ class Menu(Tag.aside):
 
             return ev.target.method()
 
-        with Tag.ul(_class="menu-list") as ul:
+        with Tag.div(_class="menu-list") as ul:
             for k,v in entries.items():
-                ul += Tag.li( Tag.a(k),method=v,_onclick=call)
+                ul <= Tag.div( Tag.a(k),method=v,_onclick=call)
         self<=ul
 
 class Spinner(Tag.span):

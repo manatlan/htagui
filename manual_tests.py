@@ -143,24 +143,13 @@ if __name__ == "__main__":
             self <= ui.Button("drawer top", _onclick=lambda ev: self_ui.drawer( "yo","top" ))
             self <= ui.Button("drawer bottom", _onclick=lambda ev: self_ui.drawer( "yo","bottom" ))
 
-            self<= Tag.hr()+"test previous (?!)"
-            self.nb=0
-            def imbricated(ev):
-                self.nb+=1
-                o=Tag.div(f"hello {self.nb}")
-                o <= ui.Button("previous alert", _onclick=lambda ev: self_ui.previous() )
-                o <= ui.Button("next alert", _onclick=imbricated )
-                self_ui.alert(o)
-                
-            self <= ui.Button("imbricated alert", _onclick=imbricated )
-
             self<= Tag.hr()+"dialog blockers"
 
             def block(ev):
-                self_ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self_ui.close())) )
+                self_ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self_ui.close() ) + ui.Menu(entries)) )
 
             def page(ev):
-                self_ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self_ui.close()) ) 
+                self_ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self_ui.page()) ) 
 
             self <= ui.Button("block", _onclick=block)
             self <= ui.Button("page", _onclick=page)

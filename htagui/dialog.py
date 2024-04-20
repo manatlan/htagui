@@ -19,9 +19,10 @@ class Dialog(Tag.div,MetaTag):
     def init(self,parent):
         self["info"]="UI.current object"
         self._toasts = Tag.div(_info="UI.toasts objects")
-        self._previous=None
+        self._page = Tag.div(_info="UI.page objects")
         parent += self  # auto add
         parent += self._toasts  # add a personnal place for toasts
+        parent += self._page  # add a personnal place for page
         MetaTag.init(self)
 
     def clipboard_copy(self,txt:str):
@@ -62,29 +63,29 @@ self.removeChild(ta);
     def block(self,obj=None):
         self.step( block=obj )
 
-    def page(self,obj):
+    def page(self,obj=None):
         self.step( page = obj)
 
     def close(self):
         self.step()
 
-    def previous(self): # just the previous one (no history yet)
-        if self._previous is None:
-            self.close()
-        else:
-            self._current = self._previous
-            self._previous = None
+    # DEPRECATED
+    def previous(self): 
+        pass
 
     def step(self,**params):
 
         def set(*a,**k):
-            self._previous = self._current
             self(*a,**k)
 
         if "block" in params:
             set( cui.ModalBlock, params["block"] )
         elif "page" in params:
-            set( cui.PopPage, params["page"] )
+            # set( cui.PopPage, params["page"] )
+            if params["page"] is None:
+                self._page.clear()
+            else:
+                self._page.clear( cui.PopPage( self,  params["page"] ))
         elif "alert" in params:
             set( cui.ModalAlert, params["alert"], wsize=params.get("size") )
         elif "confirm" in params:
