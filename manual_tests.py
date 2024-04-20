@@ -196,11 +196,13 @@ if __name__ == "__main__":
             self.omain = Tag.div( )
             self.oresult = Tag.div(_style="display:flex;flex-flow:column nowrap;flex-direction: column-reverse;")
 
-            self <= ui.Button("basics",_onclick=lambda ev: self.restart_with("basics"))
-            self <= ui.Button("bulma",_onclick=lambda ev: self.restart_with("bulma"))
-            self <= ui.Button("shoelace",_onclick=lambda ev: self.restart_with("shoelace"))
-            self <= ui.Button("md",_onclick=lambda ev: self.restart_with("md"))
+            f = lambda x: x+"(*)" if base==x else x
+            self <= ui.Button(f("basics"),_onclick=lambda ev: self.restart_with("basics"))
+            self <= ui.Button(f("bulma"),_onclick=lambda ev: self.restart_with("bulma"))
+            self <= ui.Button(f("shoelace"),_onclick=lambda ev: self.restart_with("shoelace"))
+            self <= ui.Button(f("md"),_onclick=lambda ev: self.restart_with("md"))
             self <= Tag.hr()
+
             self <= ui.Button("Dialogs",_onclick=lambda ev: self.omain.clear(TestDialogs( self )) )
             self <= ui.Button("Tabs",_onclick=lambda ev: self.omain.clear(TestTabs( self )) )
             self <= ui.Button("Inputs statics",_onclick=lambda ev: self.omain.clear(TestInputs(self)) )
