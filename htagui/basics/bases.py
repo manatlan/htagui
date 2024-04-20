@@ -11,7 +11,7 @@ from htag import Tag
 from ..form import Form
 from ..common import ensuredict,ListOrDict
 
-CSS="""
+STATICS="""
 
 html,body {
     width:100%;
@@ -129,18 +129,18 @@ class Voile(Tag.div):
         self["style"].set("backdrop-filter","blur(3px)")
 
 class Button(Tag.button):
-    statics=CSS
+    statics=STATICS
     def init(self,title,**a):
         self <= title
         self["class"].add("button")
 
 class Spinner(Tag.span):
-    statics=CSS
+    statics=STATICS
     def init(self):
         self["class"].add("spinner")
 
 class Input(Tag.input):
-    statics=CSS
+    statics=STATICS
     def init(self,**a):
         self["class"].add("input")
         if not self.attrs.get("type"):
@@ -148,7 +148,7 @@ class Input(Tag.input):
         self["placeholder"] = self.attrs.get("label")
 
 class Textarea(Tag.textarea):
-    statics=CSS
+    statics=STATICS
     def init(self,txt:str, **a):
         self["class"].add("textarea")
         self <= txt
@@ -156,7 +156,7 @@ class Textarea(Tag.textarea):
         self["placeholder"] = self.attrs.get("label")
 
 class Select(Tag.select):
-    statics=CSS
+    statics=STATICS
     def init(self,options:ListOrDict, **a):
         self.options=ensuredict(options)
         self.rerender( self.attrs.get("value") )
@@ -248,7 +248,7 @@ class Radios(Tag.span):
 
 
 class Menu(Tag.div):
-    statics=CSS
+    statics=STATICS
     def init(self,entries:dict):
         self["class"].add("menu")
         def call(ev):

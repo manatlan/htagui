@@ -182,8 +182,17 @@ if __name__ == "__main__":
 
     class TestOthers(Tag.div):
         def init(self,root):
-            self <= ui.HSplit( Tag.div("A"), Tag.div("B"),_style="height:100px;border:1px solid black")
-            self <= ui.HSplit( Tag.div("A"), Tag.div("B"), Tag.div("C"), sizes=[20,20,60],minSize=20,_style="height:100px;border:1px solid black")
+            self.output=root.output
+
+            h=ui.HSplit( Tag.div("A"), Tag.div("B"),_style="height:100px;border:1px solid black", onchange = lambda o: self.output( f"h sizes: {o.sizes}" ))
+            v=ui.VSplit( Tag.div("A"), Tag.div("B"),minSize=10)
+            self <= h
+            self<= ui.Button("50,50",_onclick=lambda ev: h.setSizes([50,50]))
+            self<= ui.Button("70,30",_onclick=lambda ev: h.setSizes([70,30]))
+
+
+
+            self <= ui.HSplit( Tag.div("A"), Tag.div("B"), v, sizes=[20,20,60],minSize=20,_style="height:100px;border:1px solid black")
                     
 
     class App(ui.App):

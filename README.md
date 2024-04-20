@@ -259,14 +259,20 @@ Close programatically, the current ui dialog.
 
 Copy the txt in the clipboard
 
-## Object HSplit (& VSplit)
+## Object HSplit & VSplit
 
 A Tag object to use "SplitJS" (currently only in horizontal form)
 
 ```python
 import htagui as ui
-self <= ui.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="border:2px solid red;height:100px" )
+split = ui.HSplit( Tag.div(1), Tag.div(2), sizes=[60,40], minSize=100, _style="border:2px solid red;height:100px" )
+self <= split
 ```
+
+methods:
+split.setSizes( [50,50] )
+split.onchange = lambda object: print( object.sizes )   # event
+
 
 ## utilities methods
 

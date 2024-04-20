@@ -7,7 +7,7 @@
 # https://github.com/manatlan/htag
 # #############################################################################
 
-from htag import Tag
+from htag import Tag,expose
 
 #TAG_SPLITJS=Tag.script(_src="//cdn.jsdelivr.net/npm/split.js@1.6.5/dist/split.min.js")
 TAG_SPLITJS=Tag.script(r"""/*! Split.js - v1.6.5 */
@@ -18,59 +18,82 @@ class HSplit(Tag.div):
     statics = [
         TAG_SPLITJS,
         Tag.style("""
-.split {
+.hsplit {
     display: flex;
     flex-direction: row;
 }
 
-.gutter {
+.hsplit .gutter {
     background-color: #eee;
     background-repeat: no-repeat;
     background-position: 50%;
 }
 
-.gutter.gutter-horizontal {
+.hsplit .gutter.gutter-horizontal {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     cursor: col-resize;
 }        
         """),
     ]
-    def init(self,*objs,sizes=None,minSize=None,**a):
-        self["class"].add("split")
+    def init(self,*objs,sizes=None,minSize=None,onchange=lambda x:x,**a):
+        self.sizes=sizes
+        self.onchange=onchange
+        self["class"].add("hsplit")
         self<=objs
-        opts={}
+        opts={"onDragEnd":"xxx"}
         if sizes: opts["sizes"]=sizes
         if minSize: opts["minSize"]=minSize
-        self.js = f"""window.Split( self.children , {opts} ) """
+
+        self.js = f"""self.s=window.Split( self.children , {opts} );""".replace("'xxx'","function(sizes) {self._onchange(sizes)}")
+
+    @expose
+    def _onchange(self,sizes):
+        self.sizes=sizes
+        self.onchange( self )
+
+    def setSizes(self,sizes:list):
+        self.sizes=sizes
+        self.call( "self.s.setSizes(%s)" % sizes )
+
+
+
+
+class VSplit(Tag.div):
+    statics = [
+        Tag.script(_src="//cdn.jsdelivr.net/npm/split.js@1.6.5/dist/split.min.js"),
+        Tag.style("""
+.vsplit {
+    display: flex;
+    flex-direction: column;
+}
+
+.vsplit .gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.vsplit .gutter.gutter-vertical {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+    cursor: row-resize;
+}    
+        """),
+    ]
+    def init(self,*objs,sizes=None,minSize=None,onchange=lambda x:x,**a):
+        self.sizes=sizes        
+        self["class"]="vsplit"
+        self<=objs
+        opts={"direction":"vertical","onDragEnd":"xxx"}
+        if sizes: opts["sizes"]=sizes
+        if minSize: opts["minSize"]=minSize
+        self.js = f"""self.s=window.Split( self.children , {opts} );""".replace("'xxx'","function(sizes) {self._onchange(sizes)}")
 
         
-# class VSplit(Tag.div):
-#     statics = [
-#         Tag.script(_src="//cdn.jsdelivr.net/npm/split.js@1.6.5/dist/split.min.js"),
-#         Tag.style("""
-# .split {
-#     display: flex;
-#     flex-direction: column;
-# }
+    @expose
+    def _onchange(self,sizes):
+        self.sizes=sizes
+        self.onchange( self )
 
-# .gutter {
-#     background-color: #eee;
-#     background-repeat: no-repeat;
-#     background-position: 50%;
-# }
-
-# .gutter.gutter-horizontal {
-#     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-#     cursor: col-resize;
-# }        
-#         """),
-#     ]
-#     def init(self,*objs,sizes=None,minSize=None,**a):
-#         self["class"]="split"
-#         self<=objs
-#         opts={}
-#         if sizes: opts["sizes"]=sizes
-#         if minSize: opts["minSize"]=minSize
-#         self.js = f"""window.Split( self.children , {opts} ) """
-
-        
+    def setSizes(self,sizes:list):
+        self.sizes=sizes
+        self.call( "self.s.setSizes(%s)" % sizes )

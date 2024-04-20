@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"
+      ></script>
+        </head>
+    <body>
+
+        <fw-label value="Try themes"></fw-label>
+        <fw-button color="primary"> OK </fw-button>
+        <fw-button color="secondary"> Secondary </fw-button>
+        <fw-button color="danger"> Don't Click </fw-button>
+        <fw-button color="link"> Link Button </fw-button>
+        <fw-button color="text"> Plain Text Button </fw-button>
+
+
+        <fw-tab active>Personal</fw-tab>
+        <fw-tab>Official</fw-tab>
+      
+        <fw-select
+        label="House Name"
+        required="true"
+        value="1"
+        placeholder="Your choice"
+        hint-text="Select singluar option"
+      >
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+      </fw-select>
+      
+      <fw-radio checked description="Select to agree">Agree or Disagree</fw-radio><br><br>
+<fw-radio checked disabled value="dr">Disabled radio</fw-radio>
+
+<fw-spinner size="medium" color="green"></fw-spinner>
+
+<fw-checkbox checked description="Agree or Disagree">Select to agree</fw-checkbox><br><br>
+<fw-checkbox checked disabled value="dcb">Disabled check box</fw-checkbox>
+
+
+<fw-textarea
+  cols="75"
+  rows="5"
+  maxlength="190"
+  minlength="5"
+  label="Address"
+  warning-text="Do not enter your temporary address"
+  state="warning"
+  placeholder="Enter your permanent address"
+  required
+></fw-textarea>
+
+<fw-input
+  label="Name"
+  icon-left="add-contact"
+  hint-text="Do not enter your user ID"
+  warning-text="Please use numbers for user ID"
+  error-text="Invalid user ID"
+  state="warning"
+  placeholder="Enter your official name"
+  required
+  clear-input
+></fw-input>
+    </body>
+</html>
+

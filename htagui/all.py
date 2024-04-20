@@ -9,11 +9,11 @@
 
 from htag import Tag
 
+# global objects
 from .form import Form
 from .tabs import Tabs
 from .dialog import Dialog
-from .splitters import HSplit #VSplit
-from .flex import hflex,vflex  # utilities (Htag contructor methods)
+from .splitters import HSplit, VSplit
 from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios
 
 class App(Tag.body):
@@ -25,4 +25,8 @@ class App(Tag.body):
             self._ui = Dialog(self)
         return self._ui
 
-ALL=[App,Form,Tabs,Dialog,HSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios]
+# global methods
+from .flex import hflex,vflex  # utilities (Htag contructor methods)
+
+
+ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios]

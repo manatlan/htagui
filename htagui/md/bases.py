@@ -13,7 +13,7 @@ from ..common import ensuredict,ListOrDict
 
 # using https://material-web.dev/
 
-MD = [
+STATICS = [
         Tag.style("""html,body {width:100%;height:100%}"""),
 Tag.link(_href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap", _rel="stylesheet"),
 Tag.script("""    {
@@ -52,18 +52,18 @@ class Voile(Tag.div):
         self["style"].set("backdrop-filter","blur(3px)")
 
 class Button(Tag.md_filled_tonal_button):
-    statics=MD
+    statics=STATICS
     def init(self,title,**a):
         self <= Tag.md_ripple() + title
         self["style"].set("margin","1px")
 
 class Spinner(Tag.md_circular_progress):
-    statics=MD
+    statics=STATICS
     def init(self):
         self["indeterminate"]=True
 
 class Input(Tag.input):
-    statics= MD
+    statics= STATICS
     def init(self,*a,**k):
         type=self.attrs.get("type")
         if type is None or type=="text":
@@ -77,7 +77,7 @@ class Input(Tag.input):
             self.tag = "md-slider"
 
 class Textarea(Tag.md_filled_text_field):
-    statics=MD
+    statics=STATICS
     def init(self,txt:str, **a):
         self["type"]="textarea"
         self["style"].set("width","calc(100% - 16px)")
@@ -90,7 +90,7 @@ class Textarea(Tag.md_filled_text_field):
 
 
 class Select(Tag.md_filled_select):
-    statics=MD
+    statics=STATICS
     def init(self,options:ListOrDict, **a):
         options=ensuredict(options)
         default = a.get("_value")
@@ -99,7 +99,7 @@ class Select(Tag.md_filled_select):
 
 
 class Radios(Tag.span):
-    statics=MD
+    statics=STATICS
     def init(self,options:ListOrDict, **a):
         self.options = ensuredict(options)
         self.rerender( self.attrs.get("value",None) )
@@ -180,7 +180,7 @@ class Radios(Tag.span):
 
 
 class Menu(Tag.div):
-    statics=MD
+    statics=STATICS
     def init(self,entries:dict):
         def call(ev):
             #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
@@ -307,7 +307,7 @@ class Toast(Tag.div):
 
 
 class Tabs(Tag.div):
-    statics=MD
+    statics=STATICS
     def init(self,metatag,selected=0):
         with Tag.md_tabs() as t:
             for idx,i in enumerate(metatag._tabs):

@@ -11,7 +11,7 @@ from htag import Tag,expose
 from ..form import Form
 from ..common import ensuredict,ListOrDict
 
-SHOELACE = [
+STATICS = [
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/dark.css" ),
         Tag.link(_rel="stylesheet",_href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/light.css" ),
         Tag.script(_type="module",_src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/shoelace-autoloader.js"),
@@ -36,7 +36,7 @@ SHOELACE = [
 
 
 class Input(Tag.input):
-    statics= SHOELACE
+    statics= STATICS
     def init(self,*a,**k):
         type=self.attrs.get("type")
         if type is None or type=="text":
@@ -50,12 +50,12 @@ class Input(Tag.input):
             self.tag = "sl-range"
 
 class Textarea(Tag.sl_textarea):
-    statics=SHOELACE
+    statics=STATICS
     def init(self,txt:str,**a):
         self["value"]=txt
 
 class Button(Tag.sl_button):
-    statics= SHOELACE
+    statics= STATICS
     def init(self,title,**a):
         self <= title
         if not self.attrs.get("type"):
@@ -74,7 +74,7 @@ class Voile(Tag.div):
 
 
 class Menu(Tag.sl_menu):
-    statics= SHOELACE
+    statics= STATICS
     def __init__(self,entries:dict,**a):
         self._entries=entries
         Tag.__init__(self,**a)
@@ -105,13 +105,13 @@ class Menu(Tag.sl_menu):
 
 
 class Spinner(Tag.sl_spinner):
-    statics=SHOELACE
+    statics=STATICS
     def init(self):
         self["style"]="font-size: 32px; --track-width: 8px;"
 
 
 class Select(Tag.sl_select):
-    statics=SHOELACE
+    statics=STATICS
     def init(self,options:ListOrDict, **a):
         options = ensuredict(options)
         self["class"].add("select")
@@ -119,7 +119,7 @@ class Select(Tag.sl_select):
             self <= Tag.sl_option(v,_value=k,_selected=(str(self.attrs["value"])==str(k)))
 
 class Radios(Tag.sl_radio_group):
-    statics=SHOELACE
+    statics=STATICS
     def init(self,options:ListOrDict, **a):
         options = ensuredict(options)
         for k,v in options.items():
