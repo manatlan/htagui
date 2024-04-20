@@ -134,7 +134,12 @@ class Empty(Tag.div):
         self.clear()
         
 class ModalAlert(Tag.sl_dialog):
-    def init(self,metatag,obj,closable=True,pwidth=None):
+    def init(self,metatag,obj,closable=True,wsize:float=None):
+        if wsize is not None:
+            pwidth=f"{int(wsize*100)}%"        
+        else:
+            pwidth=None
+
         self.metatag=metatag
         # self["open"]=True
         self["no-header"]=True

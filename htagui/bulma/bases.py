@@ -153,20 +153,19 @@ class ModalBlock(Tag.div):
         self <= Tag.div(_class="modal-background") + obj
 
 class ModalAlert(ModalBlock):
-    def __init__(self,metatag,obj,pmaximize=None):
+    def __init__(self,metatag,obj,wsize:float=None):
+        if wsize is not None:
+            pwidth=f"{int(wsize*100)}%"        
+        else:
+            pwidth=None
         obj = Tag.div(obj,_class="box")
-        if pmaximize:
-            obj["style"]="height:100%;overflow-y:auto"
         obj=Tag.div(obj,_class="modal-content")
         ModalBlock.__init__(self,metatag,obj)
         self.childs[0]["onclick"]=metatag.stepevent()
-        if pmaximize:
-            obj["style"]=f"width:{pmaximize};height:{pmaximize};"
+        if pwidth:
+            obj["style"]=f"width:{pwidth};"
         self += Tag.button(_class="modal-close is-large",_aria_label="close",_onclick=metatag.stepevent())
 
-class ModalBox(ModalAlert):
-    def __init__(self,metatag,obj,size:float=.6):
-        ModalAlert.__init__(self,metatag,obj,pmaximize=f"{size*100}%")
 
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):

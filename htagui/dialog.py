@@ -34,11 +34,12 @@ document.execCommand('copy');
 self.removeChild(ta);
 """)
 
-    def alert(self,obj):
-        self.step( alert = obj )
+    def alert(self,obj,size:float=None):
+        self.step( alert = obj, size=size )
 
+    #DEPRECATED
     def box(self,obj,size:float=0.5):
-        self.step( box = obj, size=size )
+        self.step( alert = obj, size=size )
         
     def confirm(self,obj,cbresponse=lambda bool:bool):
         self.step( confirm = obj, cb=cbresponse )
@@ -78,14 +79,14 @@ self.removeChild(ta);
         if "block" in params:
             set( cui.ModalBlock, params["block"] )
         elif "alert" in params:
-            set( cui.ModalAlert, params["alert"] )
+            set( cui.ModalAlert, params["alert"], wsize=params.get("size") )
         elif "confirm" in params:
             set( cui.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
             set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
-        elif "box" in params: # NEW
-            size=params["size"]
-            set( cui.ModalBox, params["box"], size )
+        # elif "box" in params: # NEW
+        #     size=params["size"]
+        #     set( cui.ModalBox, params["box"], size )
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:

@@ -121,19 +121,19 @@ if __name__ == "__main__":
                 "menu3": lambda: self_ui.notify("menu3"),
             }  
 
-            self <= ui.Button("alert", _onclick=lambda ev: self_ui.alert("kkkk"))
+            content="fdsfd sgfdg g gfds ggfds g"*1000
+
+            self <= ui.Button("alert", _onclick=lambda ev: self_ui.alert(content),_class="red")
+            self <= ui.Button("alert size=.1", _onclick=lambda ev: self_ui.alert("kkkk",size=0.1) ,_class="red")
+            self <= ui.Button("alert size=.5", _onclick=lambda ev: self_ui.alert("kkkk",size=0.5) ,_class="red")
+            self <= ui.Button("alert size=.9", _onclick=lambda ev: self_ui.alert("kkkk",size=0.9) ,_class="red")
+            self <= ui.Button("alert size=1", _onclick=lambda ev: self_ui.alert("kkkk",size=1) ,_class="red")
+
             self <= ui.Button("confirm", _onclick=lambda ev: self_ui.confirm("kkkk", self_ui.notify), _class="blue")
             self <= ui.Button("prompt", _onclick=lambda ev: self_ui.prompt("value","text?", self_ui.notify) )
 
             self <= ui.Button("notify", _onclick=lambda ev: self_ui.notify("kkkk") ,_class="green")
 
-            self <= ui.Button("box .1", _onclick=lambda ev: self_ui.box("kkkk",size=0.1) ,_class="red")
-            self <= ui.Button("box .2", _onclick=lambda ev: self_ui.box("kkkk",size=0.2) ,_class="red")
-            self <= ui.Button("box .5", _onclick=lambda ev: self_ui.box("kkkk",size=0.5) ,_class="red")
-            self <= ui.Button("box .6", _onclick=lambda ev: self_ui.box("kkkk",size=0.6) ,_class="red")
-            self <= ui.Button("box .7", _onclick=lambda ev: self_ui.box("kkkk",size=0.7) ,_class="red")
-            self <= ui.Button("box .9", _onclick=lambda ev: self_ui.box("kkkk",size=0.9) ,_class="red")
-            self <= ui.Button("box 1", _onclick=lambda ev: self_ui.box("kkkk",size=1) ,_class="red")
 
             self <= ui.Button("pop", _onclick=lambda ev: self_ui.pop("kkkk",(ev.clientX,ev.clientY)) )
             self <= ui.Button("pop menu", _onclick=lambda ev: self_ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )

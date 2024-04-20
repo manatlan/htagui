@@ -1,0 +1,169 @@
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/@microsoft/fast-components/dist/fast-components.min.js"></script>
+            <style>
+
+:root {
+    --body-font: aktiv-grotesk, "Segoe UI", Arial, Helvetica, sans-serif !important;
+    --base-height-multiplier: 10 !important;
+    --base-horizontal-spacing-multiplier: 3 !important;
+    --base-layer-luminance: 1 !important;
+    --control-corner-radius: 4 !important;
+    --density: 0 !important;
+    --design-unit: 4 !important;
+    --direction: ltr !important;
+    --disabled-opacity: 0.3 !important;
+    --stroke-width: 1 !important;
+    --focus-stroke-width: 2 !important;
+    --type-ramp-base-font-size: 14px !important;
+    --type-ramp-base-line-height: 20px !important;
+    --type-ramp-minus-1-font-size: 12px !important;
+    --type-ramp-minus-1-line-height: 16px !important;
+    --type-ramp-minus-2-font-size: 10px !important;
+    --type-ramp-minus-2-line-height: 16px !important;
+    --type-ramp-plus-1-font-size: 16px !important;
+    --type-ramp-plus-1-line-height: 24px !important;
+    --type-ramp-plus-2-font-size: 20px !important;
+    --type-ramp-plus-2-line-height: 28px !important;
+    --type-ramp-plus-3-font-size: 28px !important;
+    --type-ramp-plus-3-line-height: 36px !important;
+    --type-ramp-plus-4-font-size: 34px !important;
+    --type-ramp-plus-4-line-height: 44px !important;
+    --type-ramp-plus-5-font-size: 46px !important;
+    --type-ramp-plus-5-line-height: 56px !important;
+    --type-ramp-plus-6-font-size: 60px !important;
+    --type-ramp-plus-6-line-height: 72px !important;
+    --neutral-color: #808080 !important;
+    --accent-color: #da1a5f !important;
+    --neutral-layer-card-container: #f7f7f7 !important;
+    --neutral-layer-floating: #ffffff !important;
+    --neutral-layer-1: #ffffff !important;
+    --neutral-layer-2: #e5e5e5 !important;
+    --neutral-layer-3: #dddddd !important;
+    --neutral-layer-4: #d6d6d6 !important;
+    --fill-color: #ffffff !important;
+    --accent-fill-rest: #dc2969 !important;
+    --accent-fill-hover: #da1a5f !important;
+    --accent-fill-active: #df3c77 !important;
+    --accent-fill-focus: #dc2969 !important;
+    --foreground-on-accent-rest: #ffffff !important;
+    --foreground-on-accent-hover: #ffffff !important;
+    --foreground-on-accent-active: #000000 !important;
+    --foreground-on-accent-focus: #ffffff !important;
+    --foreground-on-accent-rest-large: #000000 !important;
+    --foreground-on-accent-hover-large: #000000 !important;
+    --foreground-on-accent-active-large: #000000 !important;
+    --foreground-on-accent-focus-large: #000000 !important;
+    --accent-foreground-rest: #da1a5f !important;
+    --accent-foreground-hover: #b3154e !important;
+    --accent-foreground-active: #dc2969 !important;
+    --accent-foreground-focus: #da1a5f !important;
+    --neutral-fill-rest: #ededed !important;
+    --neutral-fill-hover: #e5e5e5 !important;
+    --neutral-fill-active: #f2f2f2 !important;
+    --neutral-fill-focus: #ffffff !important;
+    --neutral-fill-input-rest: #ffffff !important;
+    --neutral-fill-input-hover: #ffffff !important;
+    --neutral-fill-input-active: #ffffff !important;
+    --neutral-fill-input-focus: #ffffff !important;
+    --neutral-fill-stealth-rest: #ffffff !important;
+    --neutral-fill-stealth-hover: #f2f2f2 !important;
+    --neutral-fill-stealth-active: #f7f7f7 !important;
+    --neutral-fill-stealth-focus: #ffffff !important;
+    --neutral-fill-strong-rest: #767676 !important;
+    --neutral-fill-strong-hover: #616161 !important;
+    --neutral-fill-strong-active: #838383 !important;
+    --neutral-fill-strong-focus: #767676 !important;
+    --neutral-fill-layer-rest: #f7f7f7 !important;
+    --focus-stroke-outer: #888888 !important;
+    --focus-stroke-inner: #ffffff !important;
+    --neutral-foreground-hint: #767676 !important;
+    --neutral-foreground-rest: #2b2b2b !important;
+    --neutral-stroke-rest: #bebebe !important;
+    --neutral-stroke-hover: #979797 !important;
+    --neutral-stroke-active: #d6d6d6 !important;
+    --neutral-stroke-focus: #bebebe !important;
+    --neutral-stroke-divider-rest: #eaeaea !important;
+    --clear-button-hover: #f2f2f2 !important;
+    --clear-button-active: #ededed !important;
+    --tree-item-expand-collapse-hover: #e5e5e5 !important;
+    --tree-item-expand-collapse-selected-hover: #e0e0e0 !important;
+}
+
+            </style>
+        </head>
+        <body>
+
+            <fast-text-field appearance="filled" placeholder="user@email.com">Email</fast-text-field>
+
+            <fast-text-area placeholder="Describe your experience">How was your stay?</fast-text-area>
+
+
+
+            <fast-progress-ring indeterminate></fast-progress-ring>
+            <fast-switch>
+                Theme
+                <span slot="checked-message">Dark</span>
+                <span slot="unchecked-message">Light</span>
+            </fast-switch>
+
+            <fieldset>
+                <fast-checkbox checked>Apple</fast-checkbox>
+                <fast-checkbox checked>Banana</fast-checkbox>
+            </fieldset>
+
+            <fast-select id="shirt-size">
+                <fast-option value="s">Small</fast-option>
+                <fast-option value="m">Medium</fast-option>
+                <fast-option value="l">Large</fast-option>
+                <fast-option value="xl">Extra Large</fast-option>
+            </fast-select>
+
+            <fast-button appearance="primary" onclick="document.querySelector('#dialog').show()">popup</fast-button>
+
+            <fast-dialog id="dialog" hidden style="position:absolute;z-index:10000000000">
+                <div style="padding: 0 10px 10px; color: var(--neutral-foreground-rest);">
+                    <h2>Dialog with text and a button.</h2>
+                    <fast-button onclick="document.querySelector('#dialog').hide()">close</fast-button>
+                </div>
+            </fast-dialog>
+
+    <div style="padding: 0 10px 10px; color: var(--neutral-foreground-rest);">
+        <h2>Dialog with text and a button.</h2>
+        <fast-button>Button</fast-button>
+    </div>
+</fast-dialog>
+
+            <fast-tabs activeid="entrees">
+                <fast-tab id="apps">Appetizers</fast-tab>
+                <fast-tab id="entrees">Entrees</fast-tab>
+                <fast-tab id="desserts">Desserts</fast-tab>
+                <fast-tab-panel id="appsPanel">
+                    <ol>
+                        <li><fast-anchor href="#" appearance="hypertext">Stuffed artichokes</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Bruschetta</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Oven-baked polenta</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Salami and Fig Crostini with Ricotta</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Rosemary-Potato Focaccia with Goat Cheese</fast-anchor></li>
+                    </ol>
+                </fast-tab-panel>
+                <fast-tab-panel id="entreesPanel">
+                    <ol>
+                        <li><fast-anchor href="#" appearance="hypertext">Mushroom-Sausage Ragù</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Tomato Bread Soup with Steamed Mussels</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Grilled Fish with Artichoke Caponata</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Celery Root and Mushroom Lasagna</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Osso Buco with Citrus Gremolata</fast-anchor></li>
+                    </ol>
+                </fast-tab-panel>
+                <fast-tab-panel id="dessertsPanel">
+                    <ol>
+                        <li><fast-anchor href="#" appearance="hypertext">Tiramisu</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Spumoni</fast-anchor></li>
+                        <li><fast-anchor href="#" appearance="hypertext">Limoncello and Ice Cream with Biscotti</fast-anchor></li>
+                    </ol>
+                </fast-tab-panel>
+            </fast-tabs>            
+        </body>
+    </html>
