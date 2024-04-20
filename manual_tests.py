@@ -168,10 +168,8 @@ if __name__ == "__main__":
                 import time;time.sleep(0.5)
                 self_ui.close()
 
-            self <= ui.Button("test cb ayield", _onclick=lambda ev: self_ui.prompt("value","?", atest_yield))
-            self <= Tag.a("test cb ayield", _onclick=atest_yield)
-            self <= ui.Button("test cb ayield", _onclick=lambda ev: self_ui.prompt("value","?", test_yield))
-            self <= Tag.a("test cb ayield", _onclick=test_yield)
+            self <= ui.Button("test cb (async) yield", _onclick=lambda ev: self_ui.prompt("value","?", atest_yield))
+            self <= ui.Button("test cb yield", _onclick=lambda ev: self_ui.prompt("value","?", test_yield))
 
             self <= Tag.hr()
 
@@ -190,7 +188,7 @@ if __name__ == "__main__":
 
     class App(ui.App):
         statics="""
-        my {cursor:pointer;padding:4px;margin:4px;display:inline-block;}
+        my {cursor:pointer;padding:4px;margin:4px;display:inline-block;text-decoration:underline}
         my.selected {color:red;}
         hr {padding:0px !important;margin:4px !important;}
         """
