@@ -287,7 +287,7 @@ class PopPage(Tag.div):
         self["style"].set("bottom","0px")
         self["style"].set("right","0px")
         self["style"].set("left","0px")
-        self["style"].set("z-index","1000")
+        self["style"].set("z-index","500")
         self["style"].set("background","white")
         self <= obj
 
