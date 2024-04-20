@@ -123,18 +123,19 @@ if __name__ == "__main__":
 
             content="fdsfd sgfdg g gfds ggfds g"*1000
 
-            self <= ui.Button("alert", _onclick=lambda ev: self_ui.alert(content),_class="red")
-            self <= ui.Button("alert size=.1", _onclick=lambda ev: self_ui.alert("kkkk",size=0.1) ,_class="red")
-            self <= ui.Button("alert size=.5", _onclick=lambda ev: self_ui.alert("kkkk",size=0.5) ,_class="red")
-            self <= ui.Button("alert size=.9", _onclick=lambda ev: self_ui.alert("kkkk",size=0.9) ,_class="red")
-            self <= ui.Button("alert size=1", _onclick=lambda ev: self_ui.alert("kkkk",size=1) ,_class="red")
+            self <= ui.Button("notify", _onclick=lambda ev: self_ui.notify("kkkk"))
 
-            self <= ui.Button("confirm", _onclick=lambda ev: self_ui.confirm("kkkk", self_ui.notify), _class="blue")
+            self<= Tag.hr()+"dialog alert & cousins"
+            self <= ui.Button("alert", _onclick=lambda ev: self_ui.alert(content))
+            self <= ui.Button("alert size=.1", _onclick=lambda ev: self_ui.alert("kkkk",size=0.1))
+            self <= ui.Button("alert size=.5", _onclick=lambda ev: self_ui.alert("kkkk",size=0.5))
+            self <= ui.Button("alert size=.9", _onclick=lambda ev: self_ui.alert("kkkk",size=0.9))
+            self <= ui.Button("alert size=1", _onclick=lambda ev: self_ui.alert("kkkk",size=1))
+
+            self <= ui.Button("confirm", _onclick=lambda ev: self_ui.confirm("kkkk", self_ui.notify))
             self <= ui.Button("prompt", _onclick=lambda ev: self_ui.prompt("value","text?", self_ui.notify) )
 
-            self <= ui.Button("notify", _onclick=lambda ev: self_ui.notify("kkkk") ,_class="green")
-
-
+            self<= Tag.hr()+"dialog poppers"
             self <= ui.Button("pop", _onclick=lambda ev: self_ui.pop("kkkk",(ev.clientX,ev.clientY)) )
             self <= ui.Button("pop menu", _onclick=lambda ev: self_ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
             self <= ui.Button("drawer left", _onclick=lambda ev: self_ui.drawer( ui.Menu(entries),"left" ))
@@ -142,6 +143,7 @@ if __name__ == "__main__":
             self <= ui.Button("drawer top", _onclick=lambda ev: self_ui.drawer( "yo","top" ))
             self <= ui.Button("drawer bottom", _onclick=lambda ev: self_ui.drawer( "yo","bottom" ))
 
+            self<= Tag.hr()+"test previous (?!)"
             self.nb=0
             def imbricated(ev):
                 self.nb+=1
@@ -152,11 +154,16 @@ if __name__ == "__main__":
                 
             self <= ui.Button("imbricated alert", _onclick=imbricated )
 
+            self<= Tag.hr()+"dialog blockers"
+
             def block(ev):
                 self_ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self_ui.close())) )
-                # self_ui.block( Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self_ui.close())) 
-            
+
+            def page(ev):
+                self_ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self_ui.close()) ) 
+
             self <= ui.Button("block", _onclick=block)
+            self <= ui.Button("page", _onclick=page)
 
 
             self <= Tag.hr()

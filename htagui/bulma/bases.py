@@ -152,6 +152,18 @@ class ModalBlock(Tag.div):
         self['class']="modal is-active"
         self <= Tag.div(_class="modal-background") + obj
 
+class PopPage(Tag.div):
+    def init(self,metatag,obj):
+        self['class'].add("content")
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","1000")
+        self["style"].set("background","white")
+        self <= obj
+
 class ModalAlert(ModalBlock):
     def __init__(self,metatag,obj,wsize:float=None):
         if wsize is not None:

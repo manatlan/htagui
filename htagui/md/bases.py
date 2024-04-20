@@ -11,6 +11,8 @@ from htag import Tag,expose
 from ..form import Form
 from ..common import ensuredict,ListOrDict
 
+# using https://material-web.dev/
+
 MD = [
         Tag.style("""html,body {width:100%;height:100%}"""),
 Tag.link(_href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap", _rel="stylesheet"),
@@ -180,7 +182,6 @@ class Radios(Tag.span):
 class Menu(Tag.div):
     statics=MD
     def init(self,entries:dict):
-        self["class"].add("menu")
         def call(ev):
             #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
             #------------------------------------------------------------------------
@@ -195,7 +196,7 @@ class Menu(Tag.div):
             return ev.target.method()
 
         for k,v in entries.items():
-            self += Tag.div(k,method=v,_onclick=call)
+            self <= Tag.md_menu_item( Tag.div(k,_slot="headline") ,method=v,_onclick=call)
 
 ######################################################################################
 ## Dialog objects
@@ -203,6 +204,17 @@ class Menu(Tag.div):
 class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
+
+class PopPage(Tag.div):
+    def init(self,metatag,obj):
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","1000")
+        self["style"].set("background","white")
+        self <= obj
 
 
 class ModalBlock(Tag.div):

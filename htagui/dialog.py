@@ -35,17 +35,19 @@ self.removeChild(ta);
 """)
 
     def alert(self,obj,size:float=None):
+        """if no size is provided : use the default width size of the dialog (depending of ui used)"""
         self.step( alert = obj, size=size )
 
-    #DEPRECATED
-    def box(self,obj,size:float=0.5):
-        self.step( alert = obj, size=size )
-        
     def confirm(self,obj,cbresponse=lambda bool:bool):
         self.step( confirm = obj, cb=cbresponse )
         
     def prompt(self,value:str,title,cbresponse=lambda val:val):
         self.step( prompt = value, title=title, cb=cbresponse )
+
+    #DEPRECATED
+    def box(self,obj,size:float=0.5):
+        self.step( alert = obj, size=size )
+        
 
     def notify(self,obj,time=2000):
         self.step( toast = obj, time=time )
@@ -59,6 +61,9 @@ self.removeChild(ta);
 
     def block(self,obj=None):
         self.step( block=obj )
+
+    def page(self,obj):
+        self.step( page = obj)
 
     def close(self):
         self.step()
@@ -78,15 +83,14 @@ self.removeChild(ta);
 
         if "block" in params:
             set( cui.ModalBlock, params["block"] )
+        elif "page" in params:
+            set( cui.PopPage, params["page"] )
         elif "alert" in params:
             set( cui.ModalAlert, params["alert"], wsize=params.get("size") )
         elif "confirm" in params:
             set( cui.ModalConfirm, params["confirm"], params["cb"] )
         elif "prompt" in params:
             set( cui.ModalPrompt, params["prompt"],params["title"], params["cb"] )
-        # elif "box" in params: # NEW
-        #     size=params["size"]
-        #     set( cui.ModalBox, params["box"], size )
         elif "pop" in params:
             set( cui.Pop, params["pop"],params["xy"] )
         elif "drawer" in params:

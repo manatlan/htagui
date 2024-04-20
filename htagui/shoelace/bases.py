@@ -132,7 +132,18 @@ class Radios(Tag.sl_radio_group):
 class Empty(Tag.div):
     def init(self,metatag):
         self.clear()
-        
+
+class PopPage(Tag.div):
+    def init(self,metatag,obj):
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","1000")
+        self["style"].set("background","white")
+        self <= obj
+
 class ModalAlert(Tag.sl_dialog):
     def init(self,metatag,obj,closable=True,wsize:float=None):
         if wsize is not None:

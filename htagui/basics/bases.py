@@ -12,6 +12,7 @@ from ..form import Form
 from ..common import ensuredict,ListOrDict
 
 CSS="""
+
 html,body {
     width:100%;
     font-family: ubuntu;
@@ -28,21 +29,6 @@ a {color: #0075ff;text-decoration:none}
     margin:1px;
     cursor:pointer;
     font-family: ubuntu;
-}
-
-.button.red {
-    background: #F77;
-    color:white;
-}
-
-.button.green {
-    background: #7C7;
-    color:white;
-}
-
-.button.blue {
-    background: #77F;
-    color:white;
 }
 
 .button:hover {
@@ -294,6 +280,18 @@ class ModalBlock(Tag.div):
         modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
         self <= Voile() + modal
 
+class PopPage(Tag.div):
+    def init(self,metatag,obj):
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","1000")
+        self["style"].set("background","white")
+        self <= obj
+
+
 class ModalAlert(ModalBlock):
     def __init__(self,metatag,obj,wsize:float=None):
         if wsize is None: wsize=0.6
@@ -352,7 +350,7 @@ class Pop(Tag.div):
 
 class Toast(Tag.div):
     def init(self,main_non_used,obj,timeout=1000):
-        self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:white;padding:10px;border:2px solid black")
+        self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:white;padding:10px;border:2px solid black;border-radius:10px;min-width:200px")
         self.js="setTimeout( function() {self.remove()} , %s)" % timeout
 
 ######################################################################################
