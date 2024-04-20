@@ -34,8 +34,8 @@ if __name__ == "__main__":
             OPTS = {1:"v1",2:"v2",3:"v3"}
             if dynamic:
                 self.objects=[
-                    ui.IText("itext",           onchange=self.onchange_dynamic),
-                    ui.ITextarea("itextarea",   onchange=self.onchange_dynamic),
+                    ui.IText("itext",           onchange=self.onchange_dynamic,_label="itext"),
+                    ui.ITextarea("itextarea",   onchange=self.onchange_dynamic,_label="itextarea"),
                     ui.IBool(True,              onchange=self.onchange_dynamic),
                     ui.IRange(42,               onchange=self.onchange_dynamic),
                     ui.ISelect(2,OPTS,          onchange=self.onchange_dynamic),
@@ -189,6 +189,12 @@ if __name__ == "__main__":
                     
 
     class App(ui.App):
+        statics="""
+        my {cursor:pointer;padding:4px;margin:4px;display:inline-block;}
+        my.selected {color:red;}
+        hr {padding:0px !important;margin:4px !important;}
+        """
+        
         imports=ui.ALL
         def init(self):
             self["class"]="content" # for bulma
@@ -196,19 +202,26 @@ if __name__ == "__main__":
             self.omain = Tag.div( )
             self.oresult = Tag.div(_style="display:flex;flex-flow:column nowrap;flex-direction: column-reverse;")
 
-            f = lambda x: x+"(*)" if base==x else x
-            self <= ui.Button(f("basics"),_onclick=lambda ev: self.restart_with("basics"))
-            self <= ui.Button(f("bulma"),_onclick=lambda ev: self.restart_with("bulma"))
-            self <= ui.Button(f("shoelace"),_onclick=lambda ev: self.restart_with("shoelace"))
-            self <= ui.Button(f("md"),_onclick=lambda ev: self.restart_with("md"))
+            f = lambda x: "selected" if base==x else ''
+            self <= Tag.my("basics",_onclick=lambda ev: self.restart_with("basics"),_class=f("basics"))
+            self <= Tag.my("bulma",_onclick=lambda ev: self.restart_with("bulma"),_class=f("bulma"))
+            self <= Tag.my("shoelace",_onclick=lambda ev: self.restart_with("shoelace"),_class=f("shoelace"))
+            self <= Tag.my("md",_onclick=lambda ev: self.restart_with("md"),_class=f("md"))
+
+            def setter(o,testobject):
+                for i in o.parent.childs:
+                    i["class"].remove("selected")    
+                o["class"].add("selected")
+                self.omain.clear(testobject)
+
+            with Tag.div() as menu:
+                menu <= Tag.my("Dialogs",_onclick=lambda ev: setter(ev.target,TestDialogs( self )),_class="selected" )
+                menu <= Tag.my("Tabs",_onclick=lambda ev: setter(ev.target,TestTabs( self )) )
+                menu <= Tag.my("Inputs statics",_onclick=lambda ev: setter(ev.target,TestInputs(self)) )
+                menu <= Tag.my("I-fields dynamics",_onclick=lambda ev: setter(ev.target,TestInputs(self,True)) )
+                menu <= Tag.my("others",_onclick=lambda ev: setter(ev.target,TestOthers(self)) )
+            self <= menu
             self <= Tag.hr()
-
-            self <= ui.Button("Dialogs",_onclick=lambda ev: self.omain.clear(TestDialogs( self )) )
-            self <= ui.Button("Tabs",_onclick=lambda ev: self.omain.clear(TestTabs( self )) )
-            self <= ui.Button("Inputs statics",_onclick=lambda ev: self.omain.clear(TestInputs(self)) )
-            self <= ui.Button("I-fields dynamics",_onclick=lambda ev: self.omain.clear(TestInputs(self,True)) )
-            self <= ui.Button("others",_onclick=lambda ev: self.omain.clear(TestOthers(self)) )
-
             self <= self.omain
             self <= self.oresult
 

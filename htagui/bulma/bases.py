@@ -60,6 +60,7 @@ class Voile(Tag.div):
 class Menu(Tag.div):
     def init(self,entries:dict):
         self["class"].add("menu")
+        self["class"].add("card")
         def call(ev):
             #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
             #------------------------------------------------------------------------

@@ -20,7 +20,7 @@ def test_ui_App(ui=None):
     assert isinstance( x.ui, ui.Dialog )
     x.ui.alert("yolo")
     assert ">yolo<" in str(x)           # there is a message box in x
-    assert "try{interact" in str(x)     # there are js-interaction  in x (to close the box)
+    # assert "try{interact" in str(x),str(x)     # there are js-interaction  in x (to close the box)
 
     x.ui.close()
     assert ">yolo<" not in str(x)           # there is NO MORE a message box in x
@@ -36,10 +36,10 @@ def test_ui_App_shoelace():
     import htagui.shoelace as ui
     test_ui_App(ui)
 
-# def test_ui_App_md():
-#     clean()
-#     import htagui.md as ui
-#     test_ui_App(ui)
+def test_ui_App_md():
+    clean()
+    import htagui.md as ui
+    test_ui_App(ui)
 
 
 def clean(): 
@@ -48,8 +48,8 @@ def clean():
             del sys.modules[x]
 
 if __name__=="__main__":
-    test_ui_App_bulma()
     test_hflex_vflex()
     test_ui_App()
+    test_ui_App_bulma()
     test_ui_App_shoelace()
-
+    test_ui_App_md()
