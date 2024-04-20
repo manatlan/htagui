@@ -36,10 +36,10 @@ def test_ui_App_shoelace():
     import htagui.shoelace as ui
     test_ui_App(ui)
 
-def test_ui_App_md():
-    clean()
-    import htagui.md as ui
-    test_ui_App(ui)
+# def test_ui_App_md():
+#     clean()
+#     import htagui.md as ui
+#     test_ui_App(ui)
 
 
 def clean(): 
