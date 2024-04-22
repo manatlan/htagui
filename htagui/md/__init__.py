@@ -10,6 +10,12 @@
 import __main__
 __main__.htaguimodule = "htagui.md.bases"
 
+"""
+MD miss a lot of native widgets ;-(
+and pop menu in a dialog box appears behind ;-( (not a zindex troubble, but a big problem))
+so MD is not first class as others ;-(
+"""
+
 ########################################################################################
 from .bases import Button,Input,Textarea,Menu,Spinner,Select,Radios
 ########################################################################################
