@@ -133,7 +133,7 @@ if __name__ == "__main__":
             self <= ui.Button("alert size=1", _onclick=lambda ev: self_ui.alert("kkkk",size=1))
 
             self <= ui.Button("confirm", _onclick=lambda ev: self_ui.confirm("kkkk", self_ui.notify))
-            self <= ui.Button("prompt", _onclick=lambda ev: self_ui.prompt("value","text?", self_ui.notify) )
+            self <= ui.Button("prompt", _onclick=lambda ev: self_ui.prompt("What's your name?","value", self_ui.notify) )
 
             self<= Tag.hr()+"dialog poppers"
             self <= ui.Button("pop", _onclick=lambda ev: self_ui.pop("kkkk",(ev.clientX,ev.clientY)) )

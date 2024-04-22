@@ -212,7 +212,7 @@ size is a float to force the percent of width on the dialog box. If None, it wil
 
 (like js window.confirm(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able), and let the user click on Yes|No buttons, which will call the cbresponse callback with True or False ...
 
-### method dialog.prompt(value:str, title, cbresponse=lambda val:val)
+### method dialog.prompt(title, value:str, cbresponse=lambda val:val)
 
 (like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 

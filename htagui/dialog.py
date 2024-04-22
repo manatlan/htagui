@@ -42,7 +42,7 @@ self.removeChild(ta);
     def confirm(self,obj,cbresponse=lambda bool:bool):
         self.step( confirm = obj, cb=cbresponse )
         
-    def prompt(self,value:str,title,cbresponse=lambda val:val):
+    def prompt(self,title, value:str,cbresponse=lambda val:val):
         self.step( prompt = value, title=title, cb=cbresponse )
 
     #DEPRECATED
