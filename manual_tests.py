@@ -108,48 +108,48 @@ if __name__ == "__main__":
 
 
 
-    class TestDialogs(ui.App):
+    class TestDialogs(Tag.div):
         imports=ui.ALL
         def init(self,root):
-            self_ui=root.ui
+            self.ui=root.ui
             #================================================
             self<=Tag.h2("Test UI features")
             #================================================
             entries={
-                "menu1": lambda: self_ui.notify("menu1"),
-                "menu2": lambda: self_ui.notify("menu2"),
-                "menu3": lambda: self_ui.notify("menu3"),
+                "menu1": lambda: self.ui.notify("menu1"),
+                "menu2": lambda: self.ui.notify("menu2"),
+                "menu3": lambda: self.ui.notify("menu3"),
             }  
 
             content="fdsfd sgfdg g gfds ggfds g"*1000
 
-            self <= ui.Button("notify", _onclick=lambda ev: self_ui.notify("kkkk"))
+            self <= ui.Button("notify", _onclick=lambda ev: self.ui.notify("kkkk"))
 
             self<= Tag.hr()+"dialog alert & cousins"
-            self <= ui.Button("alert", _onclick=lambda ev: self_ui.alert(content))
-            self <= ui.Button("alert size=.1", _onclick=lambda ev: self_ui.alert("kkkk",size=0.1))
-            self <= ui.Button("alert size=.5", _onclick=lambda ev: self_ui.alert("kkkk",size=0.5))
-            self <= ui.Button("alert size=.9", _onclick=lambda ev: self_ui.alert("kkkk",size=0.9))
-            self <= ui.Button("alert size=1", _onclick=lambda ev: self_ui.alert("kkkk",size=1))
+            self <= ui.Button("alert", _onclick=lambda ev: self.ui.alert(content))
+            self <= ui.Button("alert size=.1", _onclick=lambda ev: self.ui.alert("kkkk",size=0.1))
+            self <= ui.Button("alert size=.5", _onclick=lambda ev: self.ui.alert("kkkk",size=0.5))
+            self <= ui.Button("alert size=.9", _onclick=lambda ev: self.ui.alert("kkkk",size=0.9))
+            self <= ui.Button("alert size=1", _onclick=lambda ev: self.ui.alert("kkkk",size=1))
 
-            self <= ui.Button("confirm", _onclick=lambda ev: self_ui.confirm("kkkk", self_ui.notify))
-            self <= ui.Button("prompt", _onclick=lambda ev: self_ui.prompt("What's your name?","value", self_ui.notify) )
+            self <= ui.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify))
+            self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("What's your name?","value", self.ui.notify) )
 
             self<= Tag.hr()+"dialog poppers"
-            self <= ui.Button("pop", _onclick=lambda ev: self_ui.pop("kkkk",(ev.clientX,ev.clientY)) )
-            self <= ui.Button("pop menu", _onclick=lambda ev: self_ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
-            self <= ui.Button("drawer left", _onclick=lambda ev: self_ui.drawer( ui.Menu(entries),"left" ))
-            self <= ui.Button("drawer right", _onclick=lambda ev: self_ui.drawer( "yo","right" ))
-            self <= ui.Button("drawer top", _onclick=lambda ev: self_ui.drawer( "yo","top" ))
-            self <= ui.Button("drawer bottom", _onclick=lambda ev: self_ui.drawer( "yo","bottom" ))
+            self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
+            self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
+            self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left" ))
+            self <= ui.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
+            self <= ui.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
+            self <= ui.Button("drawer bottom", _onclick=lambda ev: self.ui.drawer( "yo","bottom" ))
 
             self<= Tag.hr()+"dialog blockers"
 
             def block(ev):
-                self_ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self_ui.close() ) + ui.Menu(entries)) )
+                self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close() ) + ui.Menu(entries)) )
 
             def page(ev):
-                self_ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self_ui.page()) ) 
+                self.ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.page()) ) 
 
             self <= ui.Button("block", _onclick=block)
             self <= ui.Button("page", _onclick=page)
@@ -157,27 +157,37 @@ if __name__ == "__main__":
 
             self <= Tag.hr()
             async def atest_yield(v):
-                self_ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self_ui.close())) )
+                self.ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
                 yield
                 import time;time.sleep(0.5)
-                self_ui.close()
+                self.ui.close()
 
             def test_yield(v):
-                self_ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self_ui.close())) )
+                self.ui.block( Tag.div(f"yield({v})"+ui.Button("unblock",_onclick=lambda ev: self.ui.close())) )
                 yield
                 import time;time.sleep(0.5)
-                self_ui.close()
+                self.ui.close()
 
-            self <= ui.Button("test cb (async) yield", _onclick=lambda ev: self_ui.prompt("value","?", atest_yield))
-            self <= ui.Button("test cb yield", _onclick=lambda ev: self_ui.prompt("value","?", test_yield))
+            self <= ui.Button("test cb (async) yield", _onclick=lambda ev: self.ui.prompt("value","?", atest_yield))
+            self <= ui.Button("test cb yield", _onclick=lambda ev: self.ui.prompt("value","?", test_yield))
 
             self <= Tag.hr()
 
             def copy(ev):
-                self_ui.clipboard_copy("hello")
-                self_ui.notify("copied")
+                self.ui.clipboard_copy("hello")
+                self.ui.notify("copied")
             
             self <= ui.Button("copy into clipboard", _onclick=copy)
+
+            self <= Tag.hr()
+
+            def pop_in_dialog(ev):
+                o=Tag.div("hello")
+                o<=ui.Button("pop",_onclick = lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
+                self.ui.alert(o)
+
+            self <= ui.Button("pop in dialog", _onclick=pop_in_dialog)
+
 
 
     class TestOthers(Tag.div):

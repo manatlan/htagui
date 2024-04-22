@@ -50,6 +50,32 @@ def ensuredict(o:ListOrDict) -> dict:
         d={}
     return d
 
+
+
+
+def autoclosemenu(main):
+    #auto close the ui.pop, if this "Menu" is in a pop interaction
+    #------------------------------------------------------------------------
+    current = main
+    while current is not None:
+        if current.tag == "htaguipop":
+            current.clear()
+            return
+        current = current.parent
+    #------------------------------------------------------------------------
+    #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
+    #------------------------------------------------------------------------
+    current = main
+    while current is not None:
+        if current.tag == "htaguidialog":
+            current.close()
+            break
+        current = current.parent
+    #------------------------------------------------------------------------
+
+
+
+
 if __name__=="__main__":
     from htag import Tag
 

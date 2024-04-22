@@ -9,7 +9,7 @@
 
 from htag import Tag
 from ..form import Form
-from ..common import ensuredict,ListOrDict
+from ..common import ensuredict,ListOrDict,autoclosemenu
 
 
 #STATICS = [Tag.link( _href="//cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css",_rel="stylesheet")]
@@ -55,6 +55,14 @@ class Voile(Tag.div):
         self["style"].set("background","#CCC")
         self["style"].set("opacity","0.5")
 
+class VoileTransparent(Tag.div):
+    def init(self,**a):
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","2000")
 
 
 class Menu(Tag.div):
@@ -62,16 +70,7 @@ class Menu(Tag.div):
         self["class"].add("menu")
         self["class"].add("card")
         def call(ev):
-            #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
-            #------------------------------------------------------------------------
-            current = self.parent
-            while current is not None:
-                if repr(current).startswith("<Dialog'div"): #TODO: not top (can do better)
-                    current.close()
-                    break
-                current = current.parent
-            #------------------------------------------------------------------------
-
+            autoclosemenu( self.parent )
             return ev.target.method()
 
         with Tag.div(_class="menu-list") as ul:
@@ -223,8 +222,8 @@ class Drawer(Tag.div):
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
         x,y=xy
-        self <= Voile(_onmousedown=metatag.stepevent())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
+        self <= VoileTransparent(_onmousedown=lambda ev: metatag.popclose())
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:2001;background:white")
 
 class Toast(Tag.div):
     def init(self,main_non_used,obj,timeout=1000):

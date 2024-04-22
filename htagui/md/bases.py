@@ -9,7 +9,7 @@
 
 from htag import Tag,expose
 from ..form import Form
-from ..common import ensuredict,ListOrDict
+from ..common import ensuredict,ListOrDict,autoclosemenu
 
 # using https://material-web.dev/
 
@@ -50,6 +50,16 @@ class Voile(Tag.div):
         self["style"].set("z-index","1000")
         self["style"].set("background","rgb(200,200,200,0.5)")
         self["style"].set("backdrop-filter","blur(3px)")
+
+class VoileTransparent(Tag.div):
+    def init(self,**a):
+        self["style"].set("position","fixed")
+        self["style"].set("top","0px")
+        self["style"].set("bottom","0px")
+        self["style"].set("right","0px")
+        self["style"].set("left","0px")
+        self["style"].set("z-index","2000")
+
 
 class Button(Tag.md_filled_tonal_button):
     statics=STATICS
@@ -183,16 +193,7 @@ class Menu(Tag.div):
     statics=STATICS
     def init(self,entries:dict):
         def call(ev):
-            #auto close the ui.Dialog, if this "Menu" is in a Dialog interaction
-            #------------------------------------------------------------------------
-            current = self.parent
-            while current is not None:
-                if repr(current).startswith("<Dialog'div"): #TODO: not top (can do better)
-                    current.close()
-                    break
-                current = current.parent
-            #------------------------------------------------------------------------
-
+            autoclosemenu( self.parent )
             return ev.target.method()
 
         for k,v in entries.items():
@@ -293,8 +294,8 @@ class Drawer(Tag.div):
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
         x,y=xy
-        self <= Voile(_onmousedown=metatag.stepevent())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:1001;background:white")
+        self <= VoileTransparent(_onmousedown=lambda ev: metatag.popclose())
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:2001;background:white")
 
 class Toast(Tag.div):
     def init(self,main_non_used,obj,timeout=1000):
