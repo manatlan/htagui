@@ -221,7 +221,8 @@ class Drawer(Tag.sl_drawer):
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
         x,y=xy
-        self <= VoileTransparent(_onmousedown=lambda ev: metatag.popclose())
+        self <= VoileTransparent(_onmousedown=metatag.bind.popclose(),_oncontextmenu="event.stopPropagation();return false")
+
         js="""(function(tag,x,y) {
             tag.style="position:fixed;z-index:2001;padding:2px;left:"+x+"px;top:"+y+"px";
             setTimeout(function() {
