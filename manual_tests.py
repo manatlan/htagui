@@ -136,8 +136,6 @@ if __name__ == "__main__":
             self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("What's your name?","value", self.ui.notify) )
 
             self<= Tag.hr()+"dialog poppers"
-            self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
-            self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
             self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left" ))
             self <= ui.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
             self <= ui.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
@@ -188,6 +186,8 @@ if __name__ == "__main__":
 
             self <= ui.Button("pop in dialog", _onclick=pop_in_dialog)
 
+            self <= ui.Button("pop", _onclick=lambda ev: self.ui.pop("kkkk",(ev.clientX,ev.clientY)) )
+            self <= ui.Button("pop menu", _onclick=lambda ev: self.ui.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
 
 
     class TestOthers(Tag.div):

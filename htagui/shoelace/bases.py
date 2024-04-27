@@ -222,8 +222,20 @@ class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
         x,y=xy
         self <= VoileTransparent(_onmousedown=lambda ev: metatag.popclose())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{y}px;left:{x}px;z-index:2001;background:white")
+        js="""(function(tag,x,y) {
+            tag.style="position:fixed;z-index:2001;padding:2px;left:"+x+"px;top:"+y+"px";
+            setTimeout(function() {
+                let bw=window.innerWidth;
+                let bh=window.innerHeight;
+                let w=tag.clientWidth;
+                let h=tag.clientHeight;
+                if(x+w > bw) x=bw-w;
+                if(y+h > bh) y=bh-h;
+                tag.style="position:fixed;z-index:2001;padding:2px;left:"+x+"px;top:"+y+"px";
+            },0);
+        })(self,%s,%s)""" % (x,y)
 
+        self <= Tag.div( obj ,js=js)
 class Toast(Tag.sl_alert):
     def init(self,main_non_used,obj,timeout=1000):
         self["duration"]=timeout
