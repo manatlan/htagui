@@ -171,10 +171,6 @@ class ModalAlert(Tag.sl_dialog):
         self.call( "try{self.hide()}catch(e){}")    # the self.hide crash in some cases ?!?
 
 
-class ModalBox(ModalAlert):
-    def __init__(self,metatag,obj,size:float=.6):
-        ModalAlert.__init__(self,metatag,obj,pwidth=f"{size*100}%")
-
 class ModalBlock(ModalAlert):
     def __init__(self,metatag,obj):
         ModalAlert.__init__(self,metatag,obj,closable=False)
