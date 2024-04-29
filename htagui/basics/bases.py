@@ -146,7 +146,7 @@ class Button(Tag.button):
 
 class Spinner(Tag.span):
     statics=STATICS
-    def init(self):
+    def init(self,**a):
         self["class"].add("spinner")
 
 class Input(Tag.input):

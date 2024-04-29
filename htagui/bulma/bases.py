@@ -100,7 +100,7 @@ class Spinner(Tag.span):
     }
     }         
 """    
-    def init(self):
+    def init(self,**a):
         self["class"]="spinner"
 
 

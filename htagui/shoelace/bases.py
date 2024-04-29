@@ -105,7 +105,7 @@ class Menu(Tag.sl_menu):
 
 class Spinner(Tag.sl_spinner):
     statics=STATICS
-    def init(self):
+    def init(self,**a):
         self["style"]="font-size: 32px; --track-width: 8px;"
 
 

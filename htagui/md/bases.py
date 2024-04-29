@@ -69,7 +69,7 @@ class Button(Tag.md_filled_tonal_button):
 
 class Spinner(Tag.md_circular_progress):
     statics=STATICS
-    def init(self):
+    def init(self,**a):
         self["indeterminate"]=True
 
 class Input(Tag.input):
