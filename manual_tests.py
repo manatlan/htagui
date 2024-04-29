@@ -23,6 +23,8 @@ if __name__ == "__main__":
         import htagui.shoelace as ui      
     elif base == "md":
         import htagui.md as ui      
+    elif base == "fluent":
+        import htagui.fluent as ui      
     else:
         import htagui.basics as ui
 
@@ -224,6 +226,7 @@ if __name__ == "__main__":
             self <= Tag.my("bulma",_onclick=lambda ev: self.restart_with("bulma"),_class=f("bulma"))
             self <= Tag.my("shoelace",_onclick=lambda ev: self.restart_with("shoelace"),_class=f("shoelace"))
             self <= Tag.my("md",_onclick=lambda ev: self.restart_with("md"),_class=f("md"))
+            self <= Tag.my("fluent",_onclick=lambda ev: self.restart_with("fluent"),_class=f("fluent"))
 
             def setter(o,testobject):
                 for i in o.parent.childs:
