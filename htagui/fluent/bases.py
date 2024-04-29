@@ -74,23 +74,16 @@ class VoileTransparent(Tag.div):
 
 
 class Menu(Tag.fluent_menu):
-    statics= STATICS
-    def __init__(self,entries:dict,**a):
-        self._entries=entries
-        Tag.__init__(self,**a)
+    statics=STATICS
+    def init(self,entries:dict):
+        def call(ev):
+            autoclosemenu( self.parent)
 
-        for idx,(k,v) in enumerate(entries.items()):
-            self+=Tag.fluent_menu_item(k,_value=idx)
+            return ev.target.method()
 
-        self.js="""
-        self.addEventListener('click', (e)=> {
-            self._select(e.detail.item.value);
-        });"""
-        
-    @expose
-    def _select(self,idx):
-        autoclosemenu( self.parent )
-        return list(self._entries.values())[int(idx)]()
+        for k,v in entries.items():
+            self += Tag.fluent_menu_item(k,method=v,_onclick=call)
+
 
 
 
@@ -136,23 +129,17 @@ class PopPage(Tag.div):
 
 class ModalAlert(Tag.fluent_dialog):
     def init(self,metatag,obj,wsize:float=None):
-        if wsize is None: wsize=0.6
-        pwidth=f"{int(wsize*100)}%"
-        #~ bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
-        #~ box = Tag.div( [bc,obj],_style=f"width:{pwidth};max-height:80%;background:white;overflow-y: auto;background:white;border-radius:6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:10px",_onmousedown="event.stopPropagation();")
-        self <= obj
-        #~ modal=Tag.div( obj, _style="position:fixed;left:0px;right:0px;top:0px;bottom:0px;z-index:1001;    display:flex;align-items:center;justify-content:center;")
-        #~ self <= Voile() + modal
+        # if wsize is None: wsize=0.6
+        # pwidth=f"{int(wsize*100)}%"
+        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+        box = Tag.div( obj,_style=f"width:100%;max-height:90%;background:white;overflow-y: auto;background:white;",_onmousedown="event.stopPropagation();")
+        self <= bc+box
         
         #~ self.childs[1]["onmousedown"]=metatag.stepevent()
 
-class ModalBox(ModalAlert):
-    def __init__(self,metatag,obj,size:float=.6):
-        ModalAlert.__init__(self,metatag,obj,pwidth=f"{size*100}%")
-
-class ModalBlock(ModalAlert):
-    def __init__(self,metatag,obj):
-        ModalAlert.__init__(self,metatag,obj,closable=False)
+class ModalBlock(Tag.fluent_dialog):
+    def init(self,metatag,obj):
+        self <= obj
 
 class ModalConfirm(ModalAlert):
     def __init__(self,metatag,obj,cb):
