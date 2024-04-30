@@ -203,9 +203,12 @@ if __name__ == "__main__":
             self<= ui.Button("70,30",_onclick=lambda ev: h.setSizes([70,30]))
 
 
-
             self <= ui.HSplit( Tag.div("A"), Tag.div("B"), v, sizes=[20,20,60],minSize=20,_style="height:100px;border:1px solid black")
                     
+            def doit(name:str,content:bytes):
+                self.output( f'uploaded {name} ({len(content)} bytes)')
+
+            self <= ui.FileUpload( doit )
 
     class App(ui.App):
         statics="""

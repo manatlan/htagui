@@ -129,16 +129,18 @@ class PopPage(Tag.div):
 
 class ModalAlert(Tag.fluent_dialog):
     def init(self,metatag,obj,wsize:float=None):
-        # if wsize is None: wsize=0.6
-        # pwidth=f"{int(wsize*100)}%"
+        if wsize is not None:
+            self["style"].set("--dialog-width",f"{int(wsize*100)}%")
+        self["style"].set("--dialog-height","auto")
         bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
-        box = Tag.div( obj,_style=f"width:100%;max-height:90%;background:white;overflow-y: auto;background:white;",_onmousedown="event.stopPropagation();")
+        box = Tag.div( obj,_style=f"background:white;overflow-y:auto;background:white;margin:10px;",_onmousedown="event.stopPropagation();")
         self <= bc+box
         
         #~ self.childs[1]["onmousedown"]=metatag.stepevent()
 
 class ModalBlock(Tag.fluent_dialog):
     def init(self,metatag,obj):
+        self["style"]="--dialog-width:auto;--dialog-height:auto"
         self <= obj
 
 class ModalConfirm(ModalAlert):

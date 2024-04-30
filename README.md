@@ -167,6 +167,19 @@ form <= ui.Button("ok")
 self <= form
 ```
 
+## Object FileUpload
+
+A simple surcharge of Tag.input( _type='file'...) which call a method to upload the selected file.
+
+```python
+import htagui as ui
+
+def uploaded(name:str, content:bytes):
+    print(name,content)
+
+self <= ui.FileUpload( uploaded )
+```
+
 ## Object Tabs
 
 An htag class to easily create tabs structure. And provides somes attributs/methods to interact with it.

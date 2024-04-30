@@ -10,7 +10,7 @@
 import __main__
 __main__.htaguimodule = "htagui.fluent.bases"
 
-"""TODO: ui.Tabs is KO, but modals are not top ;-( ! fix !"""
+"""TODO: ui.Tabs is KO ! fix !"""
 
 ########################################################################################
 from .bases import Button,Input,Textarea,Menu,Spinner,Select,Radios

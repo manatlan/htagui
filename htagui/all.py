@@ -15,6 +15,7 @@ from .tabs import Tabs
 from .dialog import Dialog
 from .splitters import HSplit, VSplit
 from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios
+from .fileupload import FileUpload
 
 class App(Tag.body):
     _ui=None
@@ -29,4 +30,4 @@ class App(Tag.body):
 from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
 
-ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios]
+ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload]
