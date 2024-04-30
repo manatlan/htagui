@@ -23,6 +23,19 @@ STATICS = [
     font-family: ubuntu;
 }
 
+                  
+.tab {
+    border:0px;
+    cursor:pointer;
+    margin:2px;
+    background:white;
+    padding:8px;
+    font-family: ubuntu;
+}
+.tab.selected {
+    color:#0075ff;
+    border-bottom: 1px solid #0075ff;
+}
 """),
 ]
 
@@ -213,16 +226,29 @@ class Toast(Tag.div):
 ######################################################################################
 
 
+# class Tabs(Tag.div):
+#     def init(self,metatag,selected=0):
+#         selTab=None
+#         tabs=[]
+#         for idx,i in enumerate(metatag._tabs):
+#             name = hasattr(i,"name") and i.name or "?(name)?"
+#             tab=Tag.fluent_tab(name, _onclick = metatag.stepevent(select=idx))
+#             tabs.append( tab )
+#             if idx==selected:
+#                 selTab=tab
+
+#         self <= Tag.fluent_tabs( tabs, _activeindicator=True, _activeid=id(selTab))
+#         # self <= f"""<fluent-tab-panel id="{id(selTab)}Panel">"""
+#         # self <= metatag._tabs[selected]
+#         # self <= """</fluent-tab-panel>"""
+#         for idx,i in enumerate(tabs):
+#             self <= f"""<fluent-tab-panel id="{id(i)}Panel" hidden={selected!=idx}>"""
+#             self <= metatag._tabs[idx]
+#             self <= """</fluent-tab-panel>"""
+
 class Tabs(Tag.div):
     def init(self,metatag,selected=0):
-        selTab=None
-        tabs=[]
         for idx,i in enumerate(metatag._tabs):
             name = hasattr(i,"name") and i.name or "?(name)?"
-            tab=Tag.fluent_tab(name, _onclick = metatag.stepevent(select=idx))
-            tabs.append( tab )
-            if idx==selected:
-                selTab=tab
-
-        self <= Tag.fluent_tabs( tabs, _activeindicator=True, _activeid=id(selTab))
-        self <= metatag._tabs[selected]
+            self+=Tag.button(name, _onclick = metatag.stepevent(select=idx), _class="tab selected" if idx==selected else "tab")
+        if metatag._tabs: self+=metatag._tabs[selected]
