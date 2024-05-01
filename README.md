@@ -272,6 +272,10 @@ Close programatically, the current ui dialog.
 
 Copy the txt in the clipboard
 
+### method dialog.download( name:str, content:bytes ):
+
+Force the navigator to download a file named 'name', with the content bytes 'content' into the browser.
+
 ## Object HSplit & VSplit
 
 A Tag object to use "SplitJS" (currently only in horizontal form)

@@ -13,6 +13,10 @@ import importlib,__main__
 print(f"IMPORT [{__main__.htaguimodule}]")
 cui = importlib.import_module(__main__.htaguimodule)
 
+import base64
+def toDataurl(content:bytes):
+    return u'data:;base64,'+base64.b64encode(content).decode()
+
 class Dialog(Tag.htaguidialog,MetaTag):
     imports=[cui.Voile,cui.Button,cui.Input]
 
@@ -29,6 +33,15 @@ class Dialog(Tag.htaguidialog,MetaTag):
 
     def clipboard_copy(self,txt:str):
         self.call(f"""navigator.clipboard.writeText(`{txt}`);""")
+
+    def download(self,name:str,content:bytes):
+        self.call( f"""
+            let anchor = document.createElement('a');
+            anchor.href = `{toDataurl(content)}`;
+            anchor.target = '_blank';
+            anchor.download = `{name}`;
+            anchor.click();
+        """)
 
     def alert(self,obj,size:float=None):
         """if no size is provided : use the default width size of the dialog (depending of ui used)"""
