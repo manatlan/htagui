@@ -177,7 +177,7 @@ import htagui as ui
 def uploaded(name:str, content:bytes):
     print(name,content)
 
-self <= ui.FileUpload( uploaded )
+self <= ui.FileUpload( uploaded , _multiple=True)
 ```
 
 ## Object Tabs
