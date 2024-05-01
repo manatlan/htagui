@@ -208,7 +208,8 @@ if __name__ == "__main__":
             def doit(name:str,content:bytes):
                 self.output( f'uploaded {name} ({len(content)} bytes)')
 
-            self <= ui.FileUpload( doit )
+            self <= Tag.div("Simple:") <= ui.FileUpload( doit ) )
+            self <= Tag.div("Multiple:") <= ui.FileUpload( doit, _multiple=True ) )
 
     class App(ui.App):
         statics="""
