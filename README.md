@@ -272,8 +272,6 @@ Close programatically, the current ui dialog.
 
 Copy the txt in the clipboard
 
-(?! can't work from a self.ui.alert(...) box ?! TODO:fix !!!)
-
 ## Object HSplit & VSplit
 
 A Tag object to use "SplitJS" (currently only in horizontal form)

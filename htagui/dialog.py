@@ -28,14 +28,7 @@ class Dialog(Tag.htaguidialog,MetaTag):
         MetaTag.init(self)
 
     def clipboard_copy(self,txt:str):
-        self.call(f"""
-let ta = document.createElement('textarea');
-ta.value = `{txt}`;
-self.appendChild(ta);
-ta.select();
-document.execCommand('copy');
-self.removeChild(ta);
-""")
+        self.call(f"""navigator.clipboard.writeText(`{txt}`);""")
 
     def alert(self,obj,size:float=None):
         """if no size is provided : use the default width size of the dialog (depending of ui used)"""
