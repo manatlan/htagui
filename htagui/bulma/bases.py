@@ -171,7 +171,7 @@ class ModalAlert(ModalBlock):
         else:
             pwidth=None
         obj = Tag.div(obj,_class="box")
-        obj=Tag.div(obj,_class="modal-content",_onmousedown="event.stopPropagation();)
+        obj=Tag.div(obj,_class="modal-content",_onmousedown="event.stopPropagation();")
         ModalBlock.__init__(self,metatag,obj)
         self.childs[0]["onmousedown"]=metatag.stepevent()
         if pwidth:
