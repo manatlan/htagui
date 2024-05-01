@@ -251,6 +251,7 @@ entries={
 }  
 self <= ui.Button("pop menu", _onclick=lambda ev: dialog.pop( ui.Menu(entries) ,(ev.clientX,ev.clientY)) )
 ```
+note: it ensures that the object is fully visible in the inner window.
 
 ### method dialog.drawer(obj, mode="left")
 
