@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import html,sys,os
+import html,sys,os,time
 from htag import Tag,expose,Runner
 
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
             self <= Tag.hr()
 
             def copy(ev):
-                self.ui.clipboard_copy("hello")
+                self.ui.clipboard_copy(str(time.time()))
                 self.ui.notify("copied")
             
             self <= ui.Button("copy into clipboard", _onclick=copy)
