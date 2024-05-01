@@ -8,10 +8,11 @@ class FileUpload(Tag.input):
         self.onchange=onchange
         self.js=r"""
 self.fileupload = function( ) {
-    let file = this.files[0];
-    let reader = new FileReader();
-    reader.onload =  e => { this._onchange(file.name, btoa(e.target.result)) };
-    reader.readAsBinaryString(file); //reader.readAsText(file);
+    for( let file of this.files ) {
+        let reader = new FileReader();
+        reader.onload =  e => { this._onchange(file.name, btoa(e.target.result)) };
+        reader.readAsBinaryString(file); //reader.readAsText(file);
+    }
 }"""
 
     @expose
