@@ -137,8 +137,8 @@ if __name__ == "__main__":
             self <= ui.Button("confirm", _onclick=lambda ev: self.ui.confirm("kkkk", self.ui.notify))
             self <= ui.Button("prompt", _onclick=lambda ev: self.ui.prompt("What's your name?","value", self.ui.notify) )
 
-            self<= Tag.hr()+"dialog poppers"
-            self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries),"left" ))
+            self<= Tag.hr()+"dialog drawers"
+            self <= ui.Button("drawer left", _onclick=lambda ev: self.ui.drawer( ui.Menu(entries) + "click on the menu should auto-close the dialog","left" ) )
             self <= ui.Button("drawer right", _onclick=lambda ev: self.ui.drawer( "yo","right" ))
             self <= ui.Button("drawer top", _onclick=lambda ev: self.ui.drawer( "yo","top" ))
             self <= ui.Button("drawer bottom", _onclick=lambda ev: self.ui.drawer( "yo","bottom" ))
@@ -146,10 +146,10 @@ if __name__ == "__main__":
             self<= Tag.hr()+"dialog blockers"
 
             def block(ev):
-                self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close() ) + ui.Menu(entries)) )
+                self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close() ) + ui.Menu(entries)) + "click on the menu should auto-close the dialog"  )
 
             def page(ev):
-                self.ui.page( ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.page()) ) 
+                self.ui.page( "click on the menu shouldn't close the dialog !!!"+ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.page()) ) 
 
             self <= ui.Button("block", _onclick=block)
             self <= ui.Button("page", _onclick=page)
@@ -171,15 +171,17 @@ if __name__ == "__main__":
             self <= ui.Button("test cb (async) yield", _onclick=lambda ev: self.ui.prompt("value","?", atest_yield))
             self <= ui.Button("test cb yield", _onclick=lambda ev: self.ui.prompt("value","?", test_yield))
 
-            self <= Tag.hr()
+            self <= Tag.hr() + "specials"
 
             def copy(ev):
                 self.ui.clipboard_copy(str(time.time()))
                 self.ui.notify("copied")
             
             self <= ui.Button("copy into clipboard", _onclick=copy)
+            self <= ui.Button("paste from clipboard", _onclick=lambda ev: self.ui.clipboard_paste(lambda content: self.ui.notify(f'Content from clipboard {content}')))
+            self <= ui.Button("download", _onclick=lambda ev: self.ui.download("myfile.txt",b"my content"))
 
-            self <= Tag.hr()
+            self<= Tag.hr()+"dialog poppers"
 
             def pop_in_dialog(ev):
                 o=Tag.div("hello")
@@ -229,8 +231,8 @@ if __name__ == "__main__":
             self <= Tag.my("basics",_onclick=lambda ev: self.restart_with("basics"),_class=f("basics"))
             self <= Tag.my("bulma",_onclick=lambda ev: self.restart_with("bulma"),_class=f("bulma"))
             self <= Tag.my("shoelace",_onclick=lambda ev: self.restart_with("shoelace"),_class=f("shoelace"))
-            self <= Tag.my("md",_onclick=lambda ev: self.restart_with("md"),_class=f("md"))
             self <= Tag.my("fluent",_onclick=lambda ev: self.restart_with("fluent"),_class=f("fluent"))
+            self <= Tag.my("md (the worst)",_onclick=lambda ev: self.restart_with("md"),_class=f("md"))
 
             def setter(o,testobject):
                 for i in o.parent.childs:

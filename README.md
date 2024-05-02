@@ -221,11 +221,11 @@ dialog = ui.Dialog( self )
 
 size is a float to force the percent of width on the dialog box. If None, it will use the default from the ui used.
 
-### method dialog.confirm(obj, cbresponse=lambda bool:bool)
+### method dialog.confirm(obj, cbresponse=lambda bool)
 
 (like js window.confirm(...)) Display a modal dialog box containing the object 'obj' (obj must be str'able), and let the user click on Yes|No buttons, which will call the cbresponse callback with True or False ...
 
-### method dialog.prompt(title, value=None, cbresponse=lambda val:val)
+### method dialog.prompt(title, value=None, cbresponse=lambda val)
 
 (like js window.prompt(...)) Display a modal dialog letting the user edit the `value` in an Input box, with a `title` (title must be str'able). When the user click the OK button the value is sent in the callback cbresponse. (clicking the cancel button does nothing, except close the dialog)
 
@@ -272,6 +272,10 @@ Close programatically, the current ui dialog.
 ### method dialog.clipboard_copy(txt:str)
 
 Copy the txt in the clipboard
+
+### method dialog.clipboard_paste( lambda content )
+
+Call the callback with the text content from the clipboard. (user may need to authorize the interaction from the navigator)
 
 ### method dialog.download( name:str, content:bytes ):
 

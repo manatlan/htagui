@@ -34,6 +34,14 @@ class Dialog(Tag.htaguidialog,MetaTag):
     def clipboard_copy(self,txt:str):
         self.call(f"""navigator.clipboard.writeText(`{txt}`);""")
 
+    def clipboard_paste(self,callback=lambda x:x):
+        self.callback_clipboard_paste = callback
+        self.call("""navigator.clipboard.readText().then( self._clipboard_paste )""")
+
+    @expose
+    def _clipboard_paste(self,content:str):
+        return self.callback_clipboard_paste(content)
+
     def download(self,name:str,content:bytes):
         self.call( f"""
             let anchor = document.createElement('a');
