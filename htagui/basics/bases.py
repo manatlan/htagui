@@ -15,7 +15,7 @@ STATICS="""
 
 html,body {
     width:100%;
-    font-family: ubuntu;
+    font-family: ubuntu, 'Helvetica';
     padding:0px;
     margin:0px;
 }
@@ -28,7 +28,7 @@ a {color: #0075ff;text-decoration:none}
     padding:10px;
     margin:1px;
     cursor:pointer;
-    font-family: ubuntu;
+    font-family: ubuntu, 'Helvetica';
 }
 
 .button:hover {
@@ -36,7 +36,7 @@ a {color: #0075ff;text-decoration:none}
 }
 
 .input[type="text"] {
-    font-family: ubuntu;
+    font-family: ubuntu,'Helvetica';
     font-size: 1em;
     padding:6px;
     border-radius: 4px;
@@ -50,7 +50,7 @@ a {color: #0075ff;text-decoration:none}
 
 
 .textarea {
-    font-family: ubuntu;
+    font-family: ubuntu,'Helvetica';
     font-size: 1em;
     padding:6px;
     border-radius: 4px;
@@ -66,7 +66,7 @@ a {color: #0075ff;text-decoration:none}
     padding:4px;
     border-radius: 4px;
     border: 2px solid #EEE;
-    font-family: ubuntu;
+    font-family: ubuntu,'Helvetica';
 }
 
 .select:focus {
@@ -90,7 +90,7 @@ a {color: #0075ff;text-decoration:none}
     margin:2px;
     background:white;
     padding:8px;
-    font-family: ubuntu;
+    font-family: ubuntu,'Helvetica';
 }
 .tab.selected {
     color:#0075ff;
