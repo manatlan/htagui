@@ -37,7 +37,8 @@ a {color: #0075ff;text-decoration:none}
 
 .input[type="text"] {
     font-family: ubuntu;
-    padding:4px;
+    font-size: 1em;
+    padding:6px;
     border-radius: 4px;
     border: 2px solid #EEE;
     width: calc(100% - 16px);
@@ -50,7 +51,8 @@ a {color: #0075ff;text-decoration:none}
 
 .textarea {
     font-family: ubuntu;
-    padding:4px;
+    font-size: 1em;
+    padding:6px;
     border-radius: 4px;
     border: 2px solid #EEE;
     width: calc(100% - 16px);
