@@ -35,7 +35,7 @@ a {color: #0075ff;text-decoration:none}
     filter: brightness(0.95);
 }
 
-.input[type="text"] {
+.input[type="text"],.input[type="search"],.input[type="password"] {
     font-family: ubuntu,'Helvetica';
     font-size: 1em;
     padding:6px;

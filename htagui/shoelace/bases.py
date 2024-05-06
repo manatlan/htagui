@@ -38,9 +38,10 @@ STATICS = [
 class Input(Tag.input):
     statics= STATICS
     def init(self,*a,**k):
-        type=self.attrs.get("type")
-        if type is None or type=="text":
+        type=self.attrs.get("type") or "text"
+        if type in ["text","search","password"]:
             self.tag = "sl-input"
+            self["type"]=type
         elif type=="checkbox":
             self.tag = "sl-switch"
             # self.tag = "sl-checkbox"

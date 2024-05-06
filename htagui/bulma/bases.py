@@ -24,7 +24,7 @@ class Input(Tag.input):
         if "type" not in self.attrs:
             self.attrs["type"]="text"
         
-        if self.attrs.get("type")=="text":
+        if self.attrs.get("type") in ["text","search","password"]:
             self["class"].add("input")
 
         self["placeholder"] = self.attrs.get("label")

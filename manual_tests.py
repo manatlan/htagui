@@ -44,13 +44,24 @@ if __name__ == "__main__":
                     ui.IRadios(3,OPTS,          onchange=self.onchange_dynamic),
                 ]
             else:
-                self.objects=[ # _onchange can't work sith shoelace !!!!
+                self.objects=[
                     ui.Input(_value="input",                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myinput",_label="myinput"),
                     ui.Textarea("textarea",                     _onchange=self.bind( self.onchange_static, b"this.value"),_name="mytextarea" ,_label="mytextarea"),
                     ui.Input(_type="checkbox",_checked=True,    _onchange=self.bind( self.onchange_static, b"this.checked || this.selected"),_name="mycheckbox"),   # selected for "MD" !!!!
                     ui.Input(_type="range",_value=42,           _onchange=self.bind( self.onchange_static, b"this.value"),_name="myrange"),
                     ui.Select(OPTS,_value=2,                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myselect"),
                     ui.Radios(OPTS,_value=2,                    _onchange=self.bind( self.onchange_static, b"this.value"),_name="myradios"),
+
+
+                    # more Specialized input types
+                    ui.Input(_type="search",_onchange=self.bind( self.onchange_static, b"this.value"),_name="mysearch",_label="mysearch"),
+                    ui.Input(_type="password",_onchange=self.bind( self.onchange_static, b"this.value"),_name="mypassword",_label="mypassword"),
+                    ui.Input(_type="color",_onchange=self.bind( self.onchange_static, b"this.value"),_name="mycolor"),
+                    # ui.Input(_type="date",_name="mydate"),
+                    # ui.Input(_type="month",_name="mymonth"),
+                    # ui.Input(_type="time",_name="mytime"),
+                    # ui.Input(_type="week",_name="myweek"),
+
                 ]
 
             self.omain=Tag.div()

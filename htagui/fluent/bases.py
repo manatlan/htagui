@@ -39,19 +39,21 @@ STATICS = [
 """),
 ]
 
-
 class Input(Tag.input):
     statics= STATICS
     def init(self,*a,**k):
-        type=self.attrs.get("type")
-        if type is None or type=="text":
+        type=self.attrs.get("type") or "text"
+        if type in ["text","search","password"]:
             self.tag = "fluent-text-field"
+            self["type"]=type
         elif type=="checkbox":
             self.tag = "fluent-switch"
         elif type=="radio":
             self.tag = "fluent-radio"
         elif type=="range":
             self.tag = "fluent-slider"
+
+        self["placeholder"] = self.attrs.get("label")
 
 class Textarea(Tag.fluent_text_area):
     statics=STATICS

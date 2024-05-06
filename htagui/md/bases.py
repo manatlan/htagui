@@ -75,10 +75,11 @@ class Spinner(Tag.md_circular_progress):
 class Input(Tag.input):
     statics= STATICS
     def init(self,*a,**k):
-        type=self.attrs.get("type")
-        if type is None or type=="text":
+        type=self.attrs.get("type") or "text"
+        if type in ["text","search","password"]:
             self.tag = "md-filled-text-field"
             self["style"].set("width","calc(100% - 16px)")
+            self["type"]=type
         elif type=="checkbox":
             self.tag = "md-switch"
         elif type=="radio":
