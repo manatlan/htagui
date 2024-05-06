@@ -80,7 +80,8 @@ class VSplit(Tag.div):
         """),
     ]
     def init(self,*objs,sizes=None,minSize=None,onchange=lambda x:x,**a):
-        self.sizes=sizes        
+        self.sizes=sizes   
+        self.onchange=onchange
         self["class"]="vsplit"
         self<=objs
         opts={"direction":"vertical","onDragEnd":"xxx"}

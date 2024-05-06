@@ -111,6 +111,7 @@ if __name__ == "__main__":
 
 
     class TestDialogs(Tag.div):
+        statics="window.error = alert"
         imports=ui.ALL
         def init(self,root):
             self.ui=root.ui
