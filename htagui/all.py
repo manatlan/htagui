@@ -16,7 +16,8 @@ from .dialog import Dialog
 from .splitters import HSplit, VSplit
 from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios
 from .fileupload import FileUpload
-
+from .containers import VScroll,VScrollPager    # NEW TODO:doc
+from .sortables import Sortable                 # NEW TODO:doc
 class App(Tag.body):
     _ui=None
     
