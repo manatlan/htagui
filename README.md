@@ -283,7 +283,7 @@ Force the navigator to download a file named 'name', with the content bytes 'con
 
 ## Object HSplit & VSplit
 
-A Tag object to use "SplitJS" (currently only in horizontal form)
+A Tag object to use "SplitJS"
 
 ```python
 import htagui as ui
@@ -295,6 +295,46 @@ methods:
 split.setSizes( [50,50] )
 split.onchange = lambda object: print( object.sizes )   # event
 
+
+## Object Sortable
+
+A component to let the user reorder items using drag'n'drop.
+
+```python
+ll=[Tag.div(f"Item {i} (drag me)",value=i) for i in range(10)]
+        
+def onchange(o:ui.Sortable):
+    print( str([i.value for i in o.values]) )
+
+self <= ui.Sortable(ll,onchange=onchange)
+```
+
+## Object VScroll
+
+A component to help you to create an infinite scroller.
+
+```python
+def feed():
+    yield [Tag.div(i) for i in range(20) ]
+
+self <= Tag.div(_style="height:200px; border:1px solid red;" ) <= ui.VScroll( feed )
+```
+
+This component should be embbeded in an element which have a constraint on its height. The given callback should yield Tag(s) (or `None` to finnish the endless scroll)
+
+## Object VScrollPager
+
+A component (which inherit from VScroll) to present a finnished list of items in an "on-demand" way (create items on-demand), can contain a big amount of data.
+
+```python
+
+ll=[lambda i=i: MyObject(i) for i in range(1,200_000_000)]
+self <= Tag.div(_style="height:200px; border:1px solid red;" ) <= ui.VScrollPager(ll,preload=50,moreload=10,endzone=50)
+
+```
+This component should be embbeded in an element which have a constraint on its height. `preload` is the number of items which will be created (it should overflow on height). `moreload` is the number of items which will be loaded when scrolling is in the `endzone` pixels at the end.
+
+Note that the list is a list of lambda (`List[Callable[[], Tag]]`) to create the rendering on-demand.
 
 ## utilities methods
 

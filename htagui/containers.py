@@ -11,8 +11,7 @@ from htag import Tag,expose
 
 from typing import Callable, List
 
-creators= List[Callable[[], Tag]]
-
+TagCreators = List[Callable[[], Tag]]
 
 class VScroll(Tag.div):
     def init(self,cbloader:Callable[[], Tag],endzone:int=50,**a):
@@ -49,7 +48,7 @@ class VScroll(Tag.div):
 
 
 class VScrollPager(VScroll):
-    def __init__(self,all:creators,preload:int=50,moreload:int=10,endzone:int=50,**a):
+    def __init__(self,all:TagCreators,preload:int=50,moreload:int=10,endzone:int=50,**a):
         """
         the CONTAINER/PARENT should have a "height" !
         
@@ -63,7 +62,7 @@ class VScrollPager(VScroll):
         self.all=all
         self.preload=preload
         self.moreload=moreload
-        VScroll.__init__(self,self._more)
+        VScroll.__init__(self,self._more,endzone=endzone)
         
     
     def _more(self):
@@ -76,28 +75,3 @@ class VScrollPager(VScroll):
         self.first=False
 
 
-class O(Tag.div):
-    def init(self,x):
-        self <= x
-        self["style"]="display:inline-block;width:100px;height:100px;border:1px solid black"
-    
-    
-class App(Tag.div):
-    imports=[]
-    statics=""" html,body {height:100%;overflow:hidden} """ # NEEDED !
-    
-    def init(self):
-        with Tag.div(_style="display:flex;flow-flow: row nowrap;height:100%") as d:
-            def feed():
-                yield [O(i) for i in range(50) ]
-            
-            # unlimited scrolling
-            d <= VScroll( feed,_style="flex: 0 0 50%" )
-            
-            # scrolling on demand in a defined list (of lambda())
-            d <= Tag.div( Tag.button("hello") + VScrollPager([lambda i=i: O(i) for i in range(1000,1200)]) ,_style="height:100%")
-        self += d
-
-if __name__=="__main__":
-    from htag import Runner
-    Runner(App,interface=(800,600)).run()

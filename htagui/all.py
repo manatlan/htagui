@@ -16,8 +16,8 @@ from .dialog import Dialog
 from .splitters import HSplit, VSplit
 from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios
 from .fileupload import FileUpload
-from .containers import VScroll,VScrollPager    # NEW TODO:doc
-from .sortables import Sortable                 # NEW TODO:doc
+from .containers import VScroll,VScrollPager    
+from .sortables import Sortable                 
 class App(Tag.body):
     _ui=None
     
@@ -31,4 +31,4 @@ class App(Tag.body):
 from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
 
-ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload]
+ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload,Sortable,VScroll,VScrollPager]

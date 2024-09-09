@@ -225,6 +225,45 @@ if __name__ == "__main__":
             self <= Tag.div("Simple:") <= ui.FileUpload( doit )
             self <= Tag.div("Multiple:") <= ui.FileUpload( doit, _multiple=True )
 
+
+    class TestSortable(Tag.div):
+        def init(self,root):
+            self.output=root.output
+
+            ll=[Tag.div(f"Item {i} (drag me)",value=i) for i in range(10)]
+                    
+            def onchange(o:ui.Sortable):
+                self.output( str([i.value for i in o.values]) )
+
+            self <= ui.Sortable(ll,onchange=onchange)
+
+
+    class TestVscroll(Tag.div):
+        def init(self,root):
+            self.output=root.output
+
+            #=====================================================================
+            def feed():
+                yield [Tag.div(i) for i in range(20) ]
+            
+            self <= Tag.h3("Unlimited scrolling")
+            self <= Tag.div(_style="height:200px; border:1px solid red;" ) <= ui.VScroll( feed )
+            #=====================================================================
+
+            
+
+            #=====================================================================
+            class O(Tag.div):
+                def init(self,x):
+                    self <= x
+                    self["style"]="display:inline-block;width:100px;height:100px;border:1px solid black"
+    
+            # scrolling on demand in a defined list (of lambda())
+            self <= Tag.h3("On-demand vertical scroll")
+            self <= Tag.div(_style="height:200px; border:1px solid red;" ) <= ui.VScrollPager([lambda i=i: O(i) for i in range(1,200)])
+
+
+
     class App(ui.App):
         statics="""
         my {cursor:pointer;padding:4px;margin:4px;display:inline-block;text-decoration:underline}
@@ -258,6 +297,8 @@ if __name__ == "__main__":
                 menu <= Tag.my("Inputs statics",_onclick=lambda ev: setter(ev.target,TestInputs(self)) )
                 menu <= Tag.my("I-fields dynamics",_onclick=lambda ev: setter(ev.target,TestInputs(self,True)) )
                 menu <= Tag.my("others",_onclick=lambda ev: setter(ev.target,TestOthers(self)) )
+                menu <= Tag.my("Sortable",_onclick=lambda ev: setter(ev.target,TestSortable(self)) )
+                menu <= Tag.my("VScroll",_onclick=lambda ev: setter(ev.target,TestVscroll(self)) )
             self <= menu
             self <= Tag.hr()
             self <= self.omain
