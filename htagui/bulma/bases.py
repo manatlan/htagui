@@ -161,7 +161,7 @@ class PopPage(Tag.div):
         self["style"].set("right","0px")
         self["style"].set("left","0px")
         self["style"].set("z-index","500")
-        self["style"].set("background","white")
+        self["style"].set("background","Canvas") # <system-color> : 'Background of application content or documents'
         self <= obj
 
 class ModalAlert(ModalBlock):
@@ -173,6 +173,7 @@ class ModalAlert(ModalBlock):
         obj = Tag.div(obj,_class="box")
         obj=Tag.div(obj,_class="modal-content",_onmousedown="event.stopPropagation();")
         ModalBlock.__init__(self,metatag,obj)
+        self["style"].set("z-index","501")  # ensure alerts are over "page"
         self.childs[0]["onmousedown"]=metatag.stepevent()
         if pwidth:
             obj["style"]=f"width:{pwidth};"
@@ -217,7 +218,7 @@ class Drawer(Tag.div):
             t,r,b,l= ("0px","0px",f"{size}%","0px")
 
         self <= Voile(_onmousedown=metatag.stepevent())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:Canvas;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):

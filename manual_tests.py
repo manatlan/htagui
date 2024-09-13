@@ -161,7 +161,7 @@ if __name__ == "__main__":
                 self.ui.block( Tag.div(ui.Spinner()+ui.Button("unblock",_onclick=lambda ev: self.ui.close() ) + ui.Menu(entries)) + "click on the menu should auto-close the dialog"  )
 
             def page(ev):
-                self.ui.page( "click on the menu shouldn't close the dialog !!!"+ui.Menu(entries) + Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.page()) ) 
+                self.ui.page( "click on the menu shouldn't close the dialog !!!"+ui.Menu(entries) + ui.Button("alert",_onclick=lambda ev: self.ui.alert('yo'))+ Tag.h3("Click the image to quit")+Tag.img(_src="https://picsum.photos/501/501",_onclick=lambda ev: self.ui.page()) ) 
 
             self <= ui.Button("block", _onclick=block)
             self <= ui.Button("page", _onclick=page)
