@@ -32,9 +32,6 @@ class App(Tag.body):
 from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
 # Swiper not inluded by default !!!!!
-# Swiper not inluded by default !!!!! (coz +170ko)
-# Swiper not inluded by default !!!!!
+
 ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload,Sortable,VScroll,VScrollPager]
-# Swiper not inluded by default !!!!!
-# Swiper not inluded by default !!!!!
-# Swiper not inluded by default !!!!!
+FULL=ALL+[Swiper] # Swiper not inluded by default !!!!! (coz +170ko)

@@ -287,7 +287,7 @@ if __name__ == "__main__":
         hr {padding:0px !important;margin:4px !important;}
         """
         
-        imports=ui.ALL + [ui.Swiper]
+        imports=ui.FULL
         def init(self):
             self["class"]="content" # for bulma
 

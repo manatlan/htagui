@@ -339,7 +339,7 @@ Note that the list is a list of lambda (`List[Callable[[], Tag]]`) to create the
 
 ## Object Swipper
 
-**IMPORTANT** : not included in default (`ui.ALL`). If you want to use it, you must include it, like that `imports=ui.ALL + [ui.Swiper] ` (because +170ko). TODO: need to find a clever soluce ;-)
+**IMPORTANT** : not included in default (`ui.ALL`). If you want to use it, you must include it, or `imports=ui.FULL` (because +170ko). TODO: need to find a clever soluce ;-)
 
 A component to use a Swiper (https://swiperjs.com/).
 
