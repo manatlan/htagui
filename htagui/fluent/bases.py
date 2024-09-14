@@ -28,7 +28,7 @@ STATICS = [
     border:0px;
     cursor:pointer;
     margin:2px;
-    background:white;
+    background:Canvas;
     padding:8px;
     font-family: ubuntu;
 }
@@ -138,7 +138,7 @@ class PopPage(Tag.div):
         self["style"].set("right","0px")
         self["style"].set("left","0px")
         self["style"].set("z-index","500")
-        self["style"].set("background","white")
+        self["style"].set("background","Canvas")
         self <= obj
 
 
@@ -147,8 +147,8 @@ class ModalAlert(Tag.fluent_dialog):
         if wsize is not None:
             self["style"].set("--dialog-width",f"{int(wsize*100)}%")
         self["style"].set("--dialog-height","auto")
-        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
-        box = Tag.div( obj,_style=f"background:white;overflow-y:auto;background:white;margin:10px;",_onmousedown="event.stopPropagation();")
+        bc = Tag.button("X",_onclick=metatag.stepevent(),_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:Canvas")
+        box = Tag.div( obj,_style=f"background:Canvas;overflow-y:auto;margin:10px;",_onmousedown="event.stopPropagation();")
         self <= bc+box
         
         #~ self.childs[1]["onmousedown"]=metatag.stepevent()
@@ -197,7 +197,7 @@ class Drawer(Tag.div):
             t,r,b,l= ("0px","0px",f"{size}%","0px")
 
         self <= Voile(_onmousedown=metatag.stepevent())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:Canvas;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
 
 
 class Pop(Tag.div):
@@ -222,7 +222,7 @@ class Pop(Tag.div):
 
 class Toast(Tag.div):
     def init(self,main_non_used,obj,timeout=1000):
-        self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:white;padding:10px;border:2px solid black;border-radius:10px;min-width:200px")
+        self <= Tag.div(obj,_style="position:fixed;right:10px;bottom:10px;z-index:1001;background:Canvas;padding:10px;border:2px solid black;border-radius:10px;min-width:200px")
         self.js="setTimeout( function() {self.remove()} , %s)" % timeout
 
 ######################################################################################

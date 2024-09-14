@@ -336,6 +336,22 @@ This component should be embbeded in an element which have a constraint on its h
 
 Note that the list is a list of lambda (`List[Callable[[], Tag]]`) to create the rendering on-demand.
 
+
+## Object Swipper
+
+**IMPORTANT** : not included in default (`ui.ALL`). If you want to use it, you must include it, like that `imports=ui.ALL + [ui.Swiper] ` (because +170ko). TODO: need to find a clever soluce ;-)
+
+A component to use a Swiper (https://swiperjs.com/).
+
+```python
+
+ll=[lambda i=i: MyObject(i) for i in range(1,200_000)]  # slide created on demand
+# or ll=[MyObject(i) for i in range(1,20)]              # concrete slides
+self <= ui.Swiper(ll, default=0)
+
+```
+
+
 ## utilities methods
 
 ### hflex & vflex

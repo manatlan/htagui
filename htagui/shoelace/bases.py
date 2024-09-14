@@ -141,7 +141,7 @@ class PopPage(Tag.div):
         self["style"].set("right","0px")
         self["style"].set("left","0px")
         self["style"].set("z-index","500")
-        self["style"].set("background","white")
+        self["style"].set("background","Canvas")
         self <= obj
 
 class ModalAlert(Tag.sl_dialog):
@@ -162,7 +162,7 @@ class ModalAlert(Tag.sl_dialog):
             %s;
         });""" % metatag.bind.step()
         if closable:
-            bc=Tag.button("X",_onclick = self.close,_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:white")
+            bc=Tag.button("X",_onclick = self.close,_style="float:right;border-radius:50%;border:0px;cursor:pointer;background:Canvas")
             self <= [bc,obj]
         else:
             self <= obj

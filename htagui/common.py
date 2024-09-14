@@ -97,7 +97,7 @@ if __name__=="__main__":
             def init(self,main):
                 " all the ui logic goes here "
                 for i in main.all:
-                    self <= Tag.button(i, _onclick = main.stepevent(select=i),_style="background:white;cursor:pointer;border:1px dotted #CCC")
+                    self <= Tag.button(i, _onclick = main.stepevent(select=i),_style="background:Canvas;cursor:pointer;border:1px dotted #CCC")
         class Current(Tag.div):
             def init(self,main,val):
                 " all the ui logic goes here "

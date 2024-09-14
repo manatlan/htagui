@@ -215,7 +215,7 @@ class PopPage(Tag.div):
         self["style"].set("right","0px")
         self["style"].set("left","0px")
         self["style"].set("z-index","500")
-        self["style"].set("background","white")
+        self["style"].set("background","Canvas")
         self <= obj
 
 
@@ -290,7 +290,7 @@ class Drawer(Tag.div):
             t,r,b,l= ("0px","0px",f"{size}%","0px")
 
         self <= Voile(_onmousedown=metatag.stepevent())
-        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:white;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
+        self <= Tag.div( obj ,_style=f"position:fixed;top:{t};bottom:{b};left:{l};right:{r};background:Canvas;border-radius:0px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;z-index:1001;padding:10px")
 
 class Pop(Tag.div):
     def init(self,metatag,obj,xy:tuple):
@@ -306,14 +306,14 @@ class Pop(Tag.div):
                 let h=tag.clientHeight;
                 if(x+w > bw) x=bw-w;
                 if(y+h > bh) y=bh-h;
-                tag.style="position:fixed;z-index:2001;padding:2px;left:"+x+"px;top:"+y+"px;background:white";
+                tag.style="position:fixed;z-index:2001;padding:2px;left:"+x+"px;top:"+y+"px;background:Canvas";
             },0);
         })(self,%s,%s)""" % (x,y)
 
         self <= Tag.div( obj ,js=js)
 class Toast(Tag.div):
     def init(self,main_non_used,obj,timeout=1000):
-        self["style"]="position:fixed;right:10px;bottom:10px;z-index:1001;border:2px solid black;background:white;padding:10px";
+        self["style"]="position:fixed;right:10px;bottom:10px;z-index:1001;border:2px solid black;background:Canvas;padding:10px";
         self <= obj
         self.js="setTimeout( function() {self.remove()} , %s)" % timeout
 
