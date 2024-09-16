@@ -280,6 +280,22 @@ if __name__ == "__main__":
             self<= ui.Swiper([lambda i=i: Item(i) for i in range(50)])
 
 
+
+
+
+    class TestView(Tag.div):
+        def init(self,root):
+            self.output=root.output
+
+            default_view=Tag.div("Default view")
+
+            v = ui.View( default_view, _style="border:1px solid red;width:100%;height:400px" )
+
+            self <= v
+            self <= ui.Button("p1", _onclick = lambda ev: v.go( Tag.div("p1") ))
+            self <= ui.Button("p2", _onclick = lambda ev: v.go( Tag.div("p2") ))
+
+
     class App(ui.App):
         statics="""
         my {cursor:pointer;padding:4px;margin:4px;display:inline-block;text-decoration:underline}
@@ -316,6 +332,7 @@ if __name__ == "__main__":
                 menu <= Tag.my("Sortable",_onclick=lambda ev: setter(ev.target,TestSortable(self)) )
                 menu <= Tag.my("VScroll",_onclick=lambda ev: setter(ev.target,TestVscroll(self)) )
                 menu <= Tag.my("Swiper",_onclick=lambda ev: setter(ev.target,TestSwiper(self)) )
+                menu <= Tag.my("View",_onclick=lambda ev: setter(ev.target,TestView(self)) )
             self <= menu
             self <= Tag.hr()
             self <= self.omain

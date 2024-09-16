@@ -352,6 +352,29 @@ self <= ui.Swiper(ll, default=0)
 ```
 
 
+## Object View
+
+A view component which handle the browser navigation mechanism (go back)
+
+**IMPORTANT**:
+
+ - this component is here for tests only (it may disappear if real problems)
+ - FOR POWER USERS : may be used as first class, and you need to understand how htag works, and how the browser history works ! (if the object is deleted -> nothing work)
+
+TODO: make a better good example !
+
+```python
+
+default_view=Tag.div("Default view")
+
+v = ui.View( default_view, _style="border:1px solid red;width:100%;height:400px" )
+
+self <= ui.Button("p1", _onclick = lambda ev: v.go( Tag.div("p1") ))
+self <= ui.Button("p2", _onclick = lambda ev: v.go( Tag.div("p2") ))
+self <= v
+```
+
+
 ## utilities methods
 
 ### hflex & vflex

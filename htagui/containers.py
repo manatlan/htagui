@@ -75,3 +75,24 @@ class VScrollPager(VScroll):
         self.first=False
 
 
+class View(Tag.div):
+    def __init__(self,tag=None,**a):  # use complex constructor to do complex things ;-)
+        super().__init__(tag,**a)    
+        self.default = tag
+        self._refs={}
+        self.js = """
+if(!window._hashchange_listener) {
+    window.addEventListener('hashchange',() => {self._hashchange(document.location.hash);});
+    window._hashchange_listener=true;
+}
+"""
+    @expose
+    def _hashchange(self,hash):
+        self.clear( self._refs.get(hash, self.default) )
+
+    def go(self,tag,anchor=None):
+        """ Set object 'tag' in the View, and navigate to it """
+        anchor=anchor or str(id(tag))
+        self._refs[f'#{anchor}'] = tag
+        self.call( f"document.location=`#{anchor}`")
+
