@@ -29,7 +29,7 @@ STATICS = [
 }
 
 * {
-    font-family: ubuntu;
+    font-family: sans-serif;
 }
 """),
 ]
