@@ -263,6 +263,8 @@ if __name__ == "__main__":
             self <= Tag.div(_style="height:200px; border:1px solid red;" ) <= ui.VScrollPager([lambda i=i: O(i) for i in range(1,200)])
 
 
+            #=====================================================================
+
     class TestSwiper(Tag.div):
         def init(self,root):
             self.output=root.output

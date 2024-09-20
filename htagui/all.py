@@ -19,6 +19,7 @@ from .fileupload import FileUpload
 from .containers import VScroll,VScrollPager, View    
 from .sortables import Sortable
 from .swipers import Swiper
+from .javascripts import JSKEYABLE
 class App(Tag.body):
     _ui=None
     
@@ -33,5 +34,5 @@ from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
 # Swiper not inluded by default !!!!!
 
-ALL=[App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload,Sortable,VScroll,VScrollPager,View]
+ALL=[JSKEYABLE, App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload,Sortable,VScroll,VScrollPager,View]
 FULL=ALL+[Swiper] # Swiper not inluded by default !!!!! (coz +170ko)
