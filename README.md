@@ -373,6 +373,20 @@ self <= ui.Button("p1", _onclick = lambda ev: v.go( Tag.div("p1") ))
 self <= ui.Button("p2", _onclick = lambda ev: v.go( Tag.div("p2") ))
 self <= v
 ```
+## Object Grid
+
+signature : Grid(format,vformat="auto",gap="1px",**a)
+
+A simple grid container
+
+example:
+```python
+
+g = Grid("1fr 1fr 2fr")
+g <= Tag.div( "2colums",_style="grid-column:1 / 3")    
+g <= Tag.div( "1column")  
+
+```
 
 
 ## utilities methods

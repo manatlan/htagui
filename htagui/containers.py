@@ -96,3 +96,14 @@ if(!window._hashchange_listener) {
         self._refs[f'#{anchor}'] = tag
         self.call( f"document.location=`#{anchor}`")
 
+class Grid(Tag.div):
+    """
+        g = Grid("2fr 1fr 1fr")
+        g <= Tag.div( "2colums",_style="grid-column:1 / 3")    
+        g <= Tag.div( "1column")    
+    """
+    def init(self,format,vformat="auto",gap="1px",**a): # format= "2fr 1fr 1fr"
+        self["style"].set("display","grid")
+        self["style"].set("grid-template-columns",format)
+        self["style"].set("grid-template-rows",vformat)
+        self["style"].set("gap",gap)
