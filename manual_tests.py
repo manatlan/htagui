@@ -265,24 +265,6 @@ if __name__ == "__main__":
 
             #=====================================================================
 
-    class TestSwiper(Tag.div):
-        def init(self,root):
-            self.output=root.output
-
-            class Item(Tag.img):
-                def init(self,i):
-                    self["src"]=f"https://loremflickr.com/400/400/colors?random={i}"
-                    self["style"]="width:100px;height:100px"
-                    self["onclick"] = self.cc
-
-                def cc(self,ev):
-                    print(ev)
-
-            self<= ui.Swiper([Item(i) for i in range(50)])
-            self<= ui.Swiper([lambda i=i: Item(i) for i in range(50)])
-
-
-
 
 
     class TestView(Tag.div):
@@ -305,7 +287,7 @@ if __name__ == "__main__":
         hr {padding:0px !important;margin:4px !important;}
         """
         
-        imports=ui.FULL
+        imports=ui.ALL
         def init(self):
             self["class"]="content" # for bulma
 
@@ -333,7 +315,6 @@ if __name__ == "__main__":
                 menu <= Tag.my("others",_onclick=lambda ev: setter(ev.target,TestOthers(self)) )
                 menu <= Tag.my("Sortable",_onclick=lambda ev: setter(ev.target,TestSortable(self)) )
                 menu <= Tag.my("VScroll",_onclick=lambda ev: setter(ev.target,TestVscroll(self)) )
-                menu <= Tag.my("Swiper",_onclick=lambda ev: setter(ev.target,TestSwiper(self)) )
                 menu <= Tag.my("View",_onclick=lambda ev: setter(ev.target,TestView(self)) )
             self <= menu
             self <= Tag.hr()
