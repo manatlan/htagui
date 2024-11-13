@@ -10,6 +10,8 @@ This is a (basic) UI toolkit for [htag](https://github.com/manatlan/htag) apps. 
     <img src="https://badge.fury.io/py/htagui.svg?x" alt="Package version">
 </a>
 
+[here is a minimal example in the pyscript/runner](https://raw.githack.com/manatlan/htag/main/examples/pyscript_htagui.html)
+
 **roadmap**
 
  - provide a darker theme css
