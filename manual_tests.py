@@ -36,8 +36,9 @@ if __name__ == "__main__":
             OPTS = {1:"v1",2:"v2",3:"v3"}
             if dynamic:
                 self.objects=[
-                    ui.IText("itext",           onchange=self.onchange_dynamic,_label="itext"),
-                    ui.ITextarea("itextarea",   onchange=self.onchange_dynamic,_label="itextarea"),
+                    ui.IText("itext",           onchange=self.onchange_dynamic, _label="itext"),
+                    ui.IPassword("ipass",       onchange=self.onchange_dynamic, _label="ipassword"),
+                    ui.ITextarea("itextarea",   onchange=self.onchange_dynamic, _label="itextarea"),
                     ui.IBool(True,              onchange=self.onchange_dynamic),
                     ui.IRange(42,               onchange=self.onchange_dynamic),
                     ui.ISelect(2,OPTS,          onchange=self.onchange_dynamic),

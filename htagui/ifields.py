@@ -75,6 +75,13 @@ class IText(ui.Input,IField):
         ui.Input.__init__(self,_value=value,_type="text",**k)
         IField.__init__(self, self, "value", b"this.value",lambda x: str(x) )
 
+class IPassword(ui.Input,IField):
+    def __init__(self, value:str, onchange=lambda ev: None,**k):
+        self.onchange = onchange
+        ui.Input.__init__(self,_value=value,_type="password",**k)
+        IField.__init__(self, self, "value", b"this.value",lambda x: str(x) )
+
+
 class ITextarea(ui.Textarea,IField):
     def __init__(self, value:str, onchange=lambda ev: None,**k):
         self.onchange = onchange

@@ -116,6 +116,7 @@ self <= ui.Spinner()
 Theses are interactive/reactive fields, which are automatically synced between client and server side, thru a 'value' property
 
 - IText .. an input of type text
+- IPassword .. an input of type password
 - ITextarea ... a textarea 
 - IBool ...  an input of type checkbox
 - IRange ...  an input of type range

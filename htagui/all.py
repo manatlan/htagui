@@ -14,7 +14,7 @@ from .form import Form
 from .tabs import Tabs
 from .dialog import Dialog
 from .splitters import HSplit, VSplit
-from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios
+from .ifields import IText,ITextarea,IRange,IBool,ISelect,IRadios,IPassword
 from .fileupload import FileUpload
 from .containers import VScroll,VScrollPager, View, Grid    
 from .sortables import Sortable
@@ -33,5 +33,5 @@ from .flex import hflex,vflex  # utilities (Htag contructor methods)
 
 # Swiper not inluded by default !!!!!
 
-ALL=[JSKEYABLE, App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,FileUpload,Sortable,VScroll,VScrollPager,View,Grid]
+ALL=[JSKEYABLE, App,Form,Tabs,Dialog,HSplit,VSplit,IText,ITextarea,IRange,IBool,ISelect,IRadios,IPassword,FileUpload,Sortable,VScroll,VScrollPager,View,Grid]
 
